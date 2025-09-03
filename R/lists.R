@@ -18,9 +18,8 @@ list_surveys <- function(
   if (verbose) {
     .list_surveys(directory = directory, overwrite = overwrite)
   } else {
-    suppressMessages(
-      .list_surveys(directory = directory, overwrite = overwrite)
-    )
+    quiet_list_surveys <- purrr::quietly(.list_surveys)
+    quiet_list_surveys(directory = directory, overwrite = overwrite)
   }
 }
 
