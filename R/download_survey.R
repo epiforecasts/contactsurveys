@@ -51,7 +51,7 @@ download_survey <- function(
       directory = directory,
       overwrite = overwrite,
       timeout = timeout
-    )
+    )$result
   }
 }
 

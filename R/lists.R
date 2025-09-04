@@ -19,7 +19,7 @@ list_surveys <- function(
     .list_surveys(directory = directory, overwrite = overwrite)
   } else {
     quiet_list_surveys <- purrr::quietly(.list_surveys)
-    quiet_list_surveys(directory = directory, overwrite = overwrite)
+    quiet_list_surveys(directory = directory, overwrite = overwrite)$result
   }
 }
 
