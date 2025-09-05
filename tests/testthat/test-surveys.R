@@ -41,6 +41,9 @@ test_that("download_survey() is silent when verbose = FALSE", {
   skip_on_ci()
   doi_peru <- "10.5281/zenodo.1095664" # nolint
   Sys.sleep(5)
+  expect_silent(
+    . <- download_survey(doi_peru, verbose = FALSE) # nolint
+  )
   expect_snapshot(
     . <- download_survey(doi_peru, verbose = FALSE) # nolint
   )

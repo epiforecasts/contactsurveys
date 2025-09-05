@@ -82,6 +82,7 @@ Imports:
     cli (>= 3.6.0),
     data.table,
     oai,
+    purrr,
     rlang (>= 1.0.0),
     zen4R (>= 0.10.3)
 Suggests:

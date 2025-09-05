@@ -36,6 +36,10 @@ test_that("list_surveys() gives warnings when non-default directory used ", {
 test_that("list_surveys() is verbose or silent when verbose = TRUE or FALSE", {
   skip_if_offline("zenodo.org")
   skip_on_cran()
+  expect_silent(
+    dat_silent <- list_surveys(verbose = FALSE) # nolint
+  )
+  expect_s3_class(dat_silent, c("data.table", "data.frame"))
   expect_snapshot(
     . <- list_surveys(verbose = FALSE) # nolint
   )

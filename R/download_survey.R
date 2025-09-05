@@ -45,12 +45,13 @@ download_survey <- function(
       timeout = timeout
     )
   } else {
-    suppressMessages(.download_survey(
+    quiet_download_survey <- purrr::quietly(.download_survey)
+    quiet_download_survey(
       survey = survey,
       directory = directory,
       overwrite = overwrite,
       timeout = timeout
-    ))
+    )$result
   }
 }
 
