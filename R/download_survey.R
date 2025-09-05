@@ -120,7 +120,13 @@ download_survey <- function(
         "i" = "Set {.code overwrite = TRUE} to force a re-download." # nolint
       )
     )
-    return(sort(zenodo_files(survey_dir, records)))
+    # if the manifest already exists, write to it for next time
+    existing <- sort(zenodo_files(survey_dir, records))
+    if (!has_manifest) {
+      writeLines(basename(existing), files_manifest)
+      file.create(complete_marker)
+    }
+    return(existing)
   } else {
     cli::cli_inform("Downloading from {survey_url}.")
     records$downloadFiles(
