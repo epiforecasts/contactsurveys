@@ -21,8 +21,14 @@
 #' @param verbose Whether downloads should be echoed to output. Default TRUE.
 #' @param overwrite If files should be overwritten if they already exist.
 #'   Default FALSE
-#' @param timeout A numeric value specifying timeout in seconds. Default 60
-#'  seconds.
+#' @param timeout A numeric value specifying timeout in seconds. Default
+#'   3600 seconds.
+#' @param rate a
+#'   [purrr rate](https://purrr.tidyverse.org/reference/rate-helpers.html)
+#'   object, to facilitate downloading if the download fails. Defaults to an
+#'   exponential backoff of 5 seconds (up to 4 attempts: 1 initial + 3 retries)
+#'   changed by specifying your own rate object, see `?purrr::rate_backoff()`
+#'   for details.
 #'
 #' @return a vector of filenames, where the surveys were downloaded
 #'
@@ -40,24 +46,32 @@ download_survey <- function(
   directory = contactsurveys_dir(),
   verbose = TRUE,
   overwrite = FALSE,
-  timeout = 60
+  timeout = 3600,
+  rate = purrr::rate_backoff(pause_base = 5, max_times = 4)
 ) {
+  insistent_download_survey <- purrr::insistently(
+    f = .download_survey,
+    rate = rate,
+    quiet = !isTRUE(verbose)
+  )
   if (verbose) {
-    .download_survey(
+    res <- insistent_download_survey(
       survey = survey,
       directory = directory,
       overwrite = overwrite,
       timeout = timeout
     )
   } else {
-    quiet_download_survey <- purrr::quietly(.download_survey)
-    quiet_download_survey(
+    quiet_download_survey <- purrr::quietly(insistent_download_survey)
+    res <- quiet_download_survey(
       survey = survey,
       directory = directory,
       overwrite = overwrite,
       timeout = timeout
     )$result
   }
+
+  res
 }
 
 #' @autoglobal
