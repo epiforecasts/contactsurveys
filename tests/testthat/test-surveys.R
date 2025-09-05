@@ -16,7 +16,7 @@ test_that("surveys can be downloaded with download_survey()", {
   Sys.sleep(5)
   # surveys downloaded have the same filepath
   peru_2 <- suppressMessages(download_survey(doi_peru, overwrite = FALSE))
-  expect_identical(sort(basename(peru_2)), sort(basename(peru_survey_files)))
+  expect_identical(basename(peru_2), basename(peru_survey_files))
 })
 
 test_that("survey downloads are faster on cache", {

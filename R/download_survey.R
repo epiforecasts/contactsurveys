@@ -7,15 +7,17 @@
 #'   given, the DOI will be isolated and used.
 #' @param directory Directory of where to save survey files. The default value
 #'  is to use the directory for your system using [contactsurveys_dir()], which
-#'  uses [tools::R_user_dir()], but also appends the survey URL/doi basename
-#'  as a new directory. E.g., if you provide in the `survey` argument,
+#'  uses [tools::R_user_dir()], and appends the survey URL/DOI basename as a
+#'  new directory. E.g., if you provide in the `survey` argument,
 #'  "10.5281/zenodo.1095664", it will save the surveys into a directory
 #'  `zenodo.1095664` under `contactsurveys_dir()` This effectively caches
 #'  the data. You can specify your own directory, or set an environment
 #'  variable, `CONTACTSURVEYS_HOME`, see [Sys.setenv()] or [Renviron] for
 #'  more detail. If this argument is set to something other than
 #'  [contactsurveys_dir()], a warning is issued to discourage unnecessary
-#'   downloads outside the persistent cache.
+#'   downloads outside the persistent cache. Note that identical content
+#'   accessed via different identifiers (e.g., DOI vs. a resolved record URL)
+#'   will be cached in separate directories by design.
 #' @param verbose Whether downloads should be echoed to output. Default TRUE.
 #' @param overwrite If files should be overwritten if they already exist.
 #'   Default FALSE
@@ -86,11 +88,12 @@ download_survey <- function(
   # create a manifest and marker to indicate if a download was successful
   files_manifest <- file.path(survey_dir, ".contactsurveys_files.txt")
   complete_marker <- file.path(survey_dir, ".contactsurveys_complete")
-  survey_dir_non_empty <- length(list.files(survey_dir, all.files = TRUE)) > 0
+  survey_dir_non_empty <- dir_empty(survey_dir)
   has_manifest <- file.exists(files_manifest) && file.exists(complete_marker)
 
   if (!overwrite && survey_dir_non_empty && has_manifest) {
     manifest_files <- readLines(files_manifest, warn = FALSE)
+    manifest_files <- manifest_files[nzchar(manifest_files)]
     manifest_paths <- file.path(survey_dir, manifest_files)
     all_files_exist <- all(file.exists(manifest_paths))
     if (all_files_exist) {
@@ -117,7 +120,7 @@ download_survey <- function(
         "i" = "Set {.code overwrite = TRUE} to force a re-download." # nolint
       )
     )
-    return(zenodo_files(survey_dir, records))
+    return(sort(zenodo_files(survey_dir, records)))
   } else {
     cli::cli_inform("Downloading from {survey_url}.")
     records$downloadFiles(
@@ -125,7 +128,7 @@ download_survey <- function(
       overwrite = overwrite,
       timeout = timeout
     )
-    downloaded <- zenodo_files(survey_dir, records)
+    downloaded <- sort(zenodo_files(survey_dir, records))
     # Write the files that were downloaded into the manifest as a completion
     # marker for offline cache hits
     writeLines(
