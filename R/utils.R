@@ -63,7 +63,7 @@ ensure_dir_exists <- function(directory) {
   invisible(directory)
 }
 
-dir_empty <- function(directory) {
+dir_not_empty <- function(directory) {
   the_dir_files <- list.files(
     directory,
     all.files = TRUE,
