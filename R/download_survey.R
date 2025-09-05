@@ -94,7 +94,6 @@ download_survey <- function(
     manifest_files <- readLines(files_manifest, warn = FALSE)
     manifest_files <- manifest_files[nzchar(manifest_files)]
     manifest_paths <- file.path(survey_dir, manifest_files)
-    all_files_exist <- all(file.exists(manifest_paths))
     all_files_exist <- length(manifest_paths) > 0 &&
       all(file.exists(manifest_paths))
     if (all_files_exist) {
