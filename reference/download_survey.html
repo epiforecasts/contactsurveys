@@ -64,12 +64,17 @@ given, the DOI will be isolated and used.</p></dd>
 <dt id="arg-directory">directory<a class="anchor" aria-label="anchor" href="#arg-directory"></a></dt>
 <dd><p>Directory of where to save survey files. The default value
 is to use the directory for your system using <code><a href="contactsurveys_dir.html">contactsurveys_dir()</a></code>, which
-uses <code><a href="https://rdrr.io/r/tools/userdir.html" class="external-link">tools::R_user_dir()</a></code>. This effectively caches the data. You can
-specify your own directory, or set an environment variable,
-<code>CONTACTSURVEYS_HOME</code>, see <code><a href="https://rdrr.io/r/base/Sys.setenv.html" class="external-link">Sys.setenv()</a></code> or <a href="https://rdrr.io/r/base/Startup.html" class="external-link">Renviron</a> for more detail.
-If this argument is set to something other than <code><a href="contactsurveys_dir.html">contactsurveys_dir()</a></code>, a
-warning is issued to discourage unnecessary downloads outside the persistent
-cache.</p></dd>
+uses <code><a href="https://rdrr.io/r/tools/userdir.html" class="external-link">tools::R_user_dir()</a></code>, and appends the survey URL/DOI basename as a
+new directory. E.g., if you provide in the <code>survey</code> argument,
+"10.5281/zenodo.1095664", it will save the surveys into a directory
+<code>zenodo.1095664</code> under <code><a href="contactsurveys_dir.html">contactsurveys_dir()</a></code> This effectively caches
+the data. You can specify your own directory, or set an environment
+variable, <code>CONTACTSURVEYS_HOME</code>, see <code><a href="https://rdrr.io/r/base/Sys.setenv.html" class="external-link">Sys.setenv()</a></code> or <a href="https://rdrr.io/r/base/Startup.html" class="external-link">Renviron</a> for
+more detail. If this argument is set to something other than
+<code><a href="contactsurveys_dir.html">contactsurveys_dir()</a></code>, a warning is issued to discourage unnecessary
+downloads outside the persistent cache. Note that identical content
+accessed via different identifiers (e.g., DOI vs. a resolved record URL)
+will be cached in separate directories by design.</p></dd>
 
 
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
@@ -100,7 +105,7 @@ seconds.</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="list_surveys.html">list_surveys</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Downloading survey list from zenodo</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Downloading survey list from zenodo <span style="color: #B2B2B2;">[5.4s]</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Downloading survey list from zenodo <span style="color: #B2B2B2;">[6.1s]</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Key: &lt;date_added&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     date_added</span>
@@ -277,8 +282,8 @@ seconds.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [zen4R][INFO] Downloading file '2015_Grijalva_Peru_contact_common.csv' - size: 617.3 KiB</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Downloading file '2015_Grijalva_Peru_participant_extra.csv' - size: 55 KiB</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [zen4R][INFO] Downloading file '2015_Grijalva_Peru_participant_extra.csv' - size: 55 KiB</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Files downloaded at '/home/runner/.local/share/R/contactsurveys'.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [zen4R][INFO] Files downloaded at '/home/runner/.local/share/R/contactsurveys'.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Files downloaded at '/home/runner/.local/share/R/contactsurveys/zenodo.1095664'.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [zen4R][INFO] Files downloaded at '/home/runner/.local/share/R/contactsurveys/zenodo.1095664'.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Verifying file integrity...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [zen4R][INFO] ZenodoRecord - Verifying file integrity... </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> File '2015_Grijalva_Peru_sday.csv': integrity verified (md5sum: b43c28fa6cce8d7bd6ec6b0621aa5b02)</span>

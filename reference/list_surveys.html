@@ -54,12 +54,17 @@
 <dl><dt id="arg-directory">directory<a class="anchor" aria-label="anchor" href="#arg-directory"></a></dt>
 <dd><p>Directory of where to save survey files. The default value
 is to use the directory for your system using <code><a href="contactsurveys_dir.html">contactsurveys_dir()</a></code>, which
-uses <code><a href="https://rdrr.io/r/tools/userdir.html" class="external-link">tools::R_user_dir()</a></code>. This effectively caches the data. You can
-specify your own directory, or set an environment variable,
-<code>CONTACTSURVEYS_HOME</code>, see <code><a href="https://rdrr.io/r/base/Sys.setenv.html" class="external-link">Sys.setenv()</a></code> or <a href="https://rdrr.io/r/base/Startup.html" class="external-link">Renviron</a> for more detail.
-If this argument is set to something other than <code><a href="contactsurveys_dir.html">contactsurveys_dir()</a></code>, a
-warning is issued to discourage unnecessary downloads outside the persistent
-cache.</p></dd>
+uses <code><a href="https://rdrr.io/r/tools/userdir.html" class="external-link">tools::R_user_dir()</a></code>, and appends the survey URL/DOI basename as a
+new directory. E.g., if you provide in the <code>survey</code> argument,
+"10.5281/zenodo.1095664", it will save the surveys into a directory
+<code>zenodo.1095664</code> under <code><a href="contactsurveys_dir.html">contactsurveys_dir()</a></code> This effectively caches
+the data. You can specify your own directory, or set an environment
+variable, <code>CONTACTSURVEYS_HOME</code>, see <code><a href="https://rdrr.io/r/base/Sys.setenv.html" class="external-link">Sys.setenv()</a></code> or <a href="https://rdrr.io/r/base/Startup.html" class="external-link">Renviron</a> for
+more detail. If this argument is set to something other than
+<code><a href="contactsurveys_dir.html">contactsurveys_dir()</a></code>, a warning is issued to discourage unnecessary
+downloads outside the persistent cache. Note that identical content
+accessed via different identifiers (e.g., DOI vs. a resolved record URL)
+will be cached in separate directories by design.</p></dd>
 
 
 <dt id="arg-overwrite">overwrite<a class="anchor" aria-label="anchor" href="#arg-overwrite"></a></dt>
