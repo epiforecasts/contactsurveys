@@ -36,7 +36,8 @@ will be cached in separate directories by design.}
 \item{overwrite}{If files should be overwritten if they already exist.
 Default FALSE}
 
-\item{timeout}{A numeric value specifying timeout in seconds. Default 3600 seconds.}
+\item{timeout}{A numeric value specifying timeout in seconds. Default
+3600 seconds.}
 
 \item{rate}{a
 \href{https://purrr.tidyverse.org/reference/rate-helpers.html}{purrr rate}

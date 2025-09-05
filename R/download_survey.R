@@ -52,10 +52,10 @@ download_survey <- function(
   insistent_download_survey <- purrr::insistently(
     f = .download_survey,
     rate = rate,
-    quiet = FALSE
+    quiet = !isTRUE(verbose)
   )
   if (verbose) {
-    insistent_download_survey(
+    res <- insistent_download_survey(
       survey = survey,
       directory = directory,
       overwrite = overwrite,
@@ -63,13 +63,15 @@ download_survey <- function(
     )
   } else {
     quiet_download_survey <- purrr::quietly(insistent_download_survey)
-    quiet_download_survey(
+    res <- quiet_download_survey(
       survey = survey,
       directory = directory,
       overwrite = overwrite,
       timeout = timeout
     )$result
   }
+
+  res
 }
 
 #' @autoglobal
