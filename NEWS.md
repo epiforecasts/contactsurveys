@@ -5,4 +5,4 @@
 * Added `get_citation()` - Resolves #38
 * Added bibtex citation style as default to `get_citation()` - Resolves #52
 * Fixed verbosity issue by importing purrr::quietly - Resolves #68
-* Improved cache management by avoiding the need to query the zenodo API at all by storing surveys inside a folder named after the survey name - Resolves #72
+* Improved cache management by avoiding unnecessary Zenodo API calls by storing each survey in a subdirectory named after the survey’s DOI/URL basename — Resolves #72
