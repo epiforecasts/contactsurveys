@@ -83,20 +83,27 @@ download_survey <- function(
   survey_dir <- file.path(directory, basename(survey))
   ensure_dir_exists(survey_dir)
 
-  survey_dir_non_empty <- length(list.files(survey_dir)) > 0
+  # create a manifest and marker to indicate if a download was successful
+  files_manifest <- file.path(survey_dir, ".contactsurveys_files.txt")
+  complete_marker <- file.path(survey_dir, ".contactsurveys_complete")
+  survey_dir_non_empty <- length(list.files(survey_dir, all.files = TRUE)) > 0
+  has_manifest <- file.exists(files_manifest) && file.exists(complete_marker)
 
-  do_not_download <- survey_dir_non_empty && !overwrite
-  if (do_not_download) {
-    cli::cli_inform(
-      c(
-        "Skipping download.",
-        "i" = "Files already exist, and {.code overwrite = FALSE}", # nolint
-        "i" = "Set {.code overwrite = TRUE} to force a re-download." # nolint
+  if (!overwrite && survey_dir_non_empty && has_manifest) {
+    manifest_files <- readLines(files_manifest, warn = FALSE)
+    manifest_paths <- file.path(survey_dir, manifest_files)
+    all_files_exist <- all(file.exists(manifest_paths))
+    if (all_files_exist) {
+      cli::cli_inform(
+        c(
+          "Skipping download.",
+          "i" = "Files already exist, and {.code overwrite = FALSE}", # nolint
+          "i" = "Set {.code overwrite = TRUE} to force a re-download." # nolint
+        )
       )
-    )
-    return(list.files(survey_dir, full.names = TRUE))
+      return(sort(manifest_paths))
+    }
   }
-
   cli::cli_inform("Fetching contact survey filenames from: {survey_url}.")
   records <- get_zenodo(survey)
 
@@ -118,7 +125,15 @@ download_survey <- function(
       overwrite = overwrite,
       timeout = timeout
     )
-    return(zenodo_files(survey_dir, records))
+    downloaded <- zenodo_files(survey_dir, records)
+    # Write the files that were downloaded into the manifest as a completion
+    # marker for offline cache hits
+    writeLines(
+      text = basename(downloaded),
+      con = file.path(survey_dir, ".contactsurveys_files.txt")
+    )
+    file.create(file.path(survey_dir, ".contactsurveys_complete"))
+    return(downloaded)
   }
 }
 
