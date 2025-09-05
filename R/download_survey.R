@@ -7,12 +7,15 @@
 #'   given, the DOI will be isolated and used.
 #' @param directory Directory of where to save survey files. The default value
 #'  is to use the directory for your system using [contactsurveys_dir()], which
-#'  uses [tools::R_user_dir()]. This effectively caches the data. You can
-#'  specify your own directory, or set an environment variable,
-#'  `CONTACTSURVEYS_HOME`, see [Sys.setenv()] or [Renviron] for more detail.
-#'  If this argument is set to something other than [contactsurveys_dir()], a
-#'  warning is issued to discourage unnecessary downloads outside the persistent
-#'  cache.
+#'  uses [tools::R_user_dir()], but also appends the survey URL/doi basename
+#'  as a new directory. E.g., if you provide in the `survey` argument,
+#'  "10.5281/zenodo.1095664", it will save the surveys into a directory
+#'  `zenodo.1095664` under `contactsurveys_dir()` This effectively caches
+#'  the data. You can specify your own directory, or set an environment
+#'  variable, `CONTACTSURVEYS_HOME`, see [Sys.setenv()] or [Renviron] for
+#'  more detail. If this argument is set to something other than
+#'  [contactsurveys_dir()], a warning is issued to discourage unnecessary
+#'   downloads outside the persistent cache.
 #' @param verbose Whether downloads should be echoed to output. Default TRUE.
 #' @param overwrite If files should be overwritten if they already exist.
 #'   Default FALSE
@@ -77,12 +80,27 @@ download_survey <- function(
     survey_url <- survey # nolint
   }
 
-  ensure_dir_exists(directory)
+  survey_dir <- file.path(directory, basename(survey))
+  ensure_dir_exists(survey_dir)
+
+  survey_dir_non_empty <- length(list.files(survey_dir)) > 0
+
+  do_not_download <- survey_dir_non_empty && !overwrite
+  if (do_not_download) {
+    cli::cli_inform(
+      c(
+        "Skipping download.",
+        "i" = "Files already exist, and {.code overwrite = FALSE}", # nolint
+        "i" = "Set {.code overwrite = TRUE} to force a re-download." # nolint
+      )
+    )
+    return(list.files(survey_dir, full.names = TRUE))
+  }
 
   cli::cli_inform("Fetching contact survey filenames from: {survey_url}.")
   records <- get_zenodo(survey)
 
-  files_already_exist <- zenodo_files_exist(directory, records)
+  files_already_exist <- zenodo_files_exist(survey_dir, records)
   do_not_download <- files_already_exist && !overwrite
   if (do_not_download) {
     cli::cli_inform(
@@ -92,15 +110,15 @@ download_survey <- function(
         "i" = "Set {.code overwrite = TRUE} to force a re-download." # nolint
       )
     )
-    return(zenodo_files(directory, records))
+    return(zenodo_files(survey_dir, records))
   } else {
     cli::cli_inform("Downloading from {survey_url}.")
     records$downloadFiles(
-      path = directory,
+      path = survey_dir,
       overwrite = overwrite,
       timeout = timeout
     )
-    return(zenodo_files(directory, records))
+    return(zenodo_files(survey_dir, records))
   }
 }
 
