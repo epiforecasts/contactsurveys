@@ -21,7 +21,8 @@
 #' @param verbose Whether downloads should be echoed to output. Default TRUE.
 #' @param overwrite If files should be overwritten if they already exist.
 #'   Default FALSE
-#' @param timeout A numeric value specifying timeout in seconds. Default 3600 seconds.
+#' @param timeout A numeric value specifying timeout in seconds. Default
+#'   3600 seconds.
 #' @param rate a
 #'   [purrr rate](https://purrr.tidyverse.org/reference/rate-helpers.html)
 #'   object, to facilitate downloading if the download fails. Defaults to an
@@ -39,7 +40,6 @@
 #' }
 #' @seealso [list_surveys()]
 #' @importFrom zen4R get_zenodo
-#' @importFrom
 #' @export
 download_survey <- function(
   survey,
