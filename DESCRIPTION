@@ -84,6 +84,7 @@ Imports:
     oai,
     purrr,
     rlang (>= 1.0.0),
+    yesno,
     zen4R (>= 0.10.3)
 Suggests:
     socialmixr (>= 0.4.0.9000),
