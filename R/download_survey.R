@@ -7,12 +7,17 @@
 #'   given, the DOI will be isolated and used.
 #' @param directory Directory of where to save survey files. The default value
 #'  is to use the directory for your system using [contactsurveys_dir()], which
-#'  uses [tools::R_user_dir()]. This effectively caches the data. You can
-#'  specify your own directory, or set an environment variable,
-#'  `CONTACTSURVEYS_HOME`, see [Sys.setenv()] or [Renviron] for more detail.
-#'  If this argument is set to something other than [contactsurveys_dir()], a
-#'  warning is issued to discourage unnecessary downloads outside the persistent
-#'  cache.
+#'  uses [tools::R_user_dir()], and appends the survey URL/DOI basename as a
+#'  new directory. E.g., if you provide in the `survey` argument,
+#'  "10.5281/zenodo.1095664", it will save the surveys into a directory
+#'  `zenodo.1095664` under `contactsurveys_dir()` This effectively caches
+#'  the data. You can specify your own directory, or set an environment
+#'  variable, `CONTACTSURVEYS_HOME`, see [Sys.setenv()] or [Renviron] for
+#'  more detail. If this argument is set to something other than
+#'  [contactsurveys_dir()], a warning is issued to discourage unnecessary
+#'   downloads outside the persistent cache. Note that identical content
+#'   accessed via different identifiers (e.g., DOI vs. a resolved record URL)
+#'   will be cached in separate directories by design.
 #' @param verbose Whether downloads should be echoed to output. Default TRUE.
 #' @param overwrite If files should be overwritten if they already exist.
 #'   Default FALSE
@@ -89,12 +94,35 @@ download_survey <- function(
     survey_url <- survey # nolint
   }
 
-  ensure_dir_exists(directory)
+  survey_dir <- file.path(directory, basename(survey))
+  ensure_dir_exists(survey_dir)
 
+  # create a manifest and marker to indicate if a download was successful
+  files_manifest <- file.path(survey_dir, ".contactsurveys_files.txt")
+  complete_marker <- file.path(survey_dir, ".contactsurveys_complete")
+  has_manifest <- file.exists(files_manifest) && file.exists(complete_marker)
+
+  if (!overwrite && has_manifest) {
+    manifest_files <- readLines(files_manifest, warn = FALSE)
+    manifest_files <- manifest_files[nzchar(manifest_files)]
+    manifest_paths <- file.path(survey_dir, manifest_files)
+    all_files_exist <- length(manifest_paths) > 0 &&
+      all(file.exists(manifest_paths))
+    if (all_files_exist) {
+      cli::cli_inform(
+        c(
+          "Skipping download.",
+          "i" = "Files already exist, and {.code overwrite = FALSE}", # nolint
+          "i" = "Set {.code overwrite = TRUE} to force a re-download." # nolint
+        )
+      )
+      return(sort(manifest_paths))
+    }
+  }
   cli::cli_inform("Fetching contact survey filenames from: {survey_url}.")
   records <- get_zenodo(survey)
 
-  files_already_exist <- zenodo_files_exist(directory, records)
+  files_already_exist <- zenodo_files_exist(survey_dir, records)
   do_not_download <- files_already_exist && !overwrite
   if (do_not_download) {
     cli::cli_inform(
@@ -104,15 +132,29 @@ download_survey <- function(
         "i" = "Set {.code overwrite = TRUE} to force a re-download." # nolint
       )
     )
-    return(zenodo_files(directory, records))
+    # if the manifest already exists, write to it for next time
+    existing <- sort(zenodo_files(survey_dir, records))
+    if (!has_manifest) {
+      writeLines(basename(existing), files_manifest)
+      file.create(complete_marker)
+    }
+    return(existing)
   } else {
     cli::cli_inform("Downloading from {survey_url}.")
     records$downloadFiles(
-      path = directory,
+      path = survey_dir,
       overwrite = overwrite,
       timeout = timeout
     )
-    return(zenodo_files(directory, records))
+    downloaded <- sort(zenodo_files(survey_dir, records))
+    # Write the files that were downloaded into the manifest as a completion
+    # marker for offline cache hits
+    writeLines(
+      text = basename(downloaded),
+      con = file.path(survey_dir, ".contactsurveys_files.txt")
+    )
+    file.create(file.path(survey_dir, ".contactsurveys_complete"))
+    return(downloaded)
   }
 }
 
