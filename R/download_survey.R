@@ -88,14 +88,15 @@ download_survey <- function(
   # create a manifest and marker to indicate if a download was successful
   files_manifest <- file.path(survey_dir, ".contactsurveys_files.txt")
   complete_marker <- file.path(survey_dir, ".contactsurveys_complete")
-  survey_dir_non_empty <- dir_not_empty(survey_dir)
   has_manifest <- file.exists(files_manifest) && file.exists(complete_marker)
 
-  if (!overwrite && survey_dir_non_empty && has_manifest) {
+  if (!overwrite && has_manifest) {
     manifest_files <- readLines(files_manifest, warn = FALSE)
     manifest_files <- manifest_files[nzchar(manifest_files)]
     manifest_paths <- file.path(survey_dir, manifest_files)
     all_files_exist <- all(file.exists(manifest_paths))
+    all_files_exist <- length(manifest_paths) > 0 &&
+      all(file.exists(manifest_paths))
     if (all_files_exist) {
       cli::cli_inform(
         c(
