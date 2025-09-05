@@ -79,29 +79,6 @@ relevant data of a survey given its Zenodo DOI (as returned by
 ``` r
 polymod_doi <- "https://doi.org/10.5281/zenodo.3874557"
 polymod_survey_files <- download_survey(polymod_doi, verbose = FALSE)
-```
-
-    ## [zen4R][INFO] ZenodoRecord - Download in sequential mode 
-    ## [zen4R][INFO] ZenodoRecord - Will download 7 files from record '3874557' (doi: '10.5281/zenodo.3874557') - total size: 7.4 MiB 
-    ## [zen4R][INFO] Downloading file '2008_Mossong_POLYMOD_hh_common.csv' - size: 120 KiB
-    ## [zen4R][INFO] Downloading file '2008_Mossong_POLYMOD_contact_common.csv' - size: 6.2 MiB
-    ## [zen4R][INFO] Downloading file '2008_Mossong_POLYMOD_dictionary.xls' - size: 41 KiB
-    ## [zen4R][INFO] Downloading file '2008_Mossong_POLYMOD_hh_extra.csv' - size: 523 KiB
-    ## [zen4R][INFO] Downloading file '2008_Mossong_POLYMOD_participant_common.csv' - size: 153.1 KiB
-    ## [zen4R][INFO] Downloading file '2008_Mossong_POLYMOD_participant_extra.csv' - size: 221.8 KiB
-    ## [zen4R][INFO] Downloading file '2008_Mossong_POLYMOD_sday.csv' - size: 188.7 KiB
-    ## [zen4R][INFO] Files downloaded at '/Users/runner/Library/Application Support/org.R-project.R/R/contactsurveys'.
-    ## [zen4R][INFO] ZenodoRecord - Verifying file integrity... 
-    ## [zen4R][INFO] File '2008_Mossong_POLYMOD_hh_common.csv': integrity verified (md5sum: d7fb1359ad84dba8cce4c444063940aa)
-    ## [zen4R][INFO] File '2008_Mossong_POLYMOD_contact_common.csv': integrity verified (md5sum: 52baf32033bf780786fae6604043ec00)
-    ## [zen4R][INFO] File '2008_Mossong_POLYMOD_dictionary.xls': integrity verified (md5sum: 06415516c91b52dedfaa53622e352647)
-    ## [zen4R][INFO] File '2008_Mossong_POLYMOD_hh_extra.csv': integrity verified (md5sum: b0063f8d1a4f391d919495493611b3f1)
-    ## [zen4R][INFO] File '2008_Mossong_POLYMOD_participant_common.csv': integrity verified (md5sum: ac784c281a71e15c7e64eaf2d6365709)
-    ## [zen4R][INFO] File '2008_Mossong_POLYMOD_participant_extra.csv': integrity verified (md5sum: 4e2dd8d6ba2d23bb5b1f236be215b936)
-    ## [zen4R][INFO] File '2008_Mossong_POLYMOD_sday.csv': integrity verified (md5sum: 148c5fc86ca10d385e3d047014e14a09)
-    ## [zen4R][INFO] ZenodoRecord - End of download
-
-``` r
 polymod_survey_files
 ```
 
