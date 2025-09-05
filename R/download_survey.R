@@ -26,7 +26,7 @@
 #' @param rate a
 #'   [purrr rate](https://purrr.tidyverse.org/reference/rate-helpers.html)
 #'   object, to facilitate downloading if the download fails. Defaults to an
-#'   exponential backoff of 5 seconds, retrying only 3 times. This can be
+#'   exponential backoff of 5 seconds (up to 4 attempts: 1 initial + 3 retries)
 #'   changed by specifying your own rate object, see `?purrr::rate_backoff()`
 #'   for details.
 #'
