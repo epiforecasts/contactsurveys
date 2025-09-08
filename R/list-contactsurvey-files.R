@@ -35,7 +35,7 @@ ls_contactsurveys <- function(dir = contactsurveys_dir()) {
 #' delete_contactsurveys_files()
 #' }
 delete_contactsurveys_files <- function(dir = contactsurveys_dir()) {
-  if (!dir.exists(dir)) {
+  if (!.dir.exists(dir)) {
     cli::cli_abort(
       c(
         "!" = "Directory not found: {dir}", # nolint
