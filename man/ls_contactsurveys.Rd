@@ -7,14 +7,14 @@
 ls_contactsurveys(dir = contactsurveys_dir())
 }
 \arguments{
-\item{dir}{default is \code{\link[=contactsurveys_dir]{contactsurveys_dir()}}.}
+\item{dir}{Directory to list. Default is \code{\link[=contactsurveys_dir]{contactsurveys_dir()}}.}
 }
 \value{
-files in \code{dir}
+Files in \code{dir}
 }
 \description{
-It can be handy to see which files are available, and sometimes you want to
-delete them all.
+It can be handy to see which files are available, sometimes to return to
+a clean slate and delete them via the \verb{delete_contactsurveys_*()} functions.
 }
 \examples{
 ls_contactsurveys()

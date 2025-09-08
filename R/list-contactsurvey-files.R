@@ -1,11 +1,11 @@
 #' List files in contactsurveys cache
 #'
-#' It can be handy to see which files are available, and sometimes you want to
-#' delete them all.
+#' It can be handy to see which files are available, sometimes to return to
+#'  a clean slate and delete them via the `delete_contactsurveys_*()` functions.
 #'
-#' @param dir default is [contactsurveys_dir()].
+#' @param dir Directory to list. Default is [contactsurveys_dir()].
 #'
-#' @returns files in `dir`
+#' @returns Files in `dir`
 #' @seealso [delete_contactsurveys_files()] [delete_contactsurveys_dir()]
 #'  [delete_survey()] [delete_contactsurveys_dir()] [download_survey()]
 #'  [contactsurveys_dir()]
@@ -22,6 +22,18 @@ ls_contactsurveys <- function(dir = contactsurveys_dir()) {
     )
 }
 
+#' Delete files in contactsurvey directory
+#'
+#' @inheritParams ls_contactsurveys
+#'
+#' @returns nothing, deletes files.
+#' @export
+#'
+#' @rdname delete-files
+#' @examples
+#' \dontrun{
+#' delete_contactsurveys_files()
+#' }
 delete_contactsurveys_files <- function(dir) {
   dir_files <- ls_contactsurveys(dir)
 
@@ -52,14 +64,32 @@ delete_contactsurveys_files <- function(dir) {
   }
 }
 
+#' @name delete-files
+#' @export
+delete_contactsurveys_dir <- function(dir = contactsurveys_dir()) {
+  delete_contactsurveys_files(dir)
+}
+
+
+#' Delete files for a given survey
+#'
+#' For when you want to delete files associate with a given survey.
+#'
+#' @param survey Survey, as used in [download_survey()].
+#'
+#' @returns nothing, deleted files
+#'
+#' @seealso [delete_contactsurveys_dir()] [delete_contactsurveys_files()]
+#' @examples
+#' \dontrun{
+#' peru_doi <- "https://doi.org/10.5281/zenodo.1095664"
+#' delete_survey(peru_doi)
+#' }
+#' @export
 delete_survey <- function(survey) {
   check_survey_is_length_one(survey)
 
   survey <- clean_doi(survey)
 
   delete_contactsurveys_files(survey)
-}
-
-delete_contactsurveys_dir <- function(dir = contactsurveys_dir()) {
-  delete_contactsurveys_files(dir)
 }
