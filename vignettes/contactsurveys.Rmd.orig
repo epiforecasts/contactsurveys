@@ -1,0 +1,76 @@
+---
+title: "Introduction to contactsurveys"
+author: "Sebastian Funk & Nicholas Tierney"
+date: "`r Sys.Date()`"
+link-citations: true
+bibliography: contactsurveys.bib
+nocite: '@*'
+output:
+  rmarkdown::html_vignette: 
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{Introduction to contactsurveys}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+library(knitr)
+library(contactsurveys)
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = is_online()
+)
+data.table::setDTthreads(1)
+```
+
+[contactsurveys](https://github.com/epiforecasts/contactsurveys) is an `R` package to download contact surveys for use in age-structured [infectious disease models](https://en.wikipedia.org/wiki/Mathematical_modelling_of_infectious_disease). This code was initially in the [socialmixr](https://github.com/epiforecasts/socialmixr) package, but the code for downloading surveys has been moved into this package.
+
+For background on age-specific mixing matrices and what data inform them, see, for example, the paper on POLYMOD by [@mossong_social_2008].
+
+# Usage
+
+`contactsurveys` provides access to all surveys in the [Social contact data](https://zenodo.org/communities/social_contact_data) community on [Zenodo](https://zenodo.org). The available surveys can be listed (if an internet connection is available) with:
+
+```{r}
+list_surveys()
+```
+
+By default, the survey data from `list_surveys()` is effectively cached, so it will run very quickly the next time you run it. This data will also persist across R sessions.
+
+To expand on this, the downloads in this package are downloaded to a default location specified by `contactsurveys_dir()`, which uses `tools::R_user_dir()` under the hood to find an appropriate place to write files. You can also control where files are saved by setting an environment variable, `CONTACTSURVEYS_HOME`. See `?Sys.setenv()` or `?Renviron` for more detail.
+
+Surveys can be downloaded using `download_survey()`. This will get the relevant data of a survey given its Zenodo DOI (as returned by `list_surveys()`). 
+
+```{r}
+polymod_doi <- "https://doi.org/10.5281/zenodo.3874557"
+polymod_survey_files <- download_survey(polymod_doi)
+polymod_survey_files
+```
+
+A reference for any given survey can be obtained by passing a DOI to `get_citation()`:
+
+```{r}
+get_citation(polymod_doi)
+```
+
+## Using contact matrices with socialmixr
+
+You can then use the survey files downloaded with functions from [socialmixr](https://github.com/epiforecasts/socialmixr), `load_survey()` and `contact_matrix()`:
+
+```{r}
+library(socialmixr) # nolint
+polymod_loaded <- load_survey(polymod_survey_files)
+uk_contact_matrix <- contact_matrix(
+  polymod_loaded,
+  countries = "United Kingdom",
+  age.limits = c(0, 18, 65)
+)
+
+uk_contact_matrix
+```
+
+
+# References
+
