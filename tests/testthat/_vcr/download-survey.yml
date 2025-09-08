@@ -1,0 +1,94 @@
+http_interactions:
+- request:
+    method: GET
+    uri: https://zenodo.org/api/records?q=doi%3A%2210.5281%2Fzenodo.1095664%22&size=10page&allversions=1
+  response:
+    status: 400
+    headers:
+      server: nginx
+      date: Mon, 08 Sep 2025 04:31:11 GMT
+      content-type: application/json
+      content-length: '127'
+      access-control-allow-origin: '*'
+      access-control-expose-headers: Content-Type, ETag, Link, X-RateLimit-Limit,
+        X-RateLimit-Remaining, X-RateLimit-Reset
+      x-ratelimit-limit: '133'
+      x-ratelimit-remaining: '132'
+      x-ratelimit-reset: '1757305932'
+      retry-after: '60'
+      permissions-policy: interest-cohort=()
+      x-frame-options: sameorigin
+      x-xss-protection: 1; mode=block
+      x-content-type-options: nosniff
+      content-security-policy: 'default-src ''self'' fonts.googleapis.com *.gstatic.com
+        data: ''unsafe-inline'' ''unsafe-eval'' blob: zenodo-broker.web.cern.ch zenodo-broker-qa.web.cern.ch
+        maxcdn.bootstrapcdn.com cdnjs.cloudflare.com ajax.googleapis.com webanalytics.web.cern.ch'
+      strict-transport-security: max-age=31556926; includeSubDomains
+      referrer-policy: strict-origin-when-cross-origin
+      set-cookie: 5569e5a730cade8ff2b54f1e815f3670=2f7b30d4a68dbfd179bc4b1121a2bad5;
+        path=/; HttpOnly; Secure; SameSite=None
+    body:
+      string: '{"status": 400, "message": "A validation error occurred.", "errors":
+        [{"field": "size", "messages": ["Not a valid integer."]}]}'
+  recorded_at: 2025-09-08 04:31:12
+- request:
+    method: GET
+    uri: https://zenodo.org/api/records?q=recid%3A1095664&size=10page&allversions=1
+  response:
+    status: 400
+    headers:
+      server: nginx
+      date: Mon, 08 Sep 2025 04:31:12 GMT
+      content-type: application/json
+      content-length: '127'
+      access-control-allow-origin: '*'
+      access-control-expose-headers: Content-Type, ETag, Link, X-RateLimit-Limit,
+        X-RateLimit-Remaining, X-RateLimit-Reset
+      x-ratelimit-limit: '133'
+      x-ratelimit-remaining: '130'
+      x-ratelimit-reset: '1757305933'
+      retry-after: '60'
+      permissions-policy: interest-cohort=()
+      x-frame-options: sameorigin
+      x-xss-protection: 1; mode=block
+      x-content-type-options: nosniff
+      content-security-policy: 'default-src ''self'' fonts.googleapis.com *.gstatic.com
+        data: ''unsafe-inline'' ''unsafe-eval'' blob: zenodo-broker.web.cern.ch zenodo-broker-qa.web.cern.ch
+        maxcdn.bootstrapcdn.com cdnjs.cloudflare.com ajax.googleapis.com webanalytics.web.cern.ch'
+      strict-transport-security: max-age=31556926; includeSubDomains
+      referrer-policy: strict-origin-when-cross-origin
+    body:
+      string: '{"status": 400, "message": "A validation error occurred.", "errors":
+        [{"field": "size", "messages": ["Not a valid integer."]}]}'
+  recorded_at: 2025-09-08 04:31:12
+- request:
+    method: GET
+    uri: https://zenodo.org/api/records?q=conceptdoi%3A%2210.5281%2Fzenodo.1095664%22&size=10page&allversions=1
+  response:
+    status: 400
+    headers:
+      server: nginx
+      date: Mon, 08 Sep 2025 04:31:13 GMT
+      content-type: application/json
+      content-length: '127'
+      access-control-allow-origin: '*'
+      access-control-expose-headers: Content-Type, ETag, Link, X-RateLimit-Limit,
+        X-RateLimit-Remaining, X-RateLimit-Reset
+      x-ratelimit-limit: '133'
+      x-ratelimit-remaining: '128'
+      x-ratelimit-reset: '1757305934'
+      retry-after: '60'
+      permissions-policy: interest-cohort=()
+      x-frame-options: sameorigin
+      x-xss-protection: 1; mode=block
+      x-content-type-options: nosniff
+      content-security-policy: 'default-src ''self'' fonts.googleapis.com *.gstatic.com
+        data: ''unsafe-inline'' ''unsafe-eval'' blob: zenodo-broker.web.cern.ch zenodo-broker-qa.web.cern.ch
+        maxcdn.bootstrapcdn.com cdnjs.cloudflare.com ajax.googleapis.com webanalytics.web.cern.ch'
+      strict-transport-security: max-age=31556926; includeSubDomains
+      referrer-policy: strict-origin-when-cross-origin
+    body:
+      string: '{"status": 400, "message": "A validation error occurred.", "errors":
+        [{"field": "size", "messages": ["Not a valid integer."]}]}'
+  recorded_at: 2025-09-08 04:31:13
+recorded_with: VCR-vcr/2.0.0
