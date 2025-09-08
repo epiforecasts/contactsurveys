@@ -1,5 +1,6 @@
 test_that("ls_contactsurveys() works", {
   file_paths <- ls_contactsurveys()
+  expect_true(all(is.character(file_paths)))
   expect_true(all(file.exists(file_paths)))
 })
 
@@ -15,7 +16,8 @@ test_that("delete_contactsurveys_files() errors", {
 
 test_that("delete_contactsurveys_files() messages", {
   local_mocked_bindings(
-    ls_contactsurveys = function(dir) NULL
+    dir.exists = function(paths) TRUE,
+    ls_contactsurveys = function(dir) character(0)
   )
   expect_message(
     delete_contactsurveys_files(),
