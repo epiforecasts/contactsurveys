@@ -7,10 +7,10 @@
 is_online(host = "captive.apple.com")
 }
 \arguments{
-\item{host}{host URL, default is "captive.apple.com}
+\item{host}{host URL, default is "captive.apple.com".}
 }
 \value{
-logical - TRUE if online
+logical - TRUE if online, FALSE otherwise
 }
 \description{
 Are we online?
