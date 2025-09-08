@@ -9,7 +9,8 @@ download_survey(
   directory = contactsurveys_dir(),
   verbose = TRUE,
   overwrite = FALSE,
-  timeout = 60
+  timeout = 3600,
+  rate = purrr::rate_backoff(pause_base = 5, max_times = 4)
 )
 }
 \arguments{
@@ -35,8 +36,15 @@ will be cached in separate directories by design.}
 \item{overwrite}{If files should be overwritten if they already exist.
 Default FALSE}
 
-\item{timeout}{A numeric value specifying timeout in seconds. Default 60
-seconds.}
+\item{timeout}{A numeric value specifying timeout in seconds. Default
+3600 seconds.}
+
+\item{rate}{a
+\href{https://purrr.tidyverse.org/reference/rate-helpers.html}{purrr rate}
+object, to facilitate downloading if the download fails. Defaults to an
+exponential backoff of 5 seconds (up to 4 attempts: 1 initial + 3 retries)
+changed by specifying your own rate object, see \code{?purrr::rate_backoff()}
+for details.}
 }
 \value{
 a vector of filenames, where the surveys were downloaded
