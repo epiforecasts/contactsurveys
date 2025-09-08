@@ -62,3 +62,16 @@ ensure_dir_exists <- function(directory) {
   }
   invisible(directory)
 }
+
+#' Are we online?
+#'
+#' @param host host URL, default is "captive.apple.com
+#'
+#' @returns logical - TRUE if online
+#' @export
+#'
+#' @examplesIf is_online
+#' is_online()
+is_online <- function(host = "captive.apple.com") {
+  !is.null(curl::nslookup(host, error = FALSE))
+}
