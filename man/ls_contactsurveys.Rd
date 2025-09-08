@@ -10,7 +10,7 @@ ls_contactsurveys(dir = contactsurveys_dir())
 \item{dir}{Directory to list. Default is \code{\link[=contactsurveys_dir]{contactsurveys_dir()}}.}
 }
 \value{
-Files in \code{dir}
+Character vector of file paths under \code{dir} (absolute paths).
 }
 \description{
 It can be handy to see which files are available, sometimes to return to

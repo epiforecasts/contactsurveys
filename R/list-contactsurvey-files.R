@@ -5,7 +5,7 @@
 #'
 #' @param dir Directory to list. Default is [contactsurveys_dir()].
 #'
-#' @returns Files in `dir`
+#' @returns Character vector of file paths under `dir` (absolute paths).
 #' @seealso [delete_contactsurveys_files()] [delete_survey()]
 #'  [delete_contactsurveys_dir()] [download_survey()] [contactsurveys_dir()]
 #'
@@ -17,11 +17,12 @@ ls_contactsurveys <- function(dir = contactsurveys_dir()) {
     dir,
     full.names = TRUE,
     recursive = TRUE,
-    no.. = TRUE
+    no.. = TRUE,
+    all.files = TRUE
   )
 }
 
-#' Delete files in contactsurvey directory
+#' Delete files in contactsurveys directory
 #'
 #' @param dir directory to list files to delete from
 #'
@@ -41,7 +42,7 @@ delete_contactsurveys_files <- function(dir = contactsurveys_dir()) {
         "i" = "Use {.fun contactsurveys_dir} to get the base path." # nolint
       )
     )
-    return(invisible(0L))
+    return(invisible(NULL))
   }
   dir_files <- ls_contactsurveys(dir)
   n_files <- length(dir_files)
@@ -74,9 +75,18 @@ delete_contactsurveys_files <- function(dir = contactsurveys_dir()) {
     if (n_removed == n_files) {
       cli::cli_alert_success("Removed {n_removed} file{?s} from {dir}")
     } else {
+      failed <- dir_files[is.na(removed) | !removed]
       cli::cli_alert_warning(
         "Removed {n_removed} of {n_files} file{?s} from {dir}"
       )
+      if (length(failed) > 0) {
+        cli::cli_bullets(
+          c(
+            "x" = "Failed to remove:", # nolint
+            stats::setNames(failed, rep("*", length(failed)))
+          )
+        )
+      }
     }
     return(invisible(n_removed))
   }

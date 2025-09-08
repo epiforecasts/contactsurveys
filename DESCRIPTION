@@ -84,6 +84,7 @@ Imports:
     oai,
     purrr,
     rlang (>= 1.0.0),
+    stats,
     yesno,
     zen4R (>= 0.10.3)
 Suggests:

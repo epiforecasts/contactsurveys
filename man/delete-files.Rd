@@ -4,7 +4,7 @@
 \alias{delete_contactsurveys_files}
 \alias{delete-files}
 \alias{delete_contactsurveys_dir}
-\title{Delete files in contactsurvey directory}
+\title{Delete files in contactsurveys directory}
 \usage{
 delete_contactsurveys_files(dir = contactsurveys_dir())
 
@@ -17,7 +17,7 @@ delete_contactsurveys_dir(dir = contactsurveys_dir())
 nothing, deletes files.
 }
 \description{
-Delete files in contactsurvey directory
+Delete files in contactsurveys directory
 }
 \examples{
 \dontrun{
