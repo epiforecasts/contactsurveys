@@ -8,7 +8,6 @@ test_that("socialmixr::load_survey()/as_contact_survey()/clean() works", {
   peru_url <- "https://doi.org/10.5281/zenodo.1095664"
 
   polymod_survey <- suppressMessages(download_survey(polymod_url))
-  Sys.sleep(5)
   peru_survey <- suppressMessages(download_survey(peru_url))
 
   polymod_loaded <- suppressWarnings(socialmixr::load_survey(polymod_survey))
@@ -36,7 +35,6 @@ test_that("socialmixr::contact_matrix() works", {
   polymod_loaded <- suppressWarnings(
     socialmixr::load_survey(suppressMessages(download_survey(polymod_url)))
   )
-  Sys.sleep(5)
   peru_loaded <- suppressWarnings(
     socialmixr::load_survey(suppressMessages(download_survey(peru_url)))
   )

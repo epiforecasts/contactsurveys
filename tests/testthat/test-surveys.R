@@ -4,7 +4,6 @@ test_that("surveys can be downloaded with download_survey()", {
 
   doi_peru <- "10.5281/zenodo.1095664" # nolint
   peru_survey_files <- suppressMessages(download_survey(doi_peru))
-  Sys.sleep(5)
   expect_true(all(file.exists(peru_survey_files)))
   # expect contains peru
   expect_true(all(grepl("Peru", basename(peru_survey_files), fixed = TRUE)))
@@ -13,20 +12,17 @@ test_that("surveys can be downloaded with download_survey()", {
   expect_snapshot(
     . <- download_survey(doi_peru, overwrite = FALSE) # nolint
   )
-  Sys.sleep(5)
   # surveys downloaded have the same filepath
   peru_2 <- suppressMessages(download_survey(doi_peru, overwrite = FALSE))
   expect_identical(basename(peru_2), basename(peru_survey_files))
 })
 
 test_that("survey downloads are faster on cache", {
-  Sys.sleep(5)
   doi_peru <- "10.5281/zenodo.1095664" # nolint
   ds_time2 <- system.time(download_survey(
     doi_peru,
     overwrite = FALSE
   ))
-  Sys.sleep(5)
   ds_time1 <- system.time(download_survey(
     doi_peru,
     overwrite = TRUE
@@ -40,7 +36,6 @@ test_that("download_survey() is silent when verbose = FALSE", {
   skip_on_cran()
   skip_on_ci()
   doi_peru <- "10.5281/zenodo.1095664" # nolint
-  Sys.sleep(5)
   expect_silent(
     . <- download_survey(doi_peru, verbose = FALSE) # nolint
   )
@@ -55,7 +50,6 @@ test_that("multiple DOI's cannot be loaded", {
   # nolint start
   doi_peru <- "10.5281/zenodo.1095664"
   doi_zimbabwe <- "10.5281/zenodo.1127693"
-  Sys.sleep(5)
   expect_error(
     suppressMessages(download_survey(
       survey = c(
