@@ -35,14 +35,13 @@ ls_contactsurveys <- function(dir = contactsurveys_dir()) {
 #' delete_contactsurveys_files()
 #' }
 delete_contactsurveys_files <- function(dir = contactsurveys_dir()) {
-  if (!dir.exists(dir)) {
-    cli::cli_inform(
+  if (!.dir.exists(dir)) {
+    cli::cli_abort(
       c(
         "!" = "Directory not found: {dir}", # nolint
         "i" = "Use {.fun contactsurveys_dir} to get the base path." # nolint
       )
     )
-    return(invisible(NULL))
   }
   dir_files <- ls_contactsurveys(dir)
   n_files <- length(dir_files)
@@ -80,7 +79,7 @@ delete_contactsurveys_files <- function(dir = contactsurveys_dir()) {
         "Removed {n_removed} of {n_files} file{?s} from {dir}"
       )
       if (length(failed) > 0) {
-        cli::cli_bullets(
+        cli::cli_warn(
           c(
             "x" = "Failed to remove:", # nolint
             stats::setNames(failed, rep("*", length(failed)))
@@ -88,9 +87,8 @@ delete_contactsurveys_files <- function(dir = contactsurveys_dir()) {
         )
       }
     }
-    return(invisible(n_removed))
   }
-  invisible(0L)
+  invisible(NULL)
 }
 
 #' @name delete-files
