@@ -13,11 +13,9 @@
 #'   the screen? Default is TRUE.
 #'
 #' @export
-#' @examples
-#' \donttest{
+#' @examplesIf is_online()
 #' polymod_doi <- "https://doi.org/10.5281/zenodo.3874557"
 #' get_citation(polymod_doi)
-#' }
 get_citation <- function(
   doi,
   style = c(

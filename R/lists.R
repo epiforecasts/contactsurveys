@@ -5,10 +5,8 @@
 #' @importFrom oai list_records
 #' @importFrom data.table data.table setkey rbindlist
 #' @autoglobal
-#' @examples
-#' \dontrun{
+#' @examplesIf is_online()
 #' list_surveys()
-#' }
 #' @export
 list_surveys <- function(
   directory = contactsurveys_dir(),
