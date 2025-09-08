@@ -13,7 +13,7 @@ delete_survey(survey)
 nothing, deleted files
 }
 \description{
-For when you want to delete files associate with a given survey.
+For when you want to delete files associated with a given survey.
 }
 \examples{
 \dontrun{

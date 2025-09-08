@@ -6,12 +6,12 @@
 \alias{delete_contactsurveys_dir}
 \title{Delete files in contactsurvey directory}
 \usage{
-delete_contactsurveys_files(dir)
+delete_contactsurveys_files(dir = contactsurveys_dir())
 
 delete_contactsurveys_dir(dir = contactsurveys_dir())
 }
 \arguments{
-\item{dir}{Directory to list. Default is \code{\link[=contactsurveys_dir]{contactsurveys_dir()}}.}
+\item{dir}{directory to list files to delete from}
 }
 \value{
 nothing, deletes files.

@@ -20,7 +20,6 @@ a clean slate and delete them via the \verb{delete_contactsurveys_*()} functions
 ls_contactsurveys()
 }
 \seealso{
-\code{\link[=delete_contactsurveys_files]{delete_contactsurveys_files()}} \code{\link[=delete_contactsurveys_dir]{delete_contactsurveys_dir()}}
-\code{\link[=delete_survey]{delete_survey()}} \code{\link[=delete_contactsurveys_dir]{delete_contactsurveys_dir()}} \code{\link[=download_survey]{download_survey()}}
-\code{\link[=contactsurveys_dir]{contactsurveys_dir()}}
+\code{\link[=delete_contactsurveys_files]{delete_contactsurveys_files()}} \code{\link[=delete_survey]{delete_survey()}}
+\code{\link[=delete_contactsurveys_dir]{delete_contactsurveys_dir()}} \code{\link[=download_survey]{download_survey()}} \code{\link[=contactsurveys_dir]{contactsurveys_dir()}}
 }

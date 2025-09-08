@@ -6,25 +6,24 @@
 #' @param dir Directory to list. Default is [contactsurveys_dir()].
 #'
 #' @returns Files in `dir`
-#' @seealso [delete_contactsurveys_files()] [delete_contactsurveys_dir()]
-#'  [delete_survey()] [delete_contactsurveys_dir()] [download_survey()]
-#'  [contactsurveys_dir()]
+#' @seealso [delete_contactsurveys_files()] [delete_survey()]
+#'  [delete_contactsurveys_dir()] [download_survey()] [contactsurveys_dir()]
 #'
 #' @examples
 #' ls_contactsurveys()
 #' @export
 ls_contactsurveys <- function(dir = contactsurveys_dir()) {
-  dir |>
-    list.files(
-      full.names = TRUE,
-      recursive = TRUE,
-      no.. = TRUE
-    )
+  list.files(
+    dir,
+    full.names = TRUE,
+    recursive = TRUE,
+    no.. = TRUE
+  )
 }
 
 #' Delete files in contactsurvey directory
 #'
-#' @inheritParams ls_contactsurveys
+#' @param dir directory to list files to delete from
 #'
 #' @returns nothing, deletes files.
 #' @export
@@ -34,16 +33,27 @@ ls_contactsurveys <- function(dir = contactsurveys_dir()) {
 #' \dontrun{
 #' delete_contactsurveys_files()
 #' }
-delete_contactsurveys_files <- function(dir) {
+delete_contactsurveys_files <- function(dir = contactsurveys_dir()) {
+  if (!dir.exists(dir)) {
+    cli::cli_inform(
+      c(
+        "!" = "Directory not found: {dir}", # nolint
+        "i" = "Use {.fun contactsurveys_dir} to get the base path." # nolint
+      )
+    )
+    return(invisible(0L))
+  }
   dir_files <- ls_contactsurveys(dir)
-
   n_files <- length(dir_files)
 
   if (n_files == 0) {
     cli::cli_inform(
       message = c(
         "There are no files to delete",
-        "i" = "Use {.fun ls_contactsurveys} to list files in {.pkg contactsurveys}"
+        # nolint start
+        "i" = "Use {.fun ls_contactsurveys} to list files in \\
+        {.pkg contactsurveys}"
+        # nolint end
       )
     )
     return(invisible(NULL))
@@ -59,21 +69,31 @@ delete_contactsurveys_files <- function(dir) {
     )
   ) {
     cli::cli_alert_info("Removing {n_files} file{?s} from {dir}")
-    file.remove(dir_files)
-    cli::cli_alert_success("Removed {n_files} file{?s} from {dir}")
+    removed <- file.remove(dir_files)
+    n_removed <- sum(removed, na.rm = TRUE)
+    if (n_removed == n_files) {
+      cli::cli_alert_success("Removed {n_removed} file{?s} from {dir}")
+    } else {
+      cli::cli_alert_warning(
+        "Removed {n_removed} of {n_files} file{?s} from {dir}"
+      )
+    }
+    return(invisible(n_removed))
   }
+  invisible(0L)
 }
 
 #' @name delete-files
 #' @export
 delete_contactsurveys_dir <- function(dir = contactsurveys_dir()) {
-  delete_contactsurveys_files(dir)
+  n_removed <- delete_contactsurveys_files(dir)
+  invisible(n_removed)
 }
 
 
 #' Delete files for a given survey
 #'
-#' For when you want to delete files associate with a given survey.
+#' For when you want to delete files associated with a given survey.
 #'
 #' @param survey Survey, as used in [download_survey()].
 #'
@@ -89,7 +109,7 @@ delete_contactsurveys_dir <- function(dir = contactsurveys_dir()) {
 delete_survey <- function(survey) {
   check_survey_is_length_one(survey)
 
-  survey <- clean_doi(survey)
+  survey_dir <- file.path(contactsurveys_dir(), clean_doi(survey))
 
-  delete_contactsurveys_files(survey)
+  delete_contactsurveys_dir(survey_dir)
 }
