@@ -13,12 +13,18 @@
 list_surveys <- function(
   directory = contactsurveys_dir(),
   overwrite = FALSE,
-  verbose = TRUE
+  verbose = TRUE,
+  rate = purrr::rate_backoff(pause_base = 5, max_times = 4)
 ) {
+  insistent_list_surveys <- purrr::insistently(
+    f = .list_surveys,
+    rate = rate,
+    quiet = !isTRUE(verbose)
+  )
   if (verbose) {
-    .list_surveys(directory = directory, overwrite = overwrite)
+    insistent_list_surveys(directory = directory, overwrite = overwrite)
   } else {
-    quiet_list_surveys <- purrr::quietly(.list_surveys)
+    quiet_list_surveys <- purrr::quietly(insistent_list_surveys)
     quiet_list_surveys(directory = directory, overwrite = overwrite)$result
   }
 }

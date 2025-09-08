@@ -7,7 +7,8 @@
 list_surveys(
   directory = contactsurveys_dir(),
   overwrite = FALSE,
-  verbose = TRUE
+  verbose = TRUE,
+  rate = purrr::rate_backoff(pause_base = 5, max_times = 4)
 )
 }
 \arguments{
@@ -29,6 +30,13 @@ will be cached in separate directories by design.}
 Default FALSE}
 
 \item{verbose}{Whether downloads should be echoed to output. Default TRUE.}
+
+\item{rate}{a
+\href{https://purrr.tidyverse.org/reference/rate-helpers.html}{purrr rate}
+object, to facilitate downloading if the download fails. Defaults to an
+exponential backoff of 5 seconds (up to 4 attempts: 1 initial + 3 retries)
+changed by specifying your own rate object, see \code{?purrr::rate_backoff()}
+for details.}
 }
 \value{
 data.table with columns: date_added, title, creator, url
