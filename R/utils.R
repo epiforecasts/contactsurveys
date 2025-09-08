@@ -65,7 +65,7 @@ ensure_dir_exists <- function(directory) {
 
 #' Are we online?
 #'
-#' @param host host URL, default is "captive.apple.com".
+#' @param host Hostname to resolve, default is "captive.apple.com".
 #'
 #' @returns logical - TRUE if online, FALSE otherwise
 #'

@@ -7,7 +7,7 @@
 is_online(host = "captive.apple.com")
 }
 \arguments{
-\item{host}{host URL, default is "captive.apple.com".}
+\item{host}{Hostname to resolve, default is "captive.apple.com".}
 }
 \value{
 logical - TRUE if online, FALSE otherwise
