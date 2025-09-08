@@ -9,10 +9,13 @@
 <url><loc>http://epiforecasts.io/contactsurveys/news/index.html</loc></url>
 <url><loc>http://epiforecasts.io/contactsurveys/reference/contactsurveys-package.html</loc></url>
 <url><loc>http://epiforecasts.io/contactsurveys/reference/contactsurveys_dir.html</loc></url>
+<url><loc>http://epiforecasts.io/contactsurveys/reference/delete-files.html</loc></url>
+<url><loc>http://epiforecasts.io/contactsurveys/reference/delete_survey.html</loc></url>
 <url><loc>http://epiforecasts.io/contactsurveys/reference/download_survey.html</loc></url>
 <url><loc>http://epiforecasts.io/contactsurveys/reference/get_citation.html</loc></url>
 <url><loc>http://epiforecasts.io/contactsurveys/reference/index.html</loc></url>
 <url><loc>http://epiforecasts.io/contactsurveys/reference/is_doi.html</loc></url>
 <url><loc>http://epiforecasts.io/contactsurveys/reference/list_surveys.html</loc></url>
+<url><loc>http://epiforecasts.io/contactsurveys/reference/ls_contactsurveys.html</loc></url>
 </urlset>
 
