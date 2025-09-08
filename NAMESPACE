@@ -2,9 +2,13 @@
 
 S3method(print,csbib)
 export(contactsurveys_dir)
+export(delete_contactsurveys_dir)
+export(delete_contactsurveys_files)
+export(delete_survey)
 export(download_survey)
 export(get_citation)
 export(list_surveys)
+export(ls_contactsurveys)
 importFrom(data.table,data.table)
 importFrom(data.table,rbindlist)
 importFrom(data.table,setkey)
