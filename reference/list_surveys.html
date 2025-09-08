@@ -43,7 +43,8 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">list_surveys</span><span class="op">(</span></span>
 <span>  directory <span class="op">=</span> <span class="fu"><a href="contactsurveys_dir.html">contactsurveys_dir</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  overwrite <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  rate <span class="op">=</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/rate-helpers.html" class="external-link">rate_backoff</a></span><span class="op">(</span>pause_base <span class="op">=</span> <span class="fl">5</span>, max_times <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -74,6 +75,15 @@ Default FALSE</p></dd>
 
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
 <dd><p>Whether downloads should be echoed to output. Default TRUE.</p></dd>
+
+
+<dt id="arg-rate">rate<a class="anchor" aria-label="anchor" href="#arg-rate"></a></dt>
+<dd><p>a
+<a href="https://purrr.tidyverse.org/reference/rate-helpers.html" class="external-link">purrr rate</a>
+object, to facilitate downloading if the download fails. Defaults to an
+exponential backoff of 5 seconds (up to 4 attempts: 1 initial + 3 retries)
+changed by specifying your own rate object, see <code>?purrr::rate_backoff()</code>
+for details.</p></dd>
 
 </dl></div>
     <div class="section level2">

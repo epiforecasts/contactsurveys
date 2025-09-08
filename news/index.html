@@ -42,6 +42,7 @@
 <li>Added bibtex citation style as default to <code><a href="../reference/get_citation.html">get_citation()</a></code> - Resolves <a href="https://github.com/epiforecasts/contactsurveys/issues/52" class="external-link">#52</a></li>
 <li>Fixed verbosity issue by importing purrr::quietly - Resolves <a href="https://github.com/epiforecasts/contactsurveys/issues/68" class="external-link">#68</a></li>
 <li>Improved cache management by avoiding unnecessary Zenodo API calls by storing each survey in a subdirectory named after the survey’s DOI/URL basename — Resolves <a href="https://github.com/epiforecasts/contactsurveys/issues/72" class="external-link">#72</a></li>
+<li>Added <code>rate</code> argument to <code><a href="../reference/download_survey.html">download_survey()</a></code> and <code><a href="../reference/list_surveys.html">list_surveys()</a></code> to allow for retrying download if it fails, in a sensible fashion, using <code><a href="https://purrr.tidyverse.org/reference/insistently.html" class="external-link">purrr::insistently()</a></code> - Resolves <a href="https://github.com/epiforecasts/contactsurveys/issues/72" class="external-link">#72</a></li>
 </ul></div>
   </main></div>
 

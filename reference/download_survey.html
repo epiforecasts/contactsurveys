@@ -48,7 +48,8 @@ argument for <code>directory</code>.</p>
 <span>  directory <span class="op">=</span> <span class="fu"><a href="contactsurveys_dir.html">contactsurveys_dir</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  overwrite <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  timeout <span class="op">=</span> <span class="fl">60</span></span>
+<span>  timeout <span class="op">=</span> <span class="fl">3600</span>,</span>
+<span>  rate <span class="op">=</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/rate-helpers.html" class="external-link">rate_backoff</a></span><span class="op">(</span>pause_base <span class="op">=</span> <span class="fl">5</span>, max_times <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -87,8 +88,17 @@ Default FALSE</p></dd>
 
 
 <dt id="arg-timeout">timeout<a class="anchor" aria-label="anchor" href="#arg-timeout"></a></dt>
-<dd><p>A numeric value specifying timeout in seconds. Default 60
-seconds.</p></dd>
+<dd><p>A numeric value specifying timeout in seconds. Default
+3600 seconds.</p></dd>
+
+
+<dt id="arg-rate">rate<a class="anchor" aria-label="anchor" href="#arg-rate"></a></dt>
+<dd><p>a
+<a href="https://purrr.tidyverse.org/reference/rate-helpers.html" class="external-link">purrr rate</a>
+object, to facilitate downloading if the download fails. Defaults to an
+exponential backoff of 5 seconds (up to 4 attempts: 1 initial + 3 retries)
+changed by specifying your own rate object, see <code>?purrr::rate_backoff()</code>
+for details.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -105,7 +115,7 @@ seconds.</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="list_surveys.html">list_surveys</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Downloading survey list from zenodo</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Downloading survey list from zenodo <span style="color: #B2B2B2;">[6.1s]</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Downloading survey list from zenodo <span style="color: #B2B2B2;">[6.2s]</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Key: &lt;date_added&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     date_added</span>
