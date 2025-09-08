@@ -69,11 +69,9 @@ ensure_dir_exists <- function(directory) {
 #'
 #' @returns logical - TRUE if online, FALSE otherwise
 #'
-#' @examples
-#' if (is_online()){
+#' @examplesIf is_online()
 #'   is_online()
-#' }
 #' @export
 is_online <- function(host = "captive.apple.com") {
-  as.logical(!is.null(curl::nslookup(host, error = FALSE)))
+  !is.null(curl::nslookup(host, error = FALSE))
 }

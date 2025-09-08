@@ -16,7 +16,7 @@ logical - TRUE if online, FALSE otherwise
 Are we online?
 }
 \examples{
-if (is_online()){
+\dontshow{if (is_online()) withAutoprint(\{ # examplesIf}
   is_online()
-}
+\dontshow{\}) # examplesIf}
 }
