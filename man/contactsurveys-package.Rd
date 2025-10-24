@@ -4,9 +4,9 @@
 \name{contactsurveys-package}
 \alias{contactsurveys}
 \alias{contactsurveys-package}
-\title{contactsurveys: Download Contact Surveys for use in Infectious Disease Modelling}
+\title{contactsurveys: Download Contact Surveys for Use in Infectious Disease Modelling}
 \description{
-Provides methods for downloading contact surveys, which are commonly used in infectious disease modelling.
+Methods for downloading contact surveys, which are used in infectious disease modelling.
 }
 \seealso{
 Useful links:
@@ -18,7 +18,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Sebastian Funk \email{sebastian.funk@lshtm.ac.uk} (\href{https://orcid.org/0000-0002-2842-3406}{ORCID})
+\strong{Maintainer}: Sebastian Funk \email{sebastian.funk@lshtm.ac.uk} (\href{https://orcid.org/0000-0002-2842-3406}{ORCID}) [copyright holder]
 
 Authors:
 \itemize{
