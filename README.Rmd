@@ -14,7 +14,13 @@ coverage](https://codecov.io/gh/epiforecasts/contactsurveys/graph/badge.svg)](ht
 
 # Installation
 
-The development version can be installed using `remotes`
+The package can be installed using
+
+```r
+install.packages("socialmixr")
+```
+
+The current development version can be installed using `remotes`
 
 ```r
 remotes::install_github("epiforecasts/contactsurveys")

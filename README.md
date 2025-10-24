@@ -16,7 +16,13 @@ downloading surveys has been moved into this package.
 
 # Installation
 
-The development version can be installed using `remotes`
+The package can be installed using
+
+``` r
+install.packages("socialmixr")
+```
+
+The current development version can be installed using `remotes`
 
 ``` r
 remotes::install_github("epiforecasts/contactsurveys")
@@ -82,13 +88,13 @@ polymod_survey_files <- download_survey(polymod_doi, verbose = FALSE)
 polymod_survey_files
 ```
 
-    ## [1] "/Users/runner/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557/2008_Mossong_POLYMOD_contact_common.csv"    
-    ## [2] "/Users/runner/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557/2008_Mossong_POLYMOD_dictionary.xls"        
-    ## [3] "/Users/runner/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557/2008_Mossong_POLYMOD_hh_common.csv"         
-    ## [4] "/Users/runner/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557/2008_Mossong_POLYMOD_hh_extra.csv"          
-    ## [5] "/Users/runner/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557/2008_Mossong_POLYMOD_participant_common.csv"
-    ## [6] "/Users/runner/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557/2008_Mossong_POLYMOD_participant_extra.csv" 
-    ## [7] "/Users/runner/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557/2008_Mossong_POLYMOD_sday.csv"
+    ## [1] "/Users/nick_1/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557/2008_Mossong_POLYMOD_contact_common.csv"    
+    ## [2] "/Users/nick_1/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557/2008_Mossong_POLYMOD_dictionary.xls"        
+    ## [3] "/Users/nick_1/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557/2008_Mossong_POLYMOD_hh_common.csv"         
+    ## [4] "/Users/nick_1/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557/2008_Mossong_POLYMOD_hh_extra.csv"          
+    ## [5] "/Users/nick_1/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557/2008_Mossong_POLYMOD_participant_common.csv"
+    ## [6] "/Users/nick_1/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557/2008_Mossong_POLYMOD_participant_extra.csv" 
+    ## [7] "/Users/nick_1/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557/2008_Mossong_POLYMOD_sday.csv"
 
 ## Getting citations
 
@@ -178,7 +184,9 @@ uk_contact_matrix
 ## Contributors
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+
 <!-- prettier-ignore-start -->
+
 <!-- markdownlint-disable -->
 
 All contributions to this project are gratefully acknowledged using the
@@ -201,5 +209,7 @@ specification. Contributions of any kind are welcome!
 <a href="https://github.com/epiforecasts/contactsurveys/issues?q=is%3Aissue+author%3Aavallecam">avallecam</a>
 
 <!-- markdownlint-enable -->
+
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
