@@ -1,4 +1,4 @@
-# contactsurveys (development version)
+# contactsurveys 0.1.0
 
 * Added NEWS file
 * Added verbosity to `list_surveys()`
