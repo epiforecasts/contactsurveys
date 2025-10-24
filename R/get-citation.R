@@ -12,6 +12,8 @@
 #' @param verbose logical. Should messages during citation fetching print to
 #'   the screen? Default is TRUE.
 #'
+#' @returns A citation string, by default in bibtex format
+#'
 #' @export
 #' @examplesIf is_online()
 #' polymod_doi <- "https://doi.org/10.5281/zenodo.3874557"

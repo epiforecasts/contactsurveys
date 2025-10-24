@@ -22,6 +22,9 @@ values are: "bibtex", "havard-cite-them-right", "apa",
 \item{verbose}{logical. Should messages during citation fetching print to
 the screen? Default is TRUE.}
 }
+\value{
+A citation string, by default in bibtex format
+}
 \description{
 This is a wrapper around \code{\link[zen4R:get_citation]{zen4R::get_citation()}} with a couple of smaller
 changes. Firstly, it silences output from \code{\link[zen4R:get_citation]{zen4R::get_citation()}}, secondly

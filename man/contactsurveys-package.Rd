@@ -6,7 +6,7 @@
 \alias{contactsurveys-package}
 \title{contactsurveys: Download Contact Surveys for use in Infectious Disease Modelling}
 \description{
-Provides methods for downloading contact surveys that are then used in infectious disease modelling.
+Provides methods for downloading contact surveys, which are commonly used in infectious disease modelling.
 }
 \seealso{
 Useful links:
