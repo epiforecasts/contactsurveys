@@ -1,12 +1,12 @@
 Package: contactsurveys
-Title: Download Contact Surveys for use in Infectious Disease Modelling
+Title: Download Contact Surveys for Use in Infectious Disease Modelling
 Version: 0.0.0.9000
 Authors@R: c(
     person(
       given = "Sebastian", 
       family = "Funk",
       email = "sebastian.funk@lshtm.ac.uk", 
-      role = c("aut", "cre"), 
+      role = c("aut", "cre", "cph"), 
       comment = c(ORCID = "0000-0002-2842-3406")
       ),
     person(
