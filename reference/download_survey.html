@@ -115,7 +115,7 @@ for details.</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="list_surveys.html">list_surveys</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Downloading survey list from zenodo</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Downloading survey list from zenodo <span style="color: #B2B2B2;">[5.4s]</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Downloading survey list from zenodo <span style="color: #B2B2B2;">[42.6s]</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Key: &lt;date_added&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     date_added</span>
@@ -165,6 +165,8 @@ for details.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 43: 2024-05-08</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 44: 2024-07-27</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 45: 2025-01-30</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46: 2025-08-13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47: 2025-11-11</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     date_added</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                           title</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                          &lt;char&gt;</span>
@@ -213,6 +215,8 @@ for details.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 43:                                                CoMix data (last round in BE, CH, NL and UK)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 44:                           Social contact data for the BHDSS and FWHDSS in the Gambia (2022)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 45: Social mixing patterns of United States health care personnel at a quaternary health center</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46:                                                               Reconnect social contact data</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47:                                               MixIT: Post-pandemic social contacts in Italy</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                           title</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                   creator                                     url</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                    &lt;char&gt;                                  &lt;char&gt;</span>
@@ -261,6 +265,8 @@ for details.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 43:   Jarvis, Christopher https://doi.org/10.5281/zenodo.11154066</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 44:           Osei, Isaac https://doi.org/10.5281/zenodo.13101862</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 45:       Pischel, Lauren https://doi.org/10.5281/zenodo.14156576</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46:      Goodfellow, Lucy https://doi.org/10.5281/zenodo.17339866</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47:     Lucchini, Lorenzo https://doi.org/10.5281/zenodo.17579537</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                   creator                                     url</span>
 <span class="r-in"><span><span class="va">peru_survey</span> <span class="op">&lt;-</span> <span class="fu">download_survey</span><span class="op">(</span><span class="st">"https://doi.org/10.5281/zenodo.1095664"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Fetching contact survey filenames from: https://doi.org/10.5281/zenodo.1095664.</span>
@@ -269,7 +275,35 @@ for details.</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Try to get deposition by Zenodo specific record id '1095664'</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Successfully fetched list of published records!</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> No record for id '1095664'!</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Successfully fetched list of published records - page 1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Error: lexical error: invalid char in json text.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>                                        &lt;html&gt;&lt;body&gt;&lt;h1&gt;504 Gateway Tim</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>                      (right here) ------^</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Retrying in 7.3 seconds.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Fetching contact survey filenames from: https://doi.org/10.5281/zenodo.1095664.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Successfully fetched list of published records!</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> No record for DOI '10.5281/zenodo.1095664'!</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Try to get deposition by Zenodo specific record id '1095664'</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Error: lexical error: invalid char in json text.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>                                        &lt;!DOCTYPE html&gt; &lt;!-- This "appl</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>                      (right here) ------^</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Retrying in 15 seconds.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Fetching contact survey filenames from: https://doi.org/10.5281/zenodo.1095664.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Successfully fetched list of published records!</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> No record for DOI '10.5281/zenodo.1095664'!</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Try to get deposition by Zenodo specific record id '1095664'</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Successfully fetched list of published records!</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> No record for id '1095664'!</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Error: lexical error: invalid char in json text.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>                                        &lt;html&gt;  &lt;head&gt;&lt;title&gt;502 Bad Ga</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>                      (right here) ------^</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Retrying in 35 seconds.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Fetching contact survey filenames from: https://doi.org/10.5281/zenodo.1095664.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Successfully fetched list of published records!</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> No record for DOI '10.5281/zenodo.1095664'!</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Try to get deposition by Zenodo specific record id '1095664'</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Successfully fetched list of published records!</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> No record for id '1095664'!</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Successfully fetched list of published records - page 1 (size = 10)</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Successfully fetched list of published records!</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Successfully fetched published record for concept DOI '10.5281/zenodo.1095664'!</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Downloading from https://doi.org/10.5281/zenodo.1095664.</span>
@@ -324,7 +358,7 @@ for details.</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

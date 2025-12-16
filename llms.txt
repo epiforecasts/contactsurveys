@@ -1,0 +1,242 @@
+# contactsurveys
+
+`contactsurveys` is an `R` package to download contact survey data,
+which can be used to derive social mixing matrices (see, for example,
+the [socialmixr](https://github.com/epiforecasts/socialmixr) package).
+This code was initially in the socialmixr package, but the code for
+downloading surveys has been moved into this package.
+
+# Installation
+
+The development version can be installed using `remotes`
+
+``` r
+remotes::install_github("epiforecasts/contactsurveys")
+```
+
+# Example usage
+
+``` r
+library(contactsurveys)
+```
+
+`contactsurveys` provides access to all surveys in the [Social contact
+data](https://zenodo.org/communities/social_contact_data) community on
+[Zenodo](https://zenodo.org).
+
+## Listing surveys
+
+The available surveys can be listed (if an internet connection is
+available) with
+[`list_surveys()`](http://epiforecasts.io/contactsurveys/reference/list_surveys.md)
+
+``` r
+social_contact_surveys <- list_surveys(verbose = FALSE)
+dim(social_contact_surveys)
+```
+
+``` R
+## [1] 45  4
+```
+
+``` r
+head(social_contact_surveys)
+```
+
+``` R
+## Key: <date_added>
+##    date_added                             title            creator
+##        <char>                            <char>             <char>
+## 1: 2017-11-07       POLYMOD social contact data       Joël Mossong
+## 2: 2017-12-07      Social contact data for Peru Carlos G. Grijalva
+## 3: 2017-12-22  Social contact data for Zimbabwe   Alessia Melegaro
+## 4: 2018-01-23    Social contact data for France   Guillaume Béraud
+## 5: 2018-02-05 Social contact data for Hong Kong       Kathy  Leung
+## 6: 2018-06-14   Social contact data for Vietnam        Horby Peter
+##                                       url
+##                                    <char>
+## 1: https://doi.org/10.5281/zenodo.3874557
+## 2: https://doi.org/10.5281/zenodo.3874805
+## 3: https://doi.org/10.5281/zenodo.3886638
+## 4: https://doi.org/10.5281/zenodo.3886590
+## 5: https://doi.org/10.5281/zenodo.3874808
+## 6: https://doi.org/10.5281/zenodo.3874802
+```
+
+By default, the survey data from
+[`list_surveys()`](http://epiforecasts.io/contactsurveys/reference/list_surveys.md)
+is effectively cached, so it will run very quickly the next time you run
+it. See `?list_surveys()` for more detail.
+
+## Downloading surveys
+
+Surveys can be downloaded using
+[`download_survey()`](http://epiforecasts.io/contactsurveys/reference/download_survey.md).
+This will get the relevant data of a survey given its Zenodo DOI (as
+returned by
+[`list_surveys()`](http://epiforecasts.io/contactsurveys/reference/list_surveys.md)).
+
+``` r
+polymod_doi <- "https://doi.org/10.5281/zenodo.3874557"
+polymod_survey_files <- download_survey(polymod_doi, verbose = FALSE)
+polymod_survey_files
+```
+
+``` R
+## [1] "/Users/runner/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557/2008_Mossong_POLYMOD_contact_common.csv"    
+## [2] "/Users/runner/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557/2008_Mossong_POLYMOD_dictionary.xls"        
+## [3] "/Users/runner/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557/2008_Mossong_POLYMOD_hh_common.csv"         
+## [4] "/Users/runner/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557/2008_Mossong_POLYMOD_hh_extra.csv"          
+## [5] "/Users/runner/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557/2008_Mossong_POLYMOD_participant_common.csv"
+## [6] "/Users/runner/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557/2008_Mossong_POLYMOD_participant_extra.csv" 
+## [7] "/Users/runner/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557/2008_Mossong_POLYMOD_sday.csv"
+```
+
+## Getting citations
+
+A reference for any given survey can be obtained by passing a DOI to
+[`get_citation()`](http://epiforecasts.io/contactsurveys/reference/get_citation.md):
+
+``` r
+get_citation(polymod_doi, verbose = FALSE)
+```
+
+``` R
+## @dataset{joel_mossong_2020_3874557,
+##   author       = {Joël Mossong and
+##                   Niel Hens and
+##                   Mark Jit and
+##                   Philippe Beutels and
+##                   Kari Auranen and
+##                   Rafael Mikolajczyk and
+##                   Marco Massari and
+##                   Stefania Salmaso and
+##                   Gianpaolo Scalia Tomba and
+##                   Jacco Wallinga and
+##                   Janneke Heijne and
+##                   Malgorzata Sadkowska-Todys and
+##                   Magdalena Rosinska and
+##                   W. John Edmunds},
+##   title        = {POLYMOD social contact data},
+##   month        = jun,
+##   year         = 2020,
+##   publisher    = {Zenodo},
+##   version      = 2,
+##   doi          = {10.5281/zenodo.3874557},
+##   url          = {https://doi.org/10.5281/zenodo.3874557},
+## }
+```
+
+## Using contact matrices with socialmixr
+
+You can then use the survey files downloaded with functions from
+[socialmixr](https://github.com/epiforecasts/socialmixr),
+[`load_survey()`](https://epiforecasts.io/socialmixr/reference/load_survey.html)
+and
+[`contact_matrix()`](https://epiforecasts.io/socialmixr/reference/contact_matrix.html).
+
+``` r
+library(socialmixr)
+```
+
+``` R
+## 
+## Attaching package: 'socialmixr'
+
+## The following objects are masked from 'package:contactsurveys':
+## 
+##     download_survey, get_citation, list_surveys
+```
+
+``` r
+polymod_loaded <- load_survey(polymod_survey_files)
+```
+
+``` R
+## Warning: No reference provided.
+```
+
+``` r
+uk_contact_matrix <- contact_matrix(
+      polymod_loaded,
+      countries = "United Kingdom",
+      age.limits = c(0, 18, 65)
+    )
+```
+
+``` R
+## Removing participants that have contacts without age information.
+## ℹ To change this behaviour, set the 'missing.contact.age' option.
+```
+
+``` r
+uk_contact_matrix
+```
+
+``` R
+## $matrix
+##          contact.age.group
+## age.group   [0,18)  [18,65)       65+
+##   [0,18)  7.813187 5.505495 0.2664835
+##   [18,65) 2.103215 8.174281 0.6463621
+##   65+     1.160714 5.464286 1.7142857
+## 
+## $participants
+##    age.group participants proportion
+##       <char>        <int>      <num>
+## 1:    [0,18)          364  0.3600396
+## 2:   [18,65)          591  0.5845697
+## 3:       65+           56  0.0553907
+```
+
+## Contributors
+
+All contributions to this project are gratefully acknowledged using the
+[`allcontributors` package](https://github.com/ropensci/allcontributors)
+following the [allcontributors](https://allcontributors.org)
+specification. Contributions of any kind are welcome!
+
+### Code
+
+[sbfnk](https://github.com/epiforecasts/contactsurveys/commits?author=sbfnk),
+[Bisaloo](https://github.com/epiforecasts/contactsurveys/commits?author=Bisaloo),
+[njtierney](https://github.com/epiforecasts/contactsurveys/commits?author=njtierney),
+[lwillem](https://github.com/epiforecasts/contactsurveys/commits?author=lwillem),
+[Degoot-AM](https://github.com/epiforecasts/contactsurveys/commits?author=Degoot-AM),
+[jarvisc1](https://github.com/epiforecasts/contactsurveys/commits?author=jarvisc1),
+[alxsrobert](https://github.com/epiforecasts/contactsurveys/commits?author=alxsrobert)
+
+### Issues
+
+[avallecam](https://github.com/epiforecasts/contactsurveys/issues?q=is%3Aissue+author%3Aavallecam)
+
+# Package index
+
+## All functions
+
+- [`contactsurveys_dir()`](http://epiforecasts.io/contactsurveys/reference/contactsurveys_dir.md)
+  : Default directory for persistent storage for contact surveys
+- [`delete_contactsurveys_files()`](http://epiforecasts.io/contactsurveys/reference/delete-files.md)
+  [`delete_contactsurveys_dir()`](http://epiforecasts.io/contactsurveys/reference/delete-files.md)
+  : Delete files in contactsurveys directory
+- [`delete_survey()`](http://epiforecasts.io/contactsurveys/reference/delete_survey.md)
+  : Delete files for a given survey
+- [`download_survey()`](http://epiforecasts.io/contactsurveys/reference/download_survey.md)
+  : Download a survey from its Zenodo repository
+- [`get_citation()`](http://epiforecasts.io/contactsurveys/reference/get_citation.md)
+  : Get citation from a DOI
+- [`is_doi()`](http://epiforecasts.io/contactsurveys/reference/is_doi.md)
+  : Checks if a character string is a DOI
+- [`is_online()`](http://epiforecasts.io/contactsurveys/reference/is_online.md)
+  : Are we online?
+- [`list_surveys()`](http://epiforecasts.io/contactsurveys/reference/list_surveys.md)
+  : List all surveys available for download
+- [`ls_contactsurveys()`](http://epiforecasts.io/contactsurveys/reference/ls_contactsurveys.md)
+  : List files in contactsurveys cache
+
+# Articles
+
+### All vignettes
+
+- [Introduction to
+  contactsurveys](http://epiforecasts.io/contactsurveys/articles/contactsurveys.md):
