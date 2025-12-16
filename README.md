@@ -42,29 +42,29 @@ social_contact_surveys <- list_surveys(verbose = FALSE)
 dim(social_contact_surveys)
 ```
 
-    ## [1] 45  4
+    ## [1] 34  4
 
 ``` r
 head(social_contact_surveys)
 ```
 
     ## Key: <date_added>
-    ##    date_added                             title            creator
-    ##        <char>                            <char>             <char>
-    ## 1: 2017-11-07       POLYMOD social contact data       Joël Mossong
-    ## 2: 2017-12-07      Social contact data for Peru Carlos G. Grijalva
-    ## 3: 2017-12-22  Social contact data for Zimbabwe   Alessia Melegaro
-    ## 4: 2018-01-23    Social contact data for France   Guillaume Béraud
-    ## 5: 2018-02-05 Social contact data for Hong Kong       Kathy  Leung
-    ## 6: 2018-06-14   Social contact data for Vietnam        Horby Peter
-    ##                                       url
-    ##                                    <char>
-    ## 1: https://doi.org/10.5281/zenodo.3874557
-    ## 2: https://doi.org/10.5281/zenodo.3874805
-    ## 3: https://doi.org/10.5281/zenodo.3886638
-    ## 4: https://doi.org/10.5281/zenodo.3886590
-    ## 5: https://doi.org/10.5281/zenodo.3874808
-    ## 6: https://doi.org/10.5281/zenodo.3874802
+    ##    date_added                                                          title
+    ##        <char>                                                         <char>
+    ## 1: 2017-11-07                                    POLYMOD social contact data
+    ## 2: 2017-12-07                                   Social contact data for Peru
+    ## 3: 2017-12-22                                   Zimbabwe social contact data
+    ## 4: 2018-01-23                                     France social contact data
+    ## 5: 2018-09-05                                     Social contact data for UK
+    ## 6: 2019-01-24 Social contact data for Zambia and South Africa (CODA dataset)
+    ##                creator                                    url
+    ##                 <char>                                 <char>
+    ## 1:        Joël Mossong https://doi.org/10.5281/zenodo.3874557
+    ## 2:  Carlos G. Grijalva https://doi.org/10.5281/zenodo.3874805
+    ## 3:    Alessia Melegaro https://doi.org/10.5281/zenodo.1251944
+    ## 4:    Guillaume Béraud https://doi.org/10.5281/zenodo.1158452
+    ## 5: Albert Jan van Hoek https://doi.org/10.5281/zenodo.3874717
+    ## 6:       Peter J. Dodd https://doi.org/10.5281/zenodo.2548693
 
 By default, the survey data from `list_surveys()` is effectively cached,
 so it will run very quickly the next time you run it. See
@@ -152,12 +152,7 @@ uk_contact_matrix <- contact_matrix(
       countries = "United Kingdom",
       age.limits = c(0, 18, 65)
     )
-```
 
-    ## Removing participants that have contacts without age information.
-    ## ℹ To change this behaviour, set the 'missing.contact.age' option.
-
-``` r
 uk_contact_matrix
 ```
 
