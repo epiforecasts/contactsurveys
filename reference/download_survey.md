@@ -81,7 +81,7 @@ a vector of filenames, where the surveys were downloaded
 # \donttest{
 list_surveys()
 #> ℹ Downloading survey list from zenodo
-#> ✔ Downloading survey list from zenodo [42.6s]
+#> ✔ Downloading survey list from zenodo [28.4s]
 #> 
 #> Key: <date_added>
 #>     date_added
@@ -235,34 +235,6 @@ list_surveys()
 #> 47:     Lucchini, Lorenzo https://doi.org/10.5281/zenodo.17579537
 #>                   creator                                     url
 peru_survey <- download_survey("https://doi.org/10.5281/zenodo.1095664")
-#> Fetching contact survey filenames from: https://doi.org/10.5281/zenodo.1095664.
-#> ✔ Successfully fetched list of published records!
-#> ! No record for DOI '10.5281/zenodo.1095664'!
-#> ℹ Try to get deposition by Zenodo specific record id '1095664'
-#> ✔ Successfully fetched list of published records!
-#> ! No record for id '1095664'!
-#> Error: lexical error: invalid char in json text.
-#>                                        <html><body><h1>504 Gateway Tim
-#>                      (right here) ------^
-#> Retrying in 7.3 seconds.
-#> Fetching contact survey filenames from: https://doi.org/10.5281/zenodo.1095664.
-#> ✔ Successfully fetched list of published records!
-#> ! No record for DOI '10.5281/zenodo.1095664'!
-#> ℹ Try to get deposition by Zenodo specific record id '1095664'
-#> Error: lexical error: invalid char in json text.
-#>                                        <!DOCTYPE html> <!-- This "appl
-#>                      (right here) ------^
-#> Retrying in 15 seconds.
-#> Fetching contact survey filenames from: https://doi.org/10.5281/zenodo.1095664.
-#> ✔ Successfully fetched list of published records!
-#> ! No record for DOI '10.5281/zenodo.1095664'!
-#> ℹ Try to get deposition by Zenodo specific record id '1095664'
-#> ✔ Successfully fetched list of published records!
-#> ! No record for id '1095664'!
-#> Error: lexical error: invalid char in json text.
-#>                                        <html>  <head><title>502 Bad Ga
-#>                      (right here) ------^
-#> Retrying in 35 seconds.
 #> Fetching contact survey filenames from: https://doi.org/10.5281/zenodo.1095664.
 #> ✔ Successfully fetched list of published records!
 #> ! No record for DOI '10.5281/zenodo.1095664'!

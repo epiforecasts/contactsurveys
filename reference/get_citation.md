@@ -41,7 +41,7 @@ get_citation(
 polymod_doi <- "https://doi.org/10.5281/zenodo.3874557"
 get_citation(polymod_doi)
 #> ℹ Fetching citation
-#> ✔ Citation fetched! [23.8s]
+#> ✔ Citation fetched! [12.3s]
 #> 
 #> @dataset{joel_mossong_2020_3874557,
 #>   author       = {Joël Mossong and
