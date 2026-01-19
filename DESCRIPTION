@@ -109,6 +109,3 @@ Roxygen: list(markdown = TRUE, roclets = c("collate", "namespace", "rd",
 Config/testthat/edition: 3
 Config/roxyglobals/filename: globals.R
 Config/roxyglobals/unique: FALSE
-Remotes: 
-    eblondel/zen4R,
-    epiforecasts/socialmixr
