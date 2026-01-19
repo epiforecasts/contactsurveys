@@ -81,7 +81,7 @@ a vector of filenames, where the surveys were downloaded
 # \donttest{
 list_surveys()
 #> ℹ Downloading survey list from zenodo
-#> ✔ Downloading survey list from zenodo [14.8s]
+#> ✔ Downloading survey list from zenodo [7.7s]
 #> 
 #> Key: <date_added>
 #>     date_added
@@ -134,6 +134,7 @@ list_surveys()
 #> 46: 2025-08-13
 #> 47: 2025-11-11
 #>     date_added
+#>         <char>
 #>                                                                                           title
 #>                                                                                          <char>
 #>  1:                                                                 POLYMOD social contact data
@@ -184,6 +185,7 @@ list_surveys()
 #> 46:                                                               Reconnect social contact data
 #> 47:                                               MixIT: Post-pandemic social contacts in Italy
 #>                                                                                           title
+#>                                                                                          <char>
 #>                   creator                                     url
 #>                    <char>                                  <char>
 #>  1:          Joël Mossong  https://doi.org/10.5281/zenodo.3874557
@@ -234,6 +236,7 @@ list_surveys()
 #> 46:      Goodfellow, Lucy https://doi.org/10.5281/zenodo.17339866
 #> 47:     Lucchini, Lorenzo https://doi.org/10.5281/zenodo.17579537
 #>                   creator                                     url
+#>                    <char>                                  <char>
 peru_survey <- download_survey("https://doi.org/10.5281/zenodo.1095664")
 #> Fetching contact survey filenames from: https://doi.org/10.5281/zenodo.1095664.
 #> ✔ Successfully fetched list of published records!
