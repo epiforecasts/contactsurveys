@@ -160,7 +160,7 @@ polymod_loaded <- load_survey(polymod_survey_files)
 uk_contact_matrix <- contact_matrix(
       polymod_loaded,
       countries = "United Kingdom",
-      age.limits = c(0, 18, 65)
+      age_limits = c(0, 18, 65)
     )
 
 uk_contact_matrix
