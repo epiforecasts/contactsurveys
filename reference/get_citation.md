@@ -38,12 +38,8 @@ get_citation(
 ## Examples
 
 ``` r
+if (FALSE) { # \dontrun{
 polymod_doi <- "https://doi.org/10.5281/zenodo.3874557"
 get_citation(polymod_doi)
-#> ℹ Fetching citation
-#> Error: lexical error: invalid char in json text.
-#>                                        <html><body><h1>504 Gateway Tim
-#>                      (right here) ------^
-#> ✖ Fetching citation [30.2s]
-#> 
+} # }
 ```
