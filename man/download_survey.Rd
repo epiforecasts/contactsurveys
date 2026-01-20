@@ -54,7 +54,7 @@ Downloads survey data. Uses a caching mechanism via the default
 argument for \code{directory}.
 }
 \examples{
-\donttest{
+\dontrun{
 list_surveys()
 peru_survey <- download_survey("https://doi.org/10.5281/zenodo.1095664")
 }
