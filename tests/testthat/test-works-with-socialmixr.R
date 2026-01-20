@@ -1,14 +1,12 @@
 test_that("socialmixr::load_survey()/as_contact_survey()/clean() works", {
   skip_if_not_installed("socialmixr")
-  skip_if_offline("doi.org")
-  skip_if_offline("zenodo.org")
-  skip_on_cran()
+  vcr::local_cassette("socialmixr-integration")
 
   polymod_url <- "https://doi.org/10.5281/zenodo.3874557"
   peru_url <- "https://doi.org/10.5281/zenodo.1095664"
 
-  polymod_survey <- suppressMessages(download_survey(polymod_url))
-  peru_survey <- suppressMessages(download_survey(peru_url))
+  polymod_survey <- download_survey(polymod_url, verbose = FALSE)
+  peru_survey <- download_survey(peru_url, verbose = FALSE)
 
   polymod_loaded <- suppressWarnings(socialmixr::load_survey(polymod_survey))
   expect_no_error(socialmixr::clean(polymod_loaded))
@@ -25,18 +23,16 @@ test_that("socialmixr::load_survey()/as_contact_survey()/clean() works", {
 
 test_that("socialmixr::contact_matrix() works", {
   skip_if_not_installed("socialmixr")
-  skip_if_offline("doi.org")
-  skip_if_offline("zenodo.org")
-  skip_on_cran()
+  vcr::local_cassette("socialmixr-integration")
 
   polymod_url <- "https://doi.org/10.5281/zenodo.3874557"
   peru_url <- "https://doi.org/10.5281/zenodo.1095664"
 
   polymod_loaded <- suppressWarnings(
-    socialmixr::load_survey(suppressMessages(download_survey(polymod_url)))
+    socialmixr::load_survey(download_survey(polymod_url, verbose = FALSE))
   )
   peru_loaded <- suppressWarnings(
-    socialmixr::load_survey(suppressMessages(download_survey(peru_url)))
+    socialmixr::load_survey(download_survey(peru_url, verbose = FALSE))
   )
 
   expect_no_error(socialmixr::contact_matrix(polymod_loaded))
