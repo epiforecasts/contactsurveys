@@ -81,7 +81,7 @@ a vector of filenames, where the surveys were downloaded
 # \donttest{
 list_surveys()
 #> ℹ Downloading survey list from zenodo
-#> ✔ Downloading survey list from zenodo [20.8s]
+#> ✔ Downloading survey list from zenodo [22.6s]
 #> 
 #> Key: <date_added>
 #>     date_added
