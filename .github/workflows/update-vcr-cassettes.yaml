@@ -1,0 +1,62 @@
+name: Update vcr cassettes
+
+on:
+  schedule:
+    # Run monthly on the 1st at 04:00 UTC
+    - cron: '0 4 1 * *'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  update-cassettes:
+    runs-on: ubuntu-latest
+
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::devtools, any::testthat, any::vcr
+
+      - name: Re-record vcr cassettes
+        run: |
+          Rscript -e '
+            # Force re-recording by deleting existing cassettes
+            unlink("tests/testthat/_vcr/*.yml")
+
+            # Configure vcr for recording (not CI mode)
+            Sys.setenv(CI = "false")
+
+            devtools::load_all()
+
+            # Run tests that use vcr to re-record cassettes
+            testthat::test_file("tests/testthat/test-get-citation.R")
+            testthat::test_file("tests/testthat/test-list-surveys.R")
+            testthat::test_file("tests/testthat/test-surveys.R")
+            testthat::test_file("tests/testthat/test-works-with-socialmixr.R")
+          '
+
+      - name: Normalize cassette timestamps
+        run: |
+          sed -i 's/recorded_at:.*/recorded_at: 2025-01-01 00:00:00 UTC/' tests/testthat/_vcr/*.yml
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: "Update vcr cassettes"
+          title: "Update vcr cassettes"
+          body: |
+            Automated monthly update of vcr cassettes.
+
+            This PR re-records HTTP interactions from Zenodo to ensure cassettes
+            reflect the current API responses.
+
+            Please review the changes to ensure no unexpected API changes occurred.
+          branch: update-vcr-cassettes
+          delete-branch: true

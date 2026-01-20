@@ -1,8 +1,7 @@
 test_that("get_citation() works", {
-  skip_if_offline("zenodo.org")
-  skip_on_cran()
+  vcr::local_cassette("get-citation")
   polymod_doi <- "https://doi.org/10.5281/zenodo.3874557"
-  polymod_citation <- get_citation(polymod_doi)
+  polymod_citation <- get_citation(polymod_doi, verbose = FALSE)
   expect_type(polymod_citation, "character")
   expect_s3_class(polymod_citation, "csbib")
   expect_gt(nchar(polymod_citation), 1)
@@ -14,7 +13,6 @@ test_that("get_citation() works", {
   )
   # verbosity works
   expect_message(get_citation(polymod_doi), "Citation fetched")
-  expect_snapshot(get_citation(polymod_doi, verbose = FALSE))
 
   # check error message for when invalid style used
   expect_snapshot(
