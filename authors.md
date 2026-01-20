@@ -38,11 +38,11 @@ Source:
 [`DESCRIPTION`](https://github.com/epiforecasts/contactsurveys/blob/main/DESCRIPTION)
 
 Funk S, Willem L, Gruson H, Tierney N (2026). *contactsurveys: Download
-Contact Surveys for use in Infectious Disease Modelling*. R package
+Contact Surveys for Use in Infectious Disease Modelling*. R package
 version 0.1.0, <https://github.com/epiforecasts/contactsurveys>.
 
     @Manual{,
-      title = {contactsurveys: Download Contact Surveys for use in Infectious Disease Modelling},
+      title = {contactsurveys: Download Contact Surveys for Use in Infectious Disease Modelling},
       author = {Sebastian Funk and Lander Willem and Hugo Gruson and Nicholas Tierney},
       year = {2026},
       note = {R package version 0.1.0},
