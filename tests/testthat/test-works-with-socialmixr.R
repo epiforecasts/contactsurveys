@@ -1,6 +1,8 @@
 test_that("socialmixr::load_survey()/as_contact_survey()/clean() works", {
   skip_if_not_installed("socialmixr")
   vcr::local_cassette("socialmixr-integration")
+  # Mock download.file to use fixtures instead of real downloads
+  local_mocked_bindings(download.file = mock_download_file, .package = "utils")
 
   polymod_url <- "https://doi.org/10.5281/zenodo.3874557"
   peru_url <- "https://doi.org/10.5281/zenodo.1095664"
@@ -24,6 +26,8 @@ test_that("socialmixr::load_survey()/as_contact_survey()/clean() works", {
 test_that("socialmixr::contact_matrix() works", {
   skip_if_not_installed("socialmixr")
   vcr::local_cassette("socialmixr-integration")
+  # Mock download.file to use fixtures instead of real downloads
+  local_mocked_bindings(download.file = mock_download_file, .package = "utils")
 
   polymod_url <- "https://doi.org/10.5281/zenodo.3874557"
   peru_url <- "https://doi.org/10.5281/zenodo.1095664"
