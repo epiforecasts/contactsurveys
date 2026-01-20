@@ -140,7 +140,7 @@ download_survey <- function(
       writeLines(basename(existing), files_manifest)
       file.create(complete_marker)
     }
-    return(existing)
+    existing
   } else {
     cli::cli_inform("Downloading from {survey_url}.")
     records$downloadFiles(
@@ -156,7 +156,7 @@ download_survey <- function(
       con = file.path(survey_dir, ".contactsurveys_files.txt")
     )
     file.create(file.path(survey_dir, ".contactsurveys_complete"))
-    return(downloaded)
+    downloaded
   }
 }
 
