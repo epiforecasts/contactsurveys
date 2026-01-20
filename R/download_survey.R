@@ -34,7 +34,7 @@
 #'
 #' @autoglobal
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' list_surveys()
 #' peru_survey <- download_survey("https://doi.org/10.5281/zenodo.1095664")
 #' }
