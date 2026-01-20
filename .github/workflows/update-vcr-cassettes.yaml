@@ -42,10 +42,6 @@ jobs:
             testthat::test_file("tests/testthat/test-works-with-socialmixr.R")
           '
 
-      - name: Normalize cassette timestamps
-        run: |
-          sed -i 's/recorded_at:.*/recorded_at: 2025-01-01 00:00:00 UTC/' tests/testthat/_vcr/*.yml
-
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
