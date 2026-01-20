@@ -1,7 +1,5 @@
 test_that("socialmixr::load_survey()/as_contact_survey()/clean() works", {
   skip_if_not_installed("socialmixr")
-  # vcr only mocks metadata API; actual file downloads still hit Zenodo
-  skip_on_ci()
   vcr::local_cassette("socialmixr-integration")
 
   polymod_url <- "https://doi.org/10.5281/zenodo.3874557"
@@ -25,8 +23,6 @@ test_that("socialmixr::load_survey()/as_contact_survey()/clean() works", {
 
 test_that("socialmixr::contact_matrix() works", {
   skip_if_not_installed("socialmixr")
-  # vcr only mocks metadata API; actual file downloads still hit Zenodo
-  skip_on_ci()
   vcr::local_cassette("socialmixr-integration")
 
   polymod_url <- "https://doi.org/10.5281/zenodo.3874557"

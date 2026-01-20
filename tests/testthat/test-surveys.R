@@ -1,6 +1,4 @@
 test_that("surveys can be downloaded with download_survey()", {
-  # vcr only mocks metadata API; actual file downloads still hit Zenodo
-  skip_on_ci()
   vcr::local_cassette("download-survey")
   doi_peru <- "10.5281/zenodo.1095664" # nolint
   peru_survey_files <- download_survey(doi_peru, verbose = FALSE)
@@ -13,8 +11,6 @@ test_that("surveys can be downloaded with download_survey()", {
 })
 
 test_that("survey downloads are faster on cache", {
-  # vcr only mocks metadata API; actual file downloads still hit Zenodo
-  skip_on_ci()
   vcr::local_cassette("download-survey")
   doi_peru <- "10.5281/zenodo.1095664" # nolint
   # First download (uses vcr cassette)
@@ -37,8 +33,6 @@ test_that("survey downloads are faster on cache", {
 })
 
 test_that("download_survey() is silent when verbose = FALSE", {
-  # vcr only mocks metadata API; actual file downloads still hit Zenodo
-  skip_on_ci()
   vcr::local_cassette("download-survey")
   doi_peru <- "10.5281/zenodo.1095664" # nolint
   expect_silent(
@@ -47,7 +41,8 @@ test_that("download_survey() is silent when verbose = FALSE", {
 })
 
 test_that("multiple DOI's cannot be loaded", {
-  # This error is thrown before any API call
+  # This error is thrown before any API call, but use vcr for consistency
+  vcr::local_cassette("download-survey")
   # nolint start
   doi_peru <- "10.5281/zenodo.1095664"
   doi_zimbabwe <- "10.5281/zenodo.1127693"
