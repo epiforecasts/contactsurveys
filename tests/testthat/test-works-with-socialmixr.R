@@ -44,7 +44,7 @@ test_that("socialmixr::contact_matrix() works", {
     socialmixr::contact_matrix(
       polymod_loaded,
       countries = "United Kingdom",
-      age.limits = c(0, 18, 65)
+      age_limits = c(0, 18, 65)
     )$matrix
   )
   expect_no_error(socialmixr::contact_matrix(peru_loaded))
@@ -52,7 +52,7 @@ test_that("socialmixr::contact_matrix() works", {
     socialmixr::contact_matrix(
       peru_loaded,
       countries = "Peru",
-      age.limits = c(0, 18, 65)
+      age_limits = c(0, 18, 65)
     )$matrix
   )
 })
