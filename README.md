@@ -152,7 +152,19 @@ uk_contact_matrix <- contact_matrix(
       countries = "United Kingdom",
       age.limits = c(0, 18, 65)
     )
+```
 
+    ## Warning: The `age.limits` argument of `contact_matrix()` is deprecated as of socialmixr
+    ## 1.0.0.
+    ## ℹ Please use the `age_limits` argument instead.
+    ## ℹ The deprecated feature was likely used in the socialmixr package.
+    ##   Please report the issue at
+    ##   <https://github.com/epiforecasts/socialmixr/issues>.
+    ## This warning is displayed once per session.
+    ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+    ## generated.
+
+``` r
 uk_contact_matrix
 ```
 
