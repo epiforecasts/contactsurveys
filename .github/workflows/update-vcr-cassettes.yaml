@@ -35,15 +35,16 @@ jobs:
 
             devtools::load_all()
 
-            # Run vcr tests to re-record
-            testthat::test_file("tests/testthat/test-vcr-get-citation.R")
-            testthat::test_file("tests/testthat/test-vcr-list-survey.R")
-            testthat::test_file("tests/testthat/test-vcr-download-survey.R")
+            # Run tests that use vcr to re-record cassettes
+            testthat::test_file("tests/testthat/test-get-citation.R")
+            testthat::test_file("tests/testthat/test-list-surveys.R")
+            testthat::test_file("tests/testthat/test-surveys.R")
+            testthat::test_file("tests/testthat/test-works-with-socialmixr.R")
           '
 
       - name: Normalize cassette timestamps
         run: |
-          sed -i 's/recorded_at:.*/recorded_at: REDACTED/' tests/testthat/_vcr/*.yml
+          sed -i 's/recorded_at:.*/recorded_at: 2025-01-01 00:00:00 UTC/' tests/testthat/_vcr/*.yml
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
