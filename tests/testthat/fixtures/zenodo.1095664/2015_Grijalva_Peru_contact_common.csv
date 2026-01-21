@@ -1,0 +1,4 @@
+part_id,cont_id,cnt_age_exact,cnt_age_est_min,cnt_age_est_max
+1,1,30,NA,NA
+1,2,NA,20,30
+2,3,45,NA,NA
