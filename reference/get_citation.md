@@ -11,7 +11,7 @@ secondly the default citation style is "apa".
 ``` r
 get_citation(
   doi,
-  style = c("bibtex", "apa", "havard-cite-them-right", "modern-language-association",
+  style = c("bibtex", "apa", "harvard-cite-them-right", "modern-language-association",
     "vancouver", "chicago-fullnote-bibliography", "ieee"),
   verbose = TRUE
 )
@@ -26,7 +26,7 @@ get_citation(
 - style:
 
   A string, the citation style. Default is "bibtex". Possible values
-  are: "bibtex", "havard-cite-them-right", "apa",
+  are: "bibtex", "harvard-cite-them-right", "apa",
   "modern-language-association", "vancouver",
   "chicago-fullnote-bibliography", or "ieee".
 

@@ -1,4 +1,4 @@
-# contactsurveys: Download Contact Surveys for use in Infectious Disease Modelling
+# contactsurveys: Download Contact Surveys for Use in Infectious Disease Modelling
 
 Provides methods for downloading contact surveys that are then used in
 infectious disease modelling.
