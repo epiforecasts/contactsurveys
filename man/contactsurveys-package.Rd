@@ -4,7 +4,7 @@
 \name{contactsurveys-package}
 \alias{contactsurveys}
 \alias{contactsurveys-package}
-\title{contactsurveys: Download Contact Surveys for use in Infectious Disease Modelling}
+\title{contactsurveys: Download Contact Surveys for Use in Infectious Disease Modelling}
 \description{
 Provides methods for downloading contact surveys that are then used in infectious disease modelling.
 }

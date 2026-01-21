@@ -76,6 +76,7 @@ Authors@R: c(
 Description: Provides methods for downloading contact surveys that are then 
   used in infectious disease modelling.
 License: MIT + file LICENSE
+Language: en-US
 Depends: 
     R (>= 4.1.0)
 Imports:

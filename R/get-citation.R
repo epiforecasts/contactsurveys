@@ -6,7 +6,7 @@
 #'
 #' @param doi A string, the Zenodo DOI or concept DOI.
 #' @param style A string, the citation style. Default is "bibtex". Possible
-#'   values are: "bibtex", "havard-cite-them-right", "apa",
+#'   values are: "bibtex", "harvard-cite-them-right", "apa",
 #'   "modern-language-association", "vancouver",
 #'   "chicago-fullnote-bibliography", or "ieee".
 #' @param verbose logical. Should messages during citation fetching print to
@@ -23,7 +23,7 @@ get_citation <- function(
   style = c(
     "bibtex",
     "apa",
-    "havard-cite-them-right",
+    "harvard-cite-them-right",
     "modern-language-association",
     "vancouver",
     "chicago-fullnote-bibliography",
