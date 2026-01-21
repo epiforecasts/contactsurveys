@@ -14,3 +14,6 @@ cran-comments.md
 ^surveys$
 ^revdep$
 ^README.Rmd$
+^cran-comments\.md$
+^\.coderabbit\.yaml$
+^\.claude$
