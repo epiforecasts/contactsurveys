@@ -1,5 +1,5 @@
 Package: contactsurveys
-Title: Download Contact Surveys for use in Infectious Disease Modelling
+Title: Download Contact Surveys for Use in Infectious Disease Modelling
 Version: 0.1.0
 Authors@R: c(
     person(
