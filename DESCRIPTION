@@ -3,74 +3,24 @@ Title: Download Contact Surveys for Use in Infectious Disease Modelling
 Version: 0.1.0
 Authors@R: c(
     person(
-      given = "Sebastian", 
+      given = "Sebastian",
       family = "Funk",
-      email = "sebastian.funk@lshtm.ac.uk", 
-      role = c("aut", "cre"), 
+      email = "sebastian.funk@lshtm.ac.uk",
+      role = c("aut", "cre", "cph"),
       comment = c(ORCID = "0000-0002-2842-3406")
       ),
     person(
-      given = "Lander", 
-      family = "Willem", 
-      role = "aut", 
-      comment = c(ORCID = "0000-0002-9210-1196")
-      ),
-    person(
-      given = "Hugo", 
-      family = "Gruson", 
-      role = "aut", 
-      comment = c(ORCID = "0000-0002-4094-1476")
-      ),
-    person(
-      given = "Maria", 
-      family = "Bekker-Nielsen Dunbar",
-      role = "ctb", 
-      comment = c(ORCID = "0000-0002-7249-3524")
-      ),
-    person(
-      given = "Carl A. B.", 
-      family = "Pearson", 
-      role = "ctb", 
-      comment = c(ORCID = "0000-0003-0701-7860")
-      ),
-    person(
-      given = "Sam", 
-      family = "Clifford",
-      email = "sj.clifford@gmail.com", 
-      role = "ctb", 
-      comment = c(ORCID = "0000-0002-3774-3882")
-      ),
-    person(
-      given = "Christopher", 
-      family = "Jarvis", 
-      role = "ctb", 
-      comment = c(ORCID = "0000-0002-0812-2446")
-      ),
-    person(
-      given = "Alexis", 
-      family = "Robert",
-      email = "alexis.robert@lshtm.ac.uk", 
-      role = "ctb", 
-      comment = c(ORCID = "0000-0002-4516-2965")
-      ),
-    person(
-      given = "Niel", 
-      family = "Hens", 
-      role = "ctb", 
-      comment = c(ORCID = "0000-0003-1881-0637")
-      ),
-    person(
-      given = "Pietro", 
-      family = "Coletti", 
-      role = c("col", "dtm"), 
-      comment = c(ORCID = "0000-0001-9935-1692")
-      ),
-    person(
-      given = "Nicholas", 
+      given = "Nicholas",
       family = "Tierney",
-      email = "nicholas.tierney@gmail.com", 
-      role = c("aut"), 
+      email = "nicholas.tierney@gmail.com",
+      role = "aut",
       comment = c(ORCID = "0000-0003-1460-8722")
+      ),
+    person(
+      given = "Hugo",
+      family = "Gruson",
+      role = "ctb",
+      comment = c(ORCID = "0000-0002-4094-1476")
       )
   )
 Description: Provides methods for downloading contact surveys that are then 

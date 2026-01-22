@@ -18,24 +18,16 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Sebastian Funk \email{sebastian.funk@lshtm.ac.uk} (\href{https://orcid.org/0000-0002-2842-3406}{ORCID})
+\strong{Maintainer}: Sebastian Funk \email{sebastian.funk@lshtm.ac.uk} (\href{https://orcid.org/0000-0002-2842-3406}{ORCID}) [copyright holder]
 
 Authors:
 \itemize{
-  \item Lander Willem (\href{https://orcid.org/0000-0002-9210-1196}{ORCID})
-  \item Hugo Gruson (\href{https://orcid.org/0000-0002-4094-1476}{ORCID})
   \item Nicholas Tierney \email{nicholas.tierney@gmail.com} (\href{https://orcid.org/0000-0003-1460-8722}{ORCID})
 }
 
 Other contributors:
 \itemize{
-  \item Maria Bekker-Nielsen Dunbar (\href{https://orcid.org/0000-0002-7249-3524}{ORCID}) [contributor]
-  \item Carl A. B. Pearson (\href{https://orcid.org/0000-0003-0701-7860}{ORCID}) [contributor]
-  \item Sam Clifford \email{sj.clifford@gmail.com} (\href{https://orcid.org/0000-0002-3774-3882}{ORCID}) [contributor]
-  \item Christopher Jarvis (\href{https://orcid.org/0000-0002-0812-2446}{ORCID}) [contributor]
-  \item Alexis Robert \email{alexis.robert@lshtm.ac.uk} (\href{https://orcid.org/0000-0002-4516-2965}{ORCID}) [contributor]
-  \item Niel Hens (\href{https://orcid.org/0000-0003-1881-0637}{ORCID}) [contributor]
-  \item Pietro Coletti (\href{https://orcid.org/0000-0001-9935-1692}{ORCID}) [collector, data manager]
+  \item Hugo Gruson (\href{https://orcid.org/0000-0002-4094-1476}{ORCID}) [contributor]
 }
 
 }
