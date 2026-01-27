@@ -26,11 +26,13 @@ mock_download_file <- function(url, destfile, ...) {
   url_basename <- basename(gsub("/content$", "", url))
   fixtures <- list.files(
     testthat::test_path("fixtures"),
-    recursive = TRUE, full.names = TRUE
+    recursive = TRUE,
+    full.names = TRUE
   )
   fixture_match <- fixtures[grepl(
     tools::file_path_sans_ext(url_basename),
-    basename(fixtures), fixed = TRUE
+    basename(fixtures),
+    fixed = TRUE
   )]
 
   # Try real download first
@@ -39,8 +41,11 @@ mock_download_file <- function(url, destfile, ...) {
     error = function(e) e
   )
 
-  if (!inherits(result, "error") &&
-        file.exists(destfile) && file.size(destfile) > 0) {
+  if (
+    !inherits(result, "error") &&
+      file.exists(destfile) &&
+      file.size(destfile) > 0
+  ) {
     # Success - update fixture
     file.copy(
       destfile,
