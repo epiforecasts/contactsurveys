@@ -6,7 +6,7 @@
 \usage{
 download_survey(
   survey,
-  directory = contactsurveys_dir(),
+  directory = tempdir(),
   verbose = TRUE,
   overwrite = FALSE,
   timeout = 3600,
@@ -17,19 +17,14 @@ download_survey(
 \item{survey}{A DOI of a survey, (see \code{\link[=list_surveys]{list_surveys()}}). If a HTML link is
 given, the DOI will be isolated and used.}
 
-\item{directory}{Directory of where to save survey files. The default value
-is to use the directory for your system using \code{\link[=contactsurveys_dir]{contactsurveys_dir()}}, which
-uses \code{\link[tools:userdir]{tools::R_user_dir()}}, and appends the survey URL/DOI basename as a
-new directory. E.g., if you provide in the \code{survey} argument,
-"10.5281/zenodo.1095664", it will save the surveys into a directory
-\code{zenodo.1095664} under \code{contactsurveys_dir()} This effectively caches
-the data. You can specify your own directory, or set an environment
-variable, \code{CONTACTSURVEYS_HOME}, see \code{\link[=Sys.setenv]{Sys.setenv()}} or \link{Renviron} for
-more detail. If this argument is set to something other than
-\code{\link[=contactsurveys_dir]{contactsurveys_dir()}}, a warning is issued to discourage unnecessary
-downloads outside the persistent cache. Note that identical content
-accessed via different identifiers (e.g., DOI vs. a resolved record URL)
-will be cached in separate directories by design.}
+\item{directory}{Directory of where to save survey files. Defaults to
+\code{\link[=tempdir]{tempdir()}}, so files do not persist across R sessions. For persistent
+caching, pass \code{\link[=contactsurveys_dir]{contactsurveys_dir()}}, which uses \code{\link[tools:userdir]{tools::R_user_dir()}}
+and appends the survey URL/DOI basename as a subdirectory. E.g., if you
+provide "10.5281/zenodo.1095664" in the \code{survey} argument, it will save
+the surveys into a directory \code{zenodo.1095664} under
+\code{contactsurveys_dir()}. You can also set an environment variable,
+\code{CONTACTSURVEYS_HOME}, see \code{\link[=Sys.setenv]{Sys.setenv()}} or \link{Renviron} for more detail.}
 
 \item{verbose}{Whether downloads should be echoed to output. Default TRUE.}
 

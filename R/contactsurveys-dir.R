@@ -1,14 +1,13 @@
-#' Default directory for persistent storage for contact surveys
+#' Directory for persistent storage of contact surveys
 #'
-#' Use `contactsurveys_dir()` to view the default storage location for files
-#' that are downloaded. The [download_survey()] function downloads files into
-#' `contactsurveys_dir()`. This uses a directory that is specific to your
-#' operating system, powered by the base function, [tools::R_user_dir()]. You
-#' can override this by setting an environment variable, `CONTACTSURVEYS_HOME`.
-#' The functions [list_surveys()] and [download_survey()] will use this default
-#' directory. You can also specify the `directory` argument in these functions
-#' in place of the default value, `contactsurveys_dir()`. This approach has been
-#' borrowed from Carl Boettiger's `neonstore` R package.
+#' Returns a platform-specific directory for persistent storage of downloaded
+#' survey files, powered by [tools::R_user_dir()]. You can override this by
+#' setting the environment variable `CONTACTSURVEYS_HOME`.
+#'
+#' By default, [download_survey()] and [list_surveys()] use [tempdir()] so
+#' files do not persist across R sessions. To enable persistent caching, pass
+#' `contactsurveys_dir()` as the `directory` argument, e.g.
+#' `download_survey(survey, directory = contactsurveys_dir())`.
 #'
 #' @return the active `contactsurveys` directory.
 #' @export
