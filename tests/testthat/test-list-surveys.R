@@ -5,7 +5,7 @@ test_that("list_surveys() caches to disk and returns non-empty result", {
   expect_gt(nrow(dat), 0)
   expect_true(all(c("title", "creator") %in% names(dat)))
   # verify file exists
-  survey_path <- file.path(contactsurveys_dir(), "survey_list.rds")
+  survey_path <- file.path(tempdir(), "survey_list.rds")
   expect_true(file.exists(survey_path))
 
   # verify time taken is shorter on a second run
@@ -21,14 +21,12 @@ test_that("list_surveys() caches to disk and returns non-empty result", {
   )
 })
 
-test_that("list_surveys() gives warnings when non-default directory used ", {
+test_that("list_surveys() works with a custom directory", {
   vcr::local_cassette("list-survey")
   tmp <- withr::local_tempdir()
-  expect_warning(
-    list_surveys(directory = tmp, verbose = TRUE),
-    "Directory",
-    fixed = TRUE
-  )
+  dat <- list_surveys(directory = tmp, verbose = FALSE)
+  expect_s3_class(dat, c("data.table", "data.frame"))
+  expect_true(file.exists(file.path(tmp, "survey_list.rds")))
 })
 
 test_that("list_surveys() is verbose or silent when verbose = TRUE or FALSE", {
