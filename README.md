@@ -82,13 +82,13 @@ polymod_survey_files <- download_survey(polymod_doi, verbose = FALSE)
 polymod_survey_files
 ```
 
-    ## [1] "/var/folders/kg/7q73ww8s3llgyl61c9z_j5g40000gn/T//RtmpKjuofi/zenodo.3874557/2008_Mossong_POLYMOD_contact_common.csv"    
-    ## [2] "/var/folders/kg/7q73ww8s3llgyl61c9z_j5g40000gn/T//RtmpKjuofi/zenodo.3874557/2008_Mossong_POLYMOD_dictionary.xls"        
-    ## [3] "/var/folders/kg/7q73ww8s3llgyl61c9z_j5g40000gn/T//RtmpKjuofi/zenodo.3874557/2008_Mossong_POLYMOD_hh_common.csv"         
-    ## [4] "/var/folders/kg/7q73ww8s3llgyl61c9z_j5g40000gn/T//RtmpKjuofi/zenodo.3874557/2008_Mossong_POLYMOD_hh_extra.csv"          
-    ## [5] "/var/folders/kg/7q73ww8s3llgyl61c9z_j5g40000gn/T//RtmpKjuofi/zenodo.3874557/2008_Mossong_POLYMOD_participant_common.csv"
-    ## [6] "/var/folders/kg/7q73ww8s3llgyl61c9z_j5g40000gn/T//RtmpKjuofi/zenodo.3874557/2008_Mossong_POLYMOD_participant_extra.csv" 
-    ## [7] "/var/folders/kg/7q73ww8s3llgyl61c9z_j5g40000gn/T//RtmpKjuofi/zenodo.3874557/2008_Mossong_POLYMOD_sday.csv"
+    ## [1] "/var/folders/kg/7q73ww8s3llgyl61c9z_j5g40000gn/T//Rtmp7Eapqm/zenodo.3874557/2008_Mossong_POLYMOD_contact_common.csv"    
+    ## [2] "/var/folders/kg/7q73ww8s3llgyl61c9z_j5g40000gn/T//Rtmp7Eapqm/zenodo.3874557/2008_Mossong_POLYMOD_dictionary.xls"        
+    ## [3] "/var/folders/kg/7q73ww8s3llgyl61c9z_j5g40000gn/T//Rtmp7Eapqm/zenodo.3874557/2008_Mossong_POLYMOD_hh_common.csv"         
+    ## [4] "/var/folders/kg/7q73ww8s3llgyl61c9z_j5g40000gn/T//Rtmp7Eapqm/zenodo.3874557/2008_Mossong_POLYMOD_hh_extra.csv"          
+    ## [5] "/var/folders/kg/7q73ww8s3llgyl61c9z_j5g40000gn/T//Rtmp7Eapqm/zenodo.3874557/2008_Mossong_POLYMOD_participant_common.csv"
+    ## [6] "/var/folders/kg/7q73ww8s3llgyl61c9z_j5g40000gn/T//Rtmp7Eapqm/zenodo.3874557/2008_Mossong_POLYMOD_participant_extra.csv" 
+    ## [7] "/var/folders/kg/7q73ww8s3llgyl61c9z_j5g40000gn/T//Rtmp7Eapqm/zenodo.3874557/2008_Mossong_POLYMOD_sday.csv"
 
 ## Getting citations
 
