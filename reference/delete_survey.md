@@ -27,8 +27,8 @@ nothing, deleted files
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+if (FALSE) { # interactive()
 peru_doi <- "https://doi.org/10.5281/zenodo.1095664"
 delete_survey(peru_doi)
-} # }
+}
 ```

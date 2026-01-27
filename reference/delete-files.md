@@ -23,7 +23,7 @@ nothing, deletes files.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+if (FALSE) { # interactive()
 delete_contactsurveys_files()
-} # }
+}
 ```
