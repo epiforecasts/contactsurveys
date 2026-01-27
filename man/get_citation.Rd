@@ -28,8 +28,8 @@ changes. Firstly, it silences output from \code{\link[zen4R:get_citation]{zen4R:
 the default citation style is "apa".
 }
 \examples{
-\donttest{
+\dontshow{if (is_online()) withAutoprint(\{ # examplesIf}
 polymod_doi <- "https://doi.org/10.5281/zenodo.3874557"
 get_citation(polymod_doi)
-}
+\dontshow{\}) # examplesIf}
 }
