@@ -16,10 +16,10 @@ nothing, deleted files
 For when you want to delete files associated with a given survey.
 }
 \examples{
-\donttest{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 peru_doi <- "https://doi.org/10.5281/zenodo.1095664"
 delete_survey(peru_doi)
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 \code{\link[=delete_contactsurveys_dir]{delete_contactsurveys_dir()}} \code{\link[=delete_contactsurveys_files]{delete_contactsurveys_files()}}

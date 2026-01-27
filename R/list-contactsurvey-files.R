@@ -30,10 +30,8 @@ ls_contactsurveys <- function(dir = contactsurveys_dir()) {
 #' @export
 #'
 #' @rdname delete-files
-#' @examples
-#' \donttest{
+#' @examplesIf interactive()
 #' delete_contactsurveys_files()
-#' }
 delete_contactsurveys_files <- function(dir = contactsurveys_dir()) {
   if (!.dir.exists(dir)) {
     cli::cli_abort(
@@ -108,11 +106,9 @@ delete_contactsurveys_dir <- function(dir = contactsurveys_dir()) {
 #' @returns nothing, deleted files
 #'
 #' @seealso [delete_contactsurveys_dir()] [delete_contactsurveys_files()]
-#' @examples
-#' \donttest{
+#' @examplesIf interactive()
 #' peru_doi <- "https://doi.org/10.5281/zenodo.1095664"
 #' delete_survey(peru_doi)
-#' }
 #' @export
 delete_survey <- function(survey) {
   check_survey_is_length_one(survey)
