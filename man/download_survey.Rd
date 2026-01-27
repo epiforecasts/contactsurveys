@@ -49,10 +49,10 @@ Downloads survey data. Uses a caching mechanism via the default
 argument for \code{directory}.
 }
 \examples{
-\dontshow{if (is_online()) withAutoprint(\{ # examplesIf}
+\donttest{
 list_surveys()
 peru_survey <- download_survey("https://doi.org/10.5281/zenodo.1095664")
-\dontshow{\}) # examplesIf}
+}
 }
 \seealso{
 \code{\link[=list_surveys]{list_surveys()}}

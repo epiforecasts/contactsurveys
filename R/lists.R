@@ -8,8 +8,10 @@
 #' @importFrom oai list_records
 #' @importFrom data.table data.table setkey rbindlist
 #' @autoglobal
-#' @examplesIf is_online()
+#' @examples
+#' \donttest{
 #' list_surveys()
+#' }
 #' @export
 list_surveys <- function(
   directory = tempdir(),

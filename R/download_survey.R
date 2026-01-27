@@ -28,9 +28,11 @@
 #' @return a vector of filenames, where the surveys were downloaded
 #'
 #' @autoglobal
-#' @examplesIf is_online()
+#' @examples
+#' \donttest{
 #' list_surveys()
 #' peru_survey <- download_survey("https://doi.org/10.5281/zenodo.1095664")
+#' }
 #' @seealso [list_surveys()]
 #' @importFrom zen4R get_zenodo
 #' @export

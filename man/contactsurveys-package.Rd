@@ -6,7 +6,7 @@
 \alias{contactsurveys-package}
 \title{contactsurveys: Download Contact Surveys for Use in Infectious Disease Modelling}
 \description{
-Provides methods for downloading contact surveys that are then used in infectious disease modelling.
+Download, cache, and manage social contact survey data from the social contact data community on Zenodo (\url{https://zenodo.org/communities/social_contact_data}) for use in infectious disease modelling. Provides functions to list available surveys, download survey files with automatic caching, and retrieve citations. Contact survey data describe who contacts whom in a population and are used to parameterise age-structured transmission models, for example via the 'socialmixr' package. The surveys available include those from the POLYMOD study (Mossong et al. (2008) \doi{10.1371/journal.pmed.0050074}) and other social contact data shared on Zenodo.
 }
 \seealso{
 Useful links:
