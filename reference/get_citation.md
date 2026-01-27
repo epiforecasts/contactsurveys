@@ -35,6 +35,11 @@ get_citation(
   logical. Should messages during citation fetching print to the screen?
   Default is TRUE.
 
+## Value
+
+A character string containing the citation in the requested style. For
+`"bibtex"` style, returns an object of class `"csbib"`.
+
 ## Examples
 
 ``` r

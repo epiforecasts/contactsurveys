@@ -21,3 +21,5 @@
   : List all surveys available for download
 - [`ls_contactsurveys()`](http://epiforecasts.io/contactsurveys/reference/ls_contactsurveys.md)
   : List files in contactsurveys cache
+- [`print(`*`<csbib>`*`)`](http://epiforecasts.io/contactsurveys/reference/print.csbib.md)
+  : Print a csbib citation
