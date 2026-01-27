@@ -46,9 +46,10 @@ data.table with columns: date_added, title, creator, url
 ## Examples
 
 ``` r
+# \donttest{
 list_surveys()
 #> Skipping download
-#> ℹ Files already exist at /tmp/RtmpnUA8bQ/survey_list.rds and `overwrite =
+#> ℹ Files already exist at /tmp/Rtmp5ekNRo/survey_list.rds and `overwrite =
 #>   FALSE`
 #> ℹ Set `overwrite = TRUE` to force a re-download.
 #> Key: <date_added>
@@ -205,4 +206,5 @@ list_surveys()
 #> 47:     Lucchini, Lorenzo https://doi.org/10.5281/zenodo.17579537
 #>                   creator                                     url
 #>                    <char>                                  <char>
+# }
 ```

@@ -43,10 +43,11 @@ A character string containing the citation in the requested style. For
 ## Examples
 
 ``` r
+# \donttest{
 polymod_doi <- "https://doi.org/10.5281/zenodo.3874557"
 get_citation(polymod_doi)
 #> ℹ Fetching citation
-#> ✔ Citation fetched! [3.5s]
+#> ✔ Citation fetched! [1.3s]
 #> 
 #> @dataset{joel_mossong_2020_3874557,
 #>   author       = {Joël Mossong and
@@ -71,4 +72,5 @@ get_citation(polymod_doi)
 #>   doi          = {10.5281/zenodo.3874557},
 #>   url          = {https://doi.org/10.5281/zenodo.3874557},
 #> }
+# }
 ```
