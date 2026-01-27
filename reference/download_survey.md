@@ -75,7 +75,7 @@ a vector of filenames, where the surveys were downloaded
 # \donttest{
 list_surveys()
 #> ℹ Downloading survey list from zenodo
-#> ✔ Downloading survey list from zenodo [6.5s]
+#> ✔ Downloading survey list from zenodo [16.7s]
 #> 
 #> Key: <date_added>
 #>     date_added
@@ -264,8 +264,8 @@ peru_survey <- download_survey("https://doi.org/10.5281/zenodo.1095664")
 #> [zen4R][INFO] Downloading file '2015_Grijalva_Peru_contact_common.csv' - size: 617.3 KiB
 #> ℹ Downloading file '2015_Grijalva_Peru_participant_extra.csv' - size: 55 KiB
 #> [zen4R][INFO] Downloading file '2015_Grijalva_Peru_participant_extra.csv' - size: 55 KiB
-#> ℹ Files downloaded at '/tmp/RtmpDxUBcZ/zenodo.1095664'.
-#> [zen4R][INFO] Files downloaded at '/tmp/RtmpDxUBcZ/zenodo.1095664'.
+#> ℹ Files downloaded at '/tmp/RtmpXWadVv/zenodo.1095664'.
+#> [zen4R][INFO] Files downloaded at '/tmp/RtmpXWadVv/zenodo.1095664'.
 #> ℹ Verifying file integrity...
 #> [zen4R][INFO] ZenodoRecord - Verifying file integrity... 
 #> ℹ File '2015_Grijalva_Peru_sday.csv': integrity verified (md5sum: b43c28fa6cce8d7bd6ec6b0621aa5b02)

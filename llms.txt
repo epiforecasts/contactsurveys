@@ -209,8 +209,6 @@ specification. Contributions of any kind are welcome!
   : Get citation from a DOI
 - [`is_doi()`](http://epiforecasts.io/contactsurveys/reference/is_doi.md)
   : Checks if a character string is a DOI
-- [`is_online()`](http://epiforecasts.io/contactsurveys/reference/is_online.md)
-  : Are we online?
 - [`list_surveys()`](http://epiforecasts.io/contactsurveys/reference/list_surveys.md)
   : List all surveys available for download
 - [`ls_contactsurveys()`](http://epiforecasts.io/contactsurveys/reference/ls_contactsurveys.md)
