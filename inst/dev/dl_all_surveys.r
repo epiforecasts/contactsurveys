@@ -1,6 +1,6 @@
 library(contactsurveys)
-library(here)
-library(tictoc)
+library(here) # nolint
+library(tictoc) # nolint
 
 ## list all surveys
 ls <- list_surveys()

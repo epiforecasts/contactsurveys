@@ -24,21 +24,37 @@ vcr::vcr_configure(
 # Mock download.file - try real download, fall back to fixtures if it fails
 mock_download_file <- function(url, destfile, ...) {
   url_basename <- basename(gsub("/content$", "", url))
-  fixtures <- list.files(testthat::test_path("fixtures"), recursive = TRUE, full.names = TRUE)
-  match <- fixtures[grepl(tools::file_path_sans_ext(url_basename), basename(fixtures), fixed = TRUE)]
+  fixtures <- list.files(
+    testthat::test_path("fixtures"),
+    recursive = TRUE,
+    full.names = TRUE
+  )
+  fixture_match <- fixtures[grepl(
+    tools::file_path_sans_ext(url_basename),
+    basename(fixtures),
+    fixed = TRUE
+  )]
 
   # Try real download first
   result <- tryCatch(
-    utils::download.file(url, destfile, ...),
+    utils::download.file(url, destfile, mode = "wb", ...),
     error = function(e) e
   )
 
-  if (!inherits(result, "error") && file.exists(destfile) && file.size(destfile) > 0) {
+  if (
+    !inherits(result, "error") &&
+      file.exists(destfile) &&
+      file.size(destfile) > 0
+  ) {
     # Success - update fixture
-    file.copy(destfile, file.path(testthat::test_path("fixtures"), url_basename), overwrite = TRUE)
-  } else if (length(match) > 0) {
+    file.copy(
+      destfile,
+      file.path(testthat::test_path("fixtures"), url_basename),
+      overwrite = TRUE
+    )
+  } else if (length(fixture_match) > 0) {
     # Download failed - use fixture
-    file.copy(match[1], destfile, overwrite = TRUE)
+    file.copy(fixture_match[1], destfile, overwrite = TRUE)
   } else {
     # No fixture available - create empty file
     file.create(destfile)
