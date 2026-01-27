@@ -9,6 +9,8 @@ This is a resubmission. In this version we have:
   appropriate.
 * Changed writing functions to default to `tempdir()` instead of a
   user-writable directory.
+* Updated WORDLIST to address spelling NOTEs.
+* Removed `is_online()` (no longer used) and `curl` dependency.
 
 ## R CMD check results
 
