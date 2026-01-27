@@ -12,6 +12,8 @@
 #' @param verbose logical. Should messages during citation fetching print to
 #'   the screen? Default is TRUE.
 #'
+#' @return A character string containing the citation in the requested style.
+#'   For `"bibtex"` style, returns an object of class `"csbib"`.
 #' @export
 #' @examples
 #' \dontrun{
@@ -53,6 +55,11 @@ get_citation <- function(
   doi_citation
 }
 
+#' Print a csbib citation
+#'
+#' @param x A `"csbib"` object.
+#' @param ... Additional arguments passed to methods.
+#' @return Invisibly returns `x`.
 #' @export
 print.csbib <- function(x, ...) {
   cat(x, sep = "", "\n")
