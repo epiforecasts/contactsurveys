@@ -16,7 +16,7 @@ nothing, deleted files
 For when you want to delete files associated with a given survey.
 }
 \examples{
-\dontrun{
+\donttest{
 peru_doi <- "https://doi.org/10.5281/zenodo.1095664"
 delete_survey(peru_doi)
 }

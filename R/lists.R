@@ -6,7 +6,7 @@
 #' @importFrom data.table data.table setkey rbindlist
 #' @autoglobal
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' list_surveys()
 #' }
 #' @export

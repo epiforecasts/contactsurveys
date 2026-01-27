@@ -20,7 +20,7 @@ nothing, deletes files.
 Delete files in contactsurveys directory
 }
 \examples{
-\dontrun{
+\donttest{
 delete_contactsurveys_files()
 }
 }

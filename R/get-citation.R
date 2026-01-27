@@ -14,7 +14,7 @@
 #'
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' polymod_doi <- "https://doi.org/10.5281/zenodo.3874557"
 #' get_citation(polymod_doi)
 #' }

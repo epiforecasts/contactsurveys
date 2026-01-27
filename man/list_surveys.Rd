@@ -45,7 +45,7 @@ data.table with columns: date_added, title, creator, url
 List all surveys available for download
 }
 \examples{
-\dontrun{
+\donttest{
 list_surveys()
 }
 }

@@ -31,7 +31,7 @@ ls_contactsurveys <- function(dir = contactsurveys_dir()) {
 #'
 #' @rdname delete-files
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' delete_contactsurveys_files()
 #' }
 delete_contactsurveys_files <- function(dir = contactsurveys_dir()) {
@@ -109,7 +109,7 @@ delete_contactsurveys_dir <- function(dir = contactsurveys_dir()) {
 #'
 #' @seealso [delete_contactsurveys_dir()] [delete_contactsurveys_files()]
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' peru_doi <- "https://doi.org/10.5281/zenodo.1095664"
 #' delete_survey(peru_doi)
 #' }
