@@ -8,7 +8,7 @@ for `directory`.
 ``` r
 download_survey(
   survey,
-  directory = contactsurveys_dir(),
+  directory = tempdir(),
   verbose = TRUE,
   overwrite = FALSE,
   timeout = 3600,
@@ -26,25 +26,19 @@ download_survey(
 
 - directory:
 
-  Directory of where to save survey files. The default value is to use
-  the directory for your system using
+  Directory of where to save survey files. Defaults to
+  [`tempdir()`](https://rdrr.io/r/base/tempfile.html), so files do not
+  persist across R sessions. For persistent caching, pass
   [`contactsurveys_dir()`](http://epiforecasts.io/contactsurveys/reference/contactsurveys_dir.md),
   which uses
-  [`tools::R_user_dir()`](https://rdrr.io/r/tools/userdir.html), and
-  appends the survey URL/DOI basename as a new directory. E.g., if you
-  provide in the `survey` argument, "10.5281/zenodo.1095664", it will
+  [`tools::R_user_dir()`](https://rdrr.io/r/tools/userdir.html) and
+  appends the survey URL/DOI basename as a subdirectory. E.g., if you
+  provide "10.5281/zenodo.1095664" in the `survey` argument, it will
   save the surveys into a directory `zenodo.1095664` under
-  [`contactsurveys_dir()`](http://epiforecasts.io/contactsurveys/reference/contactsurveys_dir.md)
-  This effectively caches the data. You can specify your own directory,
-  or set an environment variable, `CONTACTSURVEYS_HOME`, see
+  [`contactsurveys_dir()`](http://epiforecasts.io/contactsurveys/reference/contactsurveys_dir.md).
+  You can also set an environment variable, `CONTACTSURVEYS_HOME`, see
   [`Sys.setenv()`](https://rdrr.io/r/base/Sys.setenv.html) or
-  [Renviron](https://rdrr.io/r/base/Startup.html) for more detail. If
-  this argument is set to something other than
-  [`contactsurveys_dir()`](http://epiforecasts.io/contactsurveys/reference/contactsurveys_dir.md),
-  a warning is issued to discourage unnecessary downloads outside the
-  persistent cache. Note that identical content accessed via different
-  identifiers (e.g., DOI vs. a resolved record URL) will be cached in
-  separate directories by design.
+  [Renviron](https://rdrr.io/r/base/Startup.html) for more detail.
 
 - verbose:
 

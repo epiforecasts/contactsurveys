@@ -3,7 +3,7 @@
 ## All functions
 
 - [`contactsurveys_dir()`](http://epiforecasts.io/contactsurveys/reference/contactsurveys_dir.md)
-  : Default directory for persistent storage for contact surveys
+  : Directory for persistent storage of contact surveys
 - [`delete_contactsurveys_files()`](http://epiforecasts.io/contactsurveys/reference/delete-files.md)
   [`delete_contactsurveys_dir()`](http://epiforecasts.io/contactsurveys/reference/delete-files.md)
   : Delete files in contactsurveys directory
