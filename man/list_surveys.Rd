@@ -12,14 +12,9 @@ list_surveys(
 )
 }
 \arguments{
-\item{directory}{Directory of where to save survey files. Defaults to
-\code{\link[=tempdir]{tempdir()}}, so files do not persist across R sessions. For persistent
-caching, pass \code{\link[=contactsurveys_dir]{contactsurveys_dir()}}, which uses \code{\link[tools:userdir]{tools::R_user_dir()}}
-and appends the survey URL/DOI basename as a subdirectory. E.g., if you
-provide "10.5281/zenodo.1095664" in the \code{survey} argument, it will save
-the surveys into a directory \code{zenodo.1095664} under
-\code{contactsurveys_dir()}. You can also set an environment variable,
-\code{CONTACTSURVEYS_HOME}, see \code{\link[=Sys.setenv]{Sys.setenv()}} or \link{Renviron} for more detail.}
+\item{directory}{Directory to save the cached survey list. Defaults to
+\code{\link[=tempdir]{tempdir()}}, so the cached list does not persist across R sessions. For
+persistent caching, pass \code{\link[=contactsurveys_dir]{contactsurveys_dir()}}.}
 
 \item{overwrite}{If files should be overwritten if they already exist.
 Default FALSE}

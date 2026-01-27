@@ -1,5 +1,8 @@
 #' List all surveys available for download
 #'
+#' @param directory Directory to save the cached survey list. Defaults to
+#'   [tempdir()], so the cached list does not persist across R sessions. For
+#'   persistent caching, pass [contactsurveys_dir()].
 #' @return data.table with columns: date_added, title, creator, url
 #' @inheritParams download_survey
 #' @importFrom oai list_records
@@ -35,8 +38,6 @@ list_surveys <- function(
   directory = tempdir(),
   overwrite = FALSE
 ) {
-
-
   survey_list_path <- file.path(directory, "survey_list.rds")
   survey_list_exists <- file.exists(survey_list_path)
   do_not_download <- survey_list_exists && !overwrite
