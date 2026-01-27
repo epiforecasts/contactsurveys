@@ -109,7 +109,10 @@ for details.</p></dd>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="list_surveys.html">list_surveys</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Downloading survey list from zenodo</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Downloading survey list from zenodo <span style="color: #B2B2B2;">[23.4s]</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Error in curl::curl_fetch_memory(url, handle = handle): Timeout was reached [zenodo.org]:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> SSL connection timeout</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Request failed [ERROR]. Retrying in 1.5 seconds...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Downloading survey list from zenodo <span style="color: #B2B2B2;">[23.9s]</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Key: &lt;date_added&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     date_added</span>
@@ -298,8 +301,8 @@ for details.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [zen4R][INFO] Downloading file '2015_Grijalva_Peru_contact_common.csv' - size: 617.3 KiB</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Downloading file '2015_Grijalva_Peru_participant_extra.csv' - size: 55 KiB</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [zen4R][INFO] Downloading file '2015_Grijalva_Peru_participant_extra.csv' - size: 55 KiB</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Files downloaded at '/tmp/RtmptsiYfd/zenodo.1095664'.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [zen4R][INFO] Files downloaded at '/tmp/RtmptsiYfd/zenodo.1095664'.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Files downloaded at '/tmp/RtmprWoSch/zenodo.1095664'.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [zen4R][INFO] Files downloaded at '/tmp/RtmprWoSch/zenodo.1095664'.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Verifying file integrity...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [zen4R][INFO] ZenodoRecord - Verifying file integrity... </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> File '2015_Grijalva_Peru_sday.csv': integrity verified (md5sum: b43c28fa6cce8d7bd6ec6b0621aa5b02)</span>

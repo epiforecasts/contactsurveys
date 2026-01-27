@@ -102,62 +102,54 @@
 <p>Surveys can be downloaded using <code><a href="reference/download_survey.html">download_survey()</a></code>. This will get the relevant data of a survey given its Zenodo DOI (as returned by <code><a href="reference/list_surveys.html">list_surveys()</a></code>).</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">polymod_doi</span> <span class="op">&lt;-</span> <span class="st">"https://doi.org/10.5281/zenodo.3874557"</span></span>
-<span><span class="va">polymod_survey_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/download_survey.html">download_survey</a></span><span class="op">(</span><span class="va">polymod_doi</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="va">polymod_survey_files</span></span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="do">## [1] "/var/folders/kg/7q73ww8s3llgyl61c9z_j5g40000gn/T//RtmpKjuofi/zenodo.3874557/2008_Mossong_POLYMOD_contact_common.csv"    </span></span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="do">## [2] "/var/folders/kg/7q73ww8s3llgyl61c9z_j5g40000gn/T//RtmpKjuofi/zenodo.3874557/2008_Mossong_POLYMOD_dictionary.xls"        </span></span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="do">## [3] "/var/folders/kg/7q73ww8s3llgyl61c9z_j5g40000gn/T//RtmpKjuofi/zenodo.3874557/2008_Mossong_POLYMOD_hh_common.csv"         </span></span>
-<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="do">## [4] "/var/folders/kg/7q73ww8s3llgyl61c9z_j5g40000gn/T//RtmpKjuofi/zenodo.3874557/2008_Mossong_POLYMOD_hh_extra.csv"          </span></span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="do">## [5] "/var/folders/kg/7q73ww8s3llgyl61c9z_j5g40000gn/T//RtmpKjuofi/zenodo.3874557/2008_Mossong_POLYMOD_participant_common.csv"</span></span>
-<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="do">## [6] "/var/folders/kg/7q73ww8s3llgyl61c9z_j5g40000gn/T//RtmpKjuofi/zenodo.3874557/2008_Mossong_POLYMOD_participant_extra.csv" </span></span>
-<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="do">## [7] "/var/folders/kg/7q73ww8s3llgyl61c9z_j5g40000gn/T//RtmpKjuofi/zenodo.3874557/2008_Mossong_POLYMOD_sday.csv"</span></span></code></pre></div>
+<span><span class="va">polymod_survey_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/download_survey.html">download_survey</a></span><span class="op">(</span><span class="va">polymod_doi</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="getting-citations">Getting citations<a class="anchor" aria-label="anchor" href="#getting-citations"></a>
 </h2>
 <p>A reference for any given survey can be obtained by passing a DOI to <code><a href="reference/get_citation.html">get_citation()</a></code>:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/get_citation.html">get_citation</a></span><span class="op">(</span><span class="va">polymod_doi</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="do">## @dataset{joel_mossong_2020_3874557,</span></span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="do">##   author       = {Joël Mossong and</span></span>
-<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="do">##                   Niel Hens and</span></span>
-<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="do">##                   Mark Jit and</span></span>
-<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a><span class="do">##                   Philippe Beutels and</span></span>
-<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a><span class="do">##                   Kari Auranen and</span></span>
-<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a><span class="do">##                   Rafael Mikolajczyk and</span></span>
-<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a><span class="do">##                   Marco Massari and</span></span>
-<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a><span class="do">##                   Stefania Salmaso and</span></span>
-<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a><span class="do">##                   Gianpaolo Scalia Tomba and</span></span>
-<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a><span class="do">##                   Jacco Wallinga and</span></span>
-<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a><span class="do">##                   Janneke Heijne and</span></span>
-<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a><span class="do">##                   Malgorzata Sadkowska-Todys and</span></span>
-<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a><span class="do">##                   Magdalena Rosinska and</span></span>
-<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a><span class="do">##                   W. John Edmunds},</span></span>
-<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a><span class="do">##   title        = {POLYMOD social contact data},</span></span>
-<span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a><span class="do">##   month        = jun,</span></span>
-<span id="cb10-18"><a href="#cb10-18" tabindex="-1"></a><span class="do">##   year         = 2020,</span></span>
-<span id="cb10-19"><a href="#cb10-19" tabindex="-1"></a><span class="do">##   publisher    = {Zenodo},</span></span>
-<span id="cb10-20"><a href="#cb10-20" tabindex="-1"></a><span class="do">##   version      = 2,</span></span>
-<span id="cb10-21"><a href="#cb10-21" tabindex="-1"></a><span class="do">##   doi          = {10.5281/zenodo.3874557},</span></span>
-<span id="cb10-22"><a href="#cb10-22" tabindex="-1"></a><span class="do">##   url          = {https://doi.org/10.5281/zenodo.3874557},</span></span>
-<span id="cb10-23"><a href="#cb10-23" tabindex="-1"></a><span class="do">## }</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="do">## @dataset{joel_mossong_2020_3874557,</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="do">##   author       = {Joël Mossong and</span></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="do">##                   Niel Hens and</span></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="do">##                   Mark Jit and</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="do">##                   Philippe Beutels and</span></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="do">##                   Kari Auranen and</span></span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="do">##                   Rafael Mikolajczyk and</span></span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="do">##                   Marco Massari and</span></span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="do">##                   Stefania Salmaso and</span></span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a><span class="do">##                   Gianpaolo Scalia Tomba and</span></span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="do">##                   Jacco Wallinga and</span></span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a><span class="do">##                   Janneke Heijne and</span></span>
+<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="do">##                   Malgorzata Sadkowska-Todys and</span></span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="do">##                   Magdalena Rosinska and</span></span>
+<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a><span class="do">##                   W. John Edmunds},</span></span>
+<span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a><span class="do">##   title        = {POLYMOD social contact data},</span></span>
+<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a><span class="do">##   month        = jun,</span></span>
+<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a><span class="do">##   year         = 2020,</span></span>
+<span id="cb9-19"><a href="#cb9-19" tabindex="-1"></a><span class="do">##   publisher    = {Zenodo},</span></span>
+<span id="cb9-20"><a href="#cb9-20" tabindex="-1"></a><span class="do">##   version      = 2,</span></span>
+<span id="cb9-21"><a href="#cb9-21" tabindex="-1"></a><span class="do">##   doi          = {10.5281/zenodo.3874557},</span></span>
+<span id="cb9-22"><a href="#cb9-22" tabindex="-1"></a><span class="do">##   url          = {https://doi.org/10.5281/zenodo.3874557},</span></span>
+<span id="cb9-23"><a href="#cb9-23" tabindex="-1"></a><span class="do">## }</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="using-contact-matrices-with-socialmixr">Using contact matrices with socialmixr<a class="anchor" aria-label="anchor" href="#using-contact-matrices-with-socialmixr"></a>
 </h2>
 <p>You can then use the survey files downloaded with functions from <a href="https://github.com/epiforecasts/socialmixr" class="external-link">socialmixr</a>, <code><a href="https://epiforecasts.io/socialmixr/reference/load_survey.html" class="external-link">load_survey()</a></code> and <code><a href="https://epiforecasts.io/socialmixr/reference/contact_matrix.html" class="external-link">contact_matrix()</a></code>.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/epiforecasts/socialmixr" class="external-link">socialmixr</a></span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb12"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a><span class="do">## Attaching package: 'socialmixr'</span></span>
-<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a></span>
-<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a><span class="do">## The following objects are masked from 'package:contactsurveys':</span></span>
-<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a><span class="do">##     download_survey, get_citation, list_surveys</span></span></code></pre></div>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="do">## Attaching package: 'socialmixr'</span></span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="do">## The following objects are masked from 'package:contactsurveys':</span></span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="do">##     download_survey, get_citation, list_surveys</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">polymod_loaded</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://epiforecasts.io/socialmixr/reference/load_survey.html" class="external-link">load_survey</a></span><span class="op">(</span><span class="va">polymod_survey_files</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb14"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="do">## Warning: No reference provided.</span></span></code></pre></div>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="do">## Warning: No reference provided.</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">uk_contact_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://epiforecasts.io/socialmixr/reference/contact_matrix.html" class="external-link">contact_matrix</a></span><span class="op">(</span></span>
 <span>      <span class="va">polymod_loaded</span>,</span>
 <span>      countries <span class="op">=</span> <span class="st">"United Kingdom"</span>,</span>
@@ -165,19 +157,19 @@
 <span>    <span class="op">)</span></span>
 <span></span>
 <span><span class="va">uk_contact_matrix</span></span></code></pre></div>
-<div class="sourceCode" id="cb16"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="do">## $matrix</span></span>
-<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a><span class="do">##          contact.age.group</span></span>
-<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a><span class="do">## age.group   [0,18)  [18,65)       65+</span></span>
-<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a><span class="do">##   [0,18)  7.813187 5.505495 0.2664835</span></span>
-<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a><span class="do">##   [18,65) 2.103215 8.174281 0.6463621</span></span>
-<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a><span class="do">##   65+     1.160714 5.464286 1.7142857</span></span>
-<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a><span class="do">## $participants</span></span>
-<span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a><span class="do">##    age.group participants proportion</span></span>
-<span id="cb16-10"><a href="#cb16-10" tabindex="-1"></a><span class="do">##       &lt;char&gt;        &lt;int&gt;      &lt;num&gt;</span></span>
-<span id="cb16-11"><a href="#cb16-11" tabindex="-1"></a><span class="do">## 1:    [0,18)          364  0.3600396</span></span>
-<span id="cb16-12"><a href="#cb16-12" tabindex="-1"></a><span class="do">## 2:   [18,65)          591  0.5845697</span></span>
-<span id="cb16-13"><a href="#cb16-13" tabindex="-1"></a><span class="do">## 3:       65+           56  0.0553907</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="do">## $matrix</span></span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="do">##          contact.age.group</span></span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a><span class="do">## age.group   [0,18)  [18,65)       65+</span></span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a><span class="do">##   [0,18)  7.813187 5.505495 0.2664835</span></span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a><span class="do">##   [18,65) 2.103215 8.174281 0.6463621</span></span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a><span class="do">##   65+     1.160714 5.464286 1.7142857</span></span>
+<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a><span class="do">## $participants</span></span>
+<span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a><span class="do">##    age.group participants proportion</span></span>
+<span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a><span class="do">##       &lt;char&gt;        &lt;int&gt;      &lt;num&gt;</span></span>
+<span id="cb15-11"><a href="#cb15-11" tabindex="-1"></a><span class="do">## 1:    [0,18)          364  0.3600396</span></span>
+<span id="cb15-12"><a href="#cb15-12" tabindex="-1"></a><span class="do">## 2:   [18,65)          591  0.5845697</span></span>
+<span id="cb15-13"><a href="#cb15-13" tabindex="-1"></a><span class="do">## 3:       65+           56  0.0553907</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="contributors">Contributors<a class="anchor" aria-label="anchor" href="#contributors"></a>

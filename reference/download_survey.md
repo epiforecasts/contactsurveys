@@ -74,7 +74,10 @@ a vector of filenames, where the surveys were downloaded
 ``` r
 list_surveys()
 #> ℹ Downloading survey list from zenodo
-#> ✔ Downloading survey list from zenodo [23.4s]
+#> Error in curl::curl_fetch_memory(url, handle = handle): Timeout was reached [zenodo.org]:
+#> SSL connection timeout
+#> Request failed [ERROR]. Retrying in 1.5 seconds...
+#> ✔ Downloading survey list from zenodo [23.9s]
 #> 
 #> Key: <date_added>
 #>     date_added
@@ -263,8 +266,8 @@ peru_survey <- download_survey("https://doi.org/10.5281/zenodo.1095664")
 #> [zen4R][INFO] Downloading file '2015_Grijalva_Peru_contact_common.csv' - size: 617.3 KiB
 #> ℹ Downloading file '2015_Grijalva_Peru_participant_extra.csv' - size: 55 KiB
 #> [zen4R][INFO] Downloading file '2015_Grijalva_Peru_participant_extra.csv' - size: 55 KiB
-#> ℹ Files downloaded at '/tmp/RtmptsiYfd/zenodo.1095664'.
-#> [zen4R][INFO] Files downloaded at '/tmp/RtmptsiYfd/zenodo.1095664'.
+#> ℹ Files downloaded at '/tmp/RtmprWoSch/zenodo.1095664'.
+#> [zen4R][INFO] Files downloaded at '/tmp/RtmprWoSch/zenodo.1095664'.
 #> ℹ Verifying file integrity...
 #> [zen4R][INFO] ZenodoRecord - Verifying file integrity... 
 #> ℹ File '2015_Grijalva_Peru_sday.csv': integrity verified (md5sum: b43c28fa6cce8d7bd6ec6b0621aa5b02)
