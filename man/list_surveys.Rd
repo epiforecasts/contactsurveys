@@ -35,7 +35,7 @@ data.table with columns: date_added, title, creator, url
 List all surveys available for download
 }
 \examples{
-\dontrun{
+\dontshow{if (is_online()) withAutoprint(\{ # examplesIf}
 list_surveys()
-}
+\dontshow{\}) # examplesIf}
 }

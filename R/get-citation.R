@@ -15,11 +15,9 @@
 #' @return A character string containing the citation in the requested style.
 #'   For `"bibtex"` style, returns an object of class `"csbib"`.
 #' @export
-#' @examples
-#' \dontrun{
+#' @examplesIf is_online()
 #' polymod_doi <- "https://doi.org/10.5281/zenodo.3874557"
 #' get_citation(polymod_doi)
-#' }
 get_citation <- function(
   doi,
   style = c(
