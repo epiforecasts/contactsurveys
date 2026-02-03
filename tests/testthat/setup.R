@@ -42,22 +42,17 @@ mock_download_file <- function(url, destfile, ...) {
   )
 
   if (
-    !inherits(result, "error") &&
-      file.exists(destfile) &&
-      file.size(destfile) > 0
+    inherits(result, "error") ||
+      !file.exists(destfile) ||
+      file.size(destfile) == 0
   ) {
-    # Success - update fixture
-    file.copy(
-      destfile,
-      file.path(testthat::test_path("fixtures"), url_basename),
-      overwrite = TRUE
-    )
-  } else if (length(fixture_match) > 0) {
-    # Download failed - use fixture
-    file.copy(fixture_match[1], destfile, overwrite = TRUE)
-  } else {
-    # No fixture available - create empty file
-    file.create(destfile)
+    if (length(fixture_match) > 0) {
+      # Download failed - use fixture
+      file.copy(fixture_match[1], destfile, overwrite = TRUE)
+    } else {
+      # No fixture available - create empty file
+      file.create(destfile)
+    }
   }
   invisible(0)
 }
