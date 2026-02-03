@@ -34,8 +34,7 @@ mock_download_file <- function(url, destfile, ...) {
   )
 
   if (!inherits(result, "error") && file.exists(destfile) && file.size(destfile) > 0) {
-    # Success - update fixture
-    file.copy(destfile, file.path(testthat::test_path("fixtures"), url_basename), overwrite = TRUE)
+    # Success - downloaded file is ready in destfile
   } else if (length(match) > 0) {
     # Download failed - use fixture
     file.copy(match[1], destfile, overwrite = TRUE)
