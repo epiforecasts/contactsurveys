@@ -8,6 +8,7 @@ withr::local_envvar(
 vcr::vcr_configure(
   dir = testthat::test_path("_vcr"),
   filter_response_headers = c(
+    # Time-varying headers
     "date",
     "set-cookie",
     "x-request-id",
@@ -16,7 +17,27 @@ vcr::vcr_configure(
     "x-ratelimit-reset",
     "retry-after",
     "connection",
-    "cache-control"
+    "cache-control",
+    "etag",
+    "last-modified",
+    "age",
+    "expires",
+    # Security headers (not relevant for tests)
+    "strict-transport-security",
+    "x-frame-options",
+    "x-xss-protection",
+    "x-content-type-options",
+    "content-security-policy",
+    "permissions-policy",
+    "referrer-policy",
+    # CORS headers
+    "access-control-allow-origin",
+    "access-control-expose-headers",
+    # Server info
+    "server",
+    "x-source",
+    # Content length varies with compression
+    "content-length"
   ),
   record = "new_episodes"  # Try real calls, fall back to recorded
 )
