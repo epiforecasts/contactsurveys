@@ -47,7 +47,7 @@ A character string containing the citation in the requested style. For
 polymod_doi <- "https://doi.org/10.5281/zenodo.3874557"
 get_citation(polymod_doi)
 #> ℹ Fetching citation
-#> ✔ Citation fetched! [842ms]
+#> ✔ Citation fetched! [1.1s]
 #> 
 #> @dataset{joel_mossong_2020_3874557,
 #>   author       = {Joël Mossong and
