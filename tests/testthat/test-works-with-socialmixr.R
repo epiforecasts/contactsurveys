@@ -8,7 +8,11 @@ test_that("socialmixr::load_survey()/as_contact_survey()/clean() works", {
   peru_url <- "https://doi.org/10.5281/zenodo.1095664"
 
   # Use overwrite = TRUE to ensure fresh API calls for cassette recording
-  polymod_survey <- download_survey(polymod_url, verbose = FALSE, overwrite = TRUE)
+  polymod_survey <- download_survey(
+    polymod_url,
+    verbose = FALSE,
+    overwrite = TRUE
+  )
   peru_survey <- download_survey(peru_url, verbose = FALSE, overwrite = TRUE)
 
   polymod_loaded <- suppressWarnings(socialmixr::load_survey(polymod_survey))
@@ -35,10 +39,18 @@ test_that("socialmixr::contact_matrix() works", {
 
   # Use overwrite = TRUE to ensure fresh API calls for cassette recording
   polymod_loaded <- suppressWarnings(
-    socialmixr::load_survey(download_survey(polymod_url, verbose = FALSE, overwrite = TRUE))
+    socialmixr::load_survey(download_survey(
+      polymod_url,
+      verbose = FALSE,
+      overwrite = TRUE
+    ))
   )
   peru_loaded <- suppressWarnings(
-    socialmixr::load_survey(download_survey(peru_url, verbose = FALSE, overwrite = TRUE))
+    socialmixr::load_survey(download_survey(
+      peru_url,
+      verbose = FALSE,
+      overwrite = TRUE
+    ))
   )
 
   expect_no_error(socialmixr::contact_matrix(polymod_loaded))
