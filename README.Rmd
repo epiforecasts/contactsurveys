@@ -44,10 +44,9 @@ By default, the survey data from `list_surveys()` is effectively cached, so it w
 
 Surveys can be downloaded using `download_survey()`. This will get the relevant data of a survey given its Zenodo DOI (as returned by `list_surveys()`). 
 
-```{r}
+```{r, results='hide'}
 polymod_doi <- "https://doi.org/10.5281/zenodo.3874557"
 polymod_survey_files <- download_survey(polymod_doi, verbose = FALSE)
-polymod_survey_files
 ```
 
 ## Getting citations

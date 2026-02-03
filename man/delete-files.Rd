@@ -20,7 +20,7 @@ nothing, deletes files.
 Delete files in contactsurveys directory
 }
 \examples{
-\dontrun{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 delete_contactsurveys_files()
-}
+\dontshow{\}) # examplesIf}
 }

@@ -79,16 +79,7 @@ relevant data of a survey given its Zenodo DOI (as returned by
 ``` r
 polymod_doi <- "https://doi.org/10.5281/zenodo.3874557"
 polymod_survey_files <- download_survey(polymod_doi, verbose = FALSE)
-polymod_survey_files
 ```
-
-    ## [1] "/Users/runner/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557/2008_Mossong_POLYMOD_contact_common.csv"    
-    ## [2] "/Users/runner/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557/2008_Mossong_POLYMOD_dictionary.xls"        
-    ## [3] "/Users/runner/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557/2008_Mossong_POLYMOD_hh_common.csv"         
-    ## [4] "/Users/runner/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557/2008_Mossong_POLYMOD_hh_extra.csv"          
-    ## [5] "/Users/runner/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557/2008_Mossong_POLYMOD_participant_common.csv"
-    ## [6] "/Users/runner/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557/2008_Mossong_POLYMOD_participant_extra.csv" 
-    ## [7] "/Users/runner/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557/2008_Mossong_POLYMOD_sday.csv"
 
 ## Getting citations
 

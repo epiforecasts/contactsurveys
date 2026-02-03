@@ -22,13 +22,17 @@ values are: "bibtex", "harvard-cite-them-right", "apa",
 \item{verbose}{logical. Should messages during citation fetching print to
 the screen? Default is TRUE.}
 }
+\value{
+A character string containing the citation in the requested style.
+For \code{"bibtex"} style, returns an object of class \code{"csbib"}.
+}
 \description{
 This is a wrapper around \code{\link[zen4R:get_citation]{zen4R::get_citation()}} with a couple of smaller
 changes. Firstly, it silences output from \code{\link[zen4R:get_citation]{zen4R::get_citation()}}, secondly
 the default citation style is "apa".
 }
 \examples{
-\dontrun{
+\donttest{
 polymod_doi <- "https://doi.org/10.5281/zenodo.3874557"
 get_citation(polymod_doi)
 }

@@ -5,19 +5,14 @@
 #'
 #' @param survey A DOI of a survey, (see [list_surveys()]). If a HTML link is
 #'   given, the DOI will be isolated and used.
-#' @param directory Directory of where to save survey files. The default value
-#'  is to use the directory for your system using [contactsurveys_dir()], which
-#'  uses [tools::R_user_dir()], and appends the survey URL/DOI basename as a
-#'  new directory. E.g., if you provide in the `survey` argument,
-#'  "10.5281/zenodo.1095664", it will save the surveys into a directory
-#'  `zenodo.1095664` under `contactsurveys_dir()` This effectively caches
-#'  the data. You can specify your own directory, or set an environment
-#'  variable, `CONTACTSURVEYS_HOME`, see [Sys.setenv()] or [Renviron] for
-#'  more detail. If this argument is set to something other than
-#'  [contactsurveys_dir()], a warning is issued to discourage unnecessary
-#'   downloads outside the persistent cache. Note that identical content
-#'   accessed via different identifiers (e.g., DOI vs. a resolved record URL)
-#'   will be cached in separate directories by design.
+#' @param directory Directory of where to save survey files. Defaults to
+#'   [tempdir()], so files do not persist across R sessions. For persistent
+#'   caching, pass [contactsurveys_dir()], which uses [tools::R_user_dir()]
+#'   and appends the survey URL/DOI basename as a subdirectory. E.g., if you
+#'   provide "10.5281/zenodo.1095664" in the `survey` argument, it will save
+#'   the surveys into a directory `zenodo.1095664` under
+#'   `contactsurveys_dir()`. You can also set an environment variable,
+#'   `CONTACTSURVEYS_HOME`, see [Sys.setenv()] or [Renviron] for more detail.
 #' @param verbose Whether downloads should be echoed to output. Default TRUE.
 #' @param overwrite If files should be overwritten if they already exist.
 #'   Default FALSE
@@ -34,7 +29,7 @@
 #'
 #' @autoglobal
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' list_surveys()
 #' peru_survey <- download_survey("https://doi.org/10.5281/zenodo.1095664")
 #' }
@@ -43,7 +38,7 @@
 #' @export
 download_survey <- function(
   survey,
-  directory = contactsurveys_dir(),
+  directory = tempdir(),
   verbose = TRUE,
   overwrite = FALSE,
   timeout = 3600,
@@ -78,7 +73,7 @@ download_survey <- function(
 #' @note internal
 .download_survey <- function(
   survey,
-  directory = contactsurveys_dir(),
+  directory = tempdir(),
   overwrite = FALSE,
   timeout = 60
 ) {
