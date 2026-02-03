@@ -33,14 +33,14 @@ mock_download_file <- function(url, destfile, ...) {
     error = function(e) e
   )
 
-  if (!inherits(result, "error") && file.exists(destfile) && file.size(destfile) > 0) {
-    # Success - downloaded file is ready in destfile
-  } else if (length(match) > 0) {
-    # Download failed - use fixture
-    file.copy(match[1], destfile, overwrite = TRUE)
-  } else {
-    # No fixture available - create empty file
-    file.create(destfile)
+  if (inherits(result, "error") || !file.exists(destfile) || file.size(destfile) == 0) {
+    if (length(match) > 0) {
+      # Download failed - use fixture
+      file.copy(match[1], destfile, overwrite = TRUE)
+    } else {
+      # No fixture available - create empty file
+      file.create(destfile)
+    }
   }
   invisible(0)
 }
