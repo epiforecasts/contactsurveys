@@ -2,6 +2,8 @@
 
 ## contactsurveys 0.1.0
 
+CRAN release: 2026-01-31
+
 This is a new package split off from the
 [socialmixr](https://github.com/epiforecasts/socialmixr) package. It
 handles all interaction with the Zenodo repository containing social
