@@ -1,6 +1,6 @@
 Package: contactsurveys
 Title: Download Contact Surveys for Use in Infectious Disease Modelling
-Version: 0.1.0
+Version: 0.1.0.9000
 Authors@R: c(
     person(
       given = "Sebastian",
