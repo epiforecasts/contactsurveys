@@ -14,7 +14,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/epiforecasts/contactsurveys/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/epiforecasts/contactsurveys/blob/v0.1.0/DESCRIPTION)
 
 Funk S, Tierney N (2026). *contactsurveys: Download Contact Surveys for
 Use in Infectious Disease Modelling*. R package version 0.1.0,
