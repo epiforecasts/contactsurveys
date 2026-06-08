@@ -181,7 +181,7 @@ clean_doi <- function(x) {
 #'
 #' @param records ZenodoRecord object; the object to parse information from
 #' @param survey_dir file path; location to store the meta-data file
-#' @return file path; file path to the JSON file with meta-data and repository link(s)
+#' @return file path; file path to the JSON file with meta-data and link(s)
 #' @note internal
 #' @importFrom zen4R get_zenodo
 #' @importFrom jsonlite toJSON
