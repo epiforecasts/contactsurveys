@@ -181,7 +181,7 @@ clean_doi <- function(x) {
 #'
 #' @param records ZenodoRecord object; the object to parse information from
 #' @param survey_dir file path; location to store the meta-data file
-#' @return file path; file path to the JSON file with meta-data, repository link(s) and reference(s)
+#' @return file path; file path to the JSON file with meta-data and repository link(s)
 #' @note internal
 #' @importFrom zen4R get_zenodo
 #' @importFrom jsonlite toJSON
@@ -189,8 +189,9 @@ store_reference <- function(records, survey_dir) {
   reference <- list(
     title = records$metadata$title,
     bibtype = "Misc",
-    author = sapply(records$metadata$creators,
-                    function(x) x$person_or_org$family_name),
+    author = sapply(records$metadata$creators, function(x) {
+      x$person_or_org$family_name
+      }),
     year = data.table::year(records$metadata$publication_date)
   )
   if ("version" %in% names(records$metadata)) {
@@ -199,17 +200,25 @@ store_reference <- function(records, survey_dir) {
   if ("references" %in% names(records$metadata)) {
     reference[["reference"]] <- unlist(
       records$metadata$references,
-      use.names = FALSE)
+      use.names = FALSE
+      )
   }
   reference[["url"]] <- records$links$self
 
   # file name
   survey_files <- names(records$files)
-  dictionary_files <- survey_files[grepl("dictionary", survey_files, ignore.case = TRUE)]
+  dictionary_files <- survey_files[grepl(
+    "dictionary",
+    survey_files,
+    ignore.case = TRUE
+    )]
   prefix <- if (length(dictionary_files) >= 1) {
-    basename(gsub("dictionary.*", "", dictionary_files[[1]]))
+    basename(gsub(
+      "dictionary.*",
+      "",
+      dictionary_files[[1]]))
   } else {
-      ""
+    ""
   }
   reference_file_path <- file.path(survey_dir, paste0(prefix, "reference.json"))
 
