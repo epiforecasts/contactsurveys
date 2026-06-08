@@ -191,7 +191,7 @@ store_reference <- function(records, survey_dir) {
     bibtype = "Misc",
     author = sapply(records$metadata$creators, function(x) {
       x$person_or_org$family_name
-      }),
+    }),
     year = data.table::year(records$metadata$publication_date)
   )
   if ("version" %in% names(records$metadata)) {
@@ -201,7 +201,7 @@ store_reference <- function(records, survey_dir) {
     reference[["reference"]] <- unlist(
       records$metadata$references,
       use.names = FALSE
-      )
+    )
   }
   reference[["url"]] <- records$links$self
 
@@ -211,12 +211,13 @@ store_reference <- function(records, survey_dir) {
     "dictionary",
     survey_files,
     ignore.case = TRUE
-    )]
+  )]
   prefix <- if (length(dictionary_files) >= 1) {
     basename(gsub(
       "dictionary.*",
       "",
-      dictionary_files[[1]]))
+      dictionary_files[[1]]
+    ))
   } else {
     ""
   }
