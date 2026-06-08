@@ -146,26 +146,9 @@ download_survey <- function(
     )
     downloaded <- sort(zenodo_files(survey_dir, records))
 
-    # include reference JSON file
-    reference <- list(
-      title = records$metadata$title,
-      bibtype = "Misc",
-      author = sapply(records$metadata$creators, function(x) x$person_or_org$family_name),
-      year = data.table::year(records$metadata$publication_date)
-    )
-    if ("version" %in% names(records$metadata)) {
-      reference[["note"]] <- paste("Version", records$metadata$version)
-    }
-    if ("references" %in% names(records$metadata)) {
-      reference[["reference"]] <- unlist(records$metadata$references,use.names = FALSE)
-    }
-    reference[["url"]] <- survey_url
-
-    lcs <- basename(gsub('dictionary.*','',downloaded[grepl('dictionary',downloaded)]))
-    reference_file_path <- file.path(survey_dir, paste0(lcs, "reference.json"))
-    reference_json <- toJSON(reference)
-    write(reference_json, reference_file_path)
-    downloaded <- sort(c(downloaded,reference_file_path))
+    # Include reference JSON file
+    reference_file_path <- store_reference(records, survey_dir)
+    downloaded <- sort(c(downloaded, reference_file_path))
 
     # Write the files that were downloaded into the manifest as a completion
     # marker for offline cache hits
@@ -192,4 +175,37 @@ clean_doi <- function(x) {
   x <- sub("^(https?:\\/\\/(dx\\.)?doi\\.org\\/|doi:)", "", x)
   x <- sub("#.*$", "", x)
   x
+}
+
+#' Extracts meta-data and repository info from a zen4R::ZenodoRecord object
+#'
+#' @param records ZenodoRecord object; the object to parse information from
+#' @param survey_dir file path; location to store the meta-data file
+#' @return file path; file path to the JSON file with meta-data, repository link(s) and reference(s)
+#' @note internal
+#' @importFrom zen4R get_zenodo
+#' @importFrom jsonlite toJSON
+store_reference <- function(records, survey_dir) {
+  reference <- list(
+    title = records$metadata$title,
+    bibtype = "Misc",
+    author = sapply(records$metadata$creators, function(x) x$person_or_org$family_name),
+    year = data.table::year(records$metadata$publication_date)
+  )
+  if ("version" %in% names(records$metadata)) {
+    reference[["note"]] <- paste("Version", records$metadata$version)
+  }
+  if ("references" %in% names(records$metadata)) {
+    reference[["reference"]] <- unlist(records$metadata$references,use.names = FALSE)
+  }
+  reference[["url"]] <- survey_url
+
+  # file name
+  survey_files <- names(records$files)
+  lcs <- basename(gsub('dictionary.*','',survey_files[grepl('dictionary',survey_files)]))
+  reference_file_path <- file.path(survey_dir, paste0(lcs, "reference.json"))
+  reference_json <- toJSON(reference)
+  write(reference_json, reference_file_path)
+
+  reference_file_path
 }
