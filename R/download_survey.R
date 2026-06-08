@@ -189,21 +189,31 @@ store_reference <- function(records, survey_dir) {
   reference <- list(
     title = records$metadata$title,
     bibtype = "Misc",
-    author = sapply(records$metadata$creators, function(x) x$person_or_org$family_name),
+    author = sapply(records$metadata$creators,
+                    function(x) x$person_or_org$family_name),
     year = data.table::year(records$metadata$publication_date)
   )
   if ("version" %in% names(records$metadata)) {
     reference[["note"]] <- paste("Version", records$metadata$version)
   }
   if ("references" %in% names(records$metadata)) {
-    reference[["reference"]] <- unlist(records$metadata$references,use.names = FALSE)
+    reference[["reference"]] <- unlist(
+      records$metadata$references,
+      use.names = FALSE)
   }
-  reference[["url"]] <- survey_url
+  reference[["url"]] <- records$links$self
 
   # file name
   survey_files <- names(records$files)
-  lcs <- basename(gsub('dictionary.*','',survey_files[grepl('dictionary',survey_files)]))
-  reference_file_path <- file.path(survey_dir, paste0(lcs, "reference.json"))
+  dictionary_files <- survey_files[grepl("dictionary", survey_files, ignore.case = TRUE)]
+  prefix <- if (length(dictionary_files) >= 1) {
+    basename(gsub("dictionary.*", "", dictionary_files[[1]]))
+  } else {
+      ""
+  }
+  reference_file_path <- file.path(survey_dir, paste0(prefix, "reference.json"))
+
+  # Store JSON file
   reference_json <- toJSON(reference)
   write(reference_json, reference_file_path)
 
