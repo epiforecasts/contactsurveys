@@ -207,7 +207,7 @@ store_reference <- function(records, survey_dir) {
       use.names = FALSE
     )
   }
-  reference[["url"]] <- records$links$self
+  reference[["doi"]] <- records$getDOI()
 
   # file name
   survey_files <- names(records$files)
