@@ -183,7 +183,6 @@ clean_doi <- function(x) {
 #' @param survey_dir file path; location to store the meta-data file
 #' @return file path; file path to the JSON file with meta-data and link(s)
 #' @note internal
-#' @importFrom zen4R get_zenodo
 #' @importFrom jsonlite toJSON
 store_reference <- function(records, survey_dir) {
   reference <- list(
