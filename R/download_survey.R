@@ -188,9 +188,14 @@ store_reference <- function(records, survey_dir) {
   reference <- list(
     title = records$metadata$title,
     bibtype = "Misc",
-    author = sapply(records$metadata$creators, function(x) {
-      x$person_or_org$family_name
-    }),
+    author = vapply(records$metadata$creators, function(x) {
+      person <- x$person_or_org
+      if (!is.null(person$name)) {
+        person$name
+      } else {
+        paste(c(person$family_name, person$given_name), collapse = ", ")
+      }
+    }, character(1)),
     year = data.table::year(records$metadata$publication_date)
   )
   if ("version" %in% names(records$metadata)) {
