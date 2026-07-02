@@ -191,12 +191,8 @@ store_reference <- function(records, survey_dir) {
     author = vapply(
       records$metadata$creators,
       function(x) {
-        person <- x$person_or_org
-        if (!is.null(person$name)) {
-          person$name
-        } else {
-          paste(c(person$family_name, person$given_name), collapse = ", ")
-        }
+        person_or_org <- x$person_or_org
+        person_or_org$name %||% toString(c(person_or_org$family_name, person_or_org$given_name))
       },
       character(1)
     ),
