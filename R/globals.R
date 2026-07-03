@@ -8,6 +8,5 @@ utils::globalVariables(c(
   ".SD", # <.list_surveys>
   "title", # <.list_surveys>
   "creator", # <.list_surveys>
-  "identifier.2", # <.list_surveys>
   NULL
 ))

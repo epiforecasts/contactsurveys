@@ -11,7 +11,7 @@ the active \code{contactsurveys} directory.
 }
 \description{
 Returns a platform-specific directory for persistent storage of downloaded
-survey files, powered by \code{\link[tools:userdir]{tools::R_user_dir()}}. You can override this by
+survey files, powered by \code{\link[tools:R_user_dir]{tools::R_user_dir()}}. You can override this by
 setting the environment variable \code{CONTACTSURVEYS_HOME}.
 }
 \details{

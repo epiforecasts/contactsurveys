@@ -97,7 +97,15 @@ list_surveys <- function(
     date_added = date,
     title,
     creator,
-    url = identifier.2
+    ## build the version-specific Zenodo DOI from the OAI record id, which is
+    ## always "oai:zenodo.org:<record>"; positional identifier columns are
+    ## unreliable when a record carries extra related identifiers (e.g. a
+    ## linked journal-article DOI)
+    url = sub(
+      "^oai:zenodo.org:",
+      "https://doi.org/10.5281/zenodo.",
+      identifier.1
+    )
   )]
 
   ensure_dir_exists(directory)

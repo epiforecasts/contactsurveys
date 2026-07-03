@@ -1,5 +1,7 @@
 # contactsurveys (development version)
 
+- Fixed `list_surveys()` returning a non-Zenodo DOI for surveys whose Zenodo record links a published journal article, which caused `download_survey()` to fail. The survey URL is now derived from the OAI record identifier rather than a positional identifier column.
+
 # contactsurveys 0.1.0
 
 This is a new package split off from the `{socialmixr}` package. It handles all interaction with the Zenodo repository containing social contact surveys, including listing available data sets, downloading data sets, and obtaining citations.

@@ -36,3 +36,26 @@ test_that("list_surveys() is verbose or silent when verbose = TRUE or FALSE", {
   )
   expect_s3_class(dat_silent, c("data.table", "data.frame"))
 })
+
+test_that("list_surveys() returns Zenodo DOIs when a record links a paper", {
+  # Regression fixture: real OAI records including MixIT, whose Zenodo metadata
+  # links a published journal article. That non-Zenodo DOI lands in a positional
+  # identifier column that the survey URL used to be read from, breaking
+  # download_survey().
+  records <- readRDS(test_path("fixtures", "oai-records-mixit.rds"))
+  local_mocked_bindings(list_records = function(...) records)
+
+  surveys <- list_surveys(overwrite = TRUE, verbose = FALSE)
+
+  # every survey URL must be a version-specific Zenodo DOI
+  expect_true(all(grepl(
+    "^https://doi.org/10\\.5281/zenodo\\.[0-9]+$",
+    surveys$url
+  )))
+  # the linked article DOI must never surface as a survey URL
+  mixit <- surveys[startsWith(surveys$title, "MixIT")]
+  expect_identical(mixit$url, "https://doi.org/10.5281/zenodo.17579537")
+  # multi-version records still resolve to the latest version
+  epicurus <- surveys[startsWith(surveys$title, "EPICURUS")]
+  expect_identical(epicurus$url, "https://doi.org/10.5281/zenodo.20271335")
+})
