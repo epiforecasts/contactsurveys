@@ -75,7 +75,7 @@ a vector of filenames, where the surveys were downloaded
 # \donttest{
 list_surveys()
 #> ℹ Downloading survey list from zenodo
-#> ✔ Downloading survey list from zenodo [4.2s]
+#> ✔ Downloading survey list from zenodo [7.8s]
 #> 
 #> Key: <date_added>
 #>     date_added
@@ -182,58 +182,58 @@ list_surveys()
 #> 48:                                               MixIT: Post-pandemic social contacts in Italy
 #>                                                                                           title
 #>                                                                                          <char>
-#>                   creator                                        url
-#>                    <char>                                     <char>
-#>  1:          Joël Mossong     https://doi.org/10.5281/zenodo.3874557
-#>  2:    Carlos G. Grijalva     https://doi.org/10.5281/zenodo.3874805
-#>  3:      Alessia Melegaro     https://doi.org/10.5281/zenodo.3886638
-#>  4:      Guillaume Béraud     https://doi.org/10.5281/zenodo.3886590
-#>  5:          Kathy  Leung     https://doi.org/10.5281/zenodo.3874808
-#>  6:           Horby Peter     https://doi.org/10.5281/zenodo.3874802
-#>  7:   Albert Jan van Hoek     https://doi.org/10.5281/zenodo.3874717
-#>  8:         Peter J. Dodd     https://doi.org/10.5281/zenodo.3874675
-#>  9:       Zhang, Juanjuan     https://doi.org/10.5281/zenodo.3878754
-#> 10:       Maria Litvinova     https://doi.org/10.5281/zenodo.3874674
-#> 11:        Pietro Coletti    https://doi.org/10.5281/zenodo.10549953
-#> 12:         Willem Lander     https://doi.org/10.5281/zenodo.4302055
-#> 13:             Hens Niel     https://doi.org/10.5281/zenodo.4059864
-#> 14:        Zhang Juanjuan     https://doi.org/10.5281/zenodo.7326686
-#> 15:        Mahikul Wiriya     https://doi.org/10.5281/zenodo.4086739
-#> 16:    Weerasak Putthasri     https://doi.org/10.5281/zenodo.4739777
-#> 17:            Gimma, Amy     https://doi.org/10.5281/zenodo.6362906
-#> 18:       Backer, Jantien     https://doi.org/10.5281/zenodo.7276465
-#> 19:            Gimma, Amy    https://doi.org/10.5281/zenodo.13684044
-#> 20:            Gimma, Amy     https://doi.org/10.5281/zenodo.6362899
-#> 21:            Gimma, Amy     https://doi.org/10.5281/zenodo.6362898
-#> 22:            Gimma, Amy     https://doi.org/10.5281/zenodo.6362893
-#> 23:            Gimma, Amy     https://doi.org/10.5281/zenodo.6362888
-#> 24:            Gimma, Amy     https://doi.org/10.5281/zenodo.6362887
-#> 25:            Gimma, Amy     https://doi.org/10.5281/zenodo.6362879
-#> 26: van de Kassteele, Jan     https://doi.org/10.5281/zenodo.5062244
-#> 27:            Gimma, Amy     https://doi.org/10.5281/zenodo.6362870
-#> 28:            Gimma, Amy     https://doi.org/10.5281/zenodo.6362865
-#> 29:  van Zandvoort, Kevin     https://doi.org/10.5281/zenodo.7071876
-#> 30:         Fu, Yang-Chih     https://doi.org/10.5281/zenodo.6385759
-#> 31:            Gimma, Amy     https://doi.org/10.5281/zenodo.7257433
-#> 32:            Gimma, Amy     https://doi.org/10.5281/zenodo.6535357
-#> 33:            Gimma, Amy     https://doi.org/10.5281/zenodo.6535344
-#> 34:            Gimma, Amy     https://doi.org/10.5281/zenodo.6535313
-#> 35:            Gimma, Amy     https://doi.org/10.5281/zenodo.6542668
-#> 36:            Gimma, Amy     https://doi.org/10.5281/zenodo.6542664
-#> 37:            Gimma, Amy     https://doi.org/10.5281/zenodo.6542657
-#> 38:       Coletti, Pietro     https://doi.org/10.5281/zenodo.7331926
-#> 39:     Jantien A. Backer     https://doi.org/10.5281/zenodo.7751724
-#> 40:      Goeyvaerts, Nele     https://doi.org/10.5281/zenodo.7965594
-#> 41:        Coletti,Pietro     https://doi.org/10.5281/zenodo.8123632
-#> 42:       Backer, Jantien    https://doi.org/10.5281/zenodo.10370353
-#> 43:   Jarvis, Christopher    https://doi.org/10.5281/zenodo.11154066
-#> 44:           Osei, Isaac    https://doi.org/10.5281/zenodo.13101862
-#> 45:       Pischel, Lauren    https://doi.org/10.5281/zenodo.14156576
-#> 46:       LOEDY, Neilshan    https://doi.org/10.5281/zenodo.20271335
-#> 47:      Goodfellow, Lucy    https://doi.org/10.5281/zenodo.17339866
-#> 48:     Lucchini, Lorenzo https://doi.org/10.1038/s43856-026-01543-4
-#>                   creator                                        url
-#>                    <char>                                     <char>
+#>                   creator                                     url
+#>                    <char>                                  <char>
+#>  1:          Joël Mossong  https://doi.org/10.5281/zenodo.3874557
+#>  2:    Carlos G. Grijalva  https://doi.org/10.5281/zenodo.3874805
+#>  3:      Alessia Melegaro  https://doi.org/10.5281/zenodo.3886638
+#>  4:      Guillaume Béraud  https://doi.org/10.5281/zenodo.3886590
+#>  5:          Kathy  Leung  https://doi.org/10.5281/zenodo.3874808
+#>  6:           Horby Peter  https://doi.org/10.5281/zenodo.3874802
+#>  7:   Albert Jan van Hoek  https://doi.org/10.5281/zenodo.3874717
+#>  8:         Peter J. Dodd  https://doi.org/10.5281/zenodo.3874675
+#>  9:       Zhang, Juanjuan  https://doi.org/10.5281/zenodo.3878754
+#> 10:       Maria Litvinova  https://doi.org/10.5281/zenodo.3874674
+#> 11:        Pietro Coletti https://doi.org/10.5281/zenodo.10549953
+#> 12:         Willem Lander  https://doi.org/10.5281/zenodo.4302055
+#> 13:             Hens Niel  https://doi.org/10.5281/zenodo.4059864
+#> 14:        Zhang Juanjuan  https://doi.org/10.5281/zenodo.7326686
+#> 15:        Mahikul Wiriya  https://doi.org/10.5281/zenodo.4086739
+#> 16:    Weerasak Putthasri  https://doi.org/10.5281/zenodo.4739777
+#> 17:            Gimma, Amy  https://doi.org/10.5281/zenodo.6362906
+#> 18:       Backer, Jantien  https://doi.org/10.5281/zenodo.7276465
+#> 19:            Gimma, Amy https://doi.org/10.5281/zenodo.13684044
+#> 20:            Gimma, Amy  https://doi.org/10.5281/zenodo.6362899
+#> 21:            Gimma, Amy  https://doi.org/10.5281/zenodo.6362898
+#> 22:            Gimma, Amy  https://doi.org/10.5281/zenodo.6362893
+#> 23:            Gimma, Amy  https://doi.org/10.5281/zenodo.6362888
+#> 24:            Gimma, Amy  https://doi.org/10.5281/zenodo.6362887
+#> 25:            Gimma, Amy  https://doi.org/10.5281/zenodo.6362879
+#> 26: van de Kassteele, Jan  https://doi.org/10.5281/zenodo.5062244
+#> 27:            Gimma, Amy  https://doi.org/10.5281/zenodo.6362870
+#> 28:            Gimma, Amy  https://doi.org/10.5281/zenodo.6362865
+#> 29:  van Zandvoort, Kevin  https://doi.org/10.5281/zenodo.7071876
+#> 30:         Fu, Yang-Chih  https://doi.org/10.5281/zenodo.6385759
+#> 31:            Gimma, Amy  https://doi.org/10.5281/zenodo.7257433
+#> 32:            Gimma, Amy  https://doi.org/10.5281/zenodo.6535357
+#> 33:            Gimma, Amy  https://doi.org/10.5281/zenodo.6535344
+#> 34:            Gimma, Amy  https://doi.org/10.5281/zenodo.6535313
+#> 35:            Gimma, Amy  https://doi.org/10.5281/zenodo.6542668
+#> 36:            Gimma, Amy  https://doi.org/10.5281/zenodo.6542664
+#> 37:            Gimma, Amy  https://doi.org/10.5281/zenodo.6542657
+#> 38:       Coletti, Pietro  https://doi.org/10.5281/zenodo.7331926
+#> 39:     Jantien A. Backer  https://doi.org/10.5281/zenodo.7751724
+#> 40:      Goeyvaerts, Nele  https://doi.org/10.5281/zenodo.7965594
+#> 41:        Coletti,Pietro  https://doi.org/10.5281/zenodo.8123632
+#> 42:       Backer, Jantien https://doi.org/10.5281/zenodo.10370353
+#> 43:   Jarvis, Christopher https://doi.org/10.5281/zenodo.11154066
+#> 44:           Osei, Isaac https://doi.org/10.5281/zenodo.13101862
+#> 45:       Pischel, Lauren https://doi.org/10.5281/zenodo.14156576
+#> 46:       LOEDY, Neilshan https://doi.org/10.5281/zenodo.20271335
+#> 47:      Goodfellow, Lucy https://doi.org/10.5281/zenodo.17339866
+#> 48:     Lucchini, Lorenzo https://doi.org/10.5281/zenodo.17579537
+#>                   creator                                     url
+#>                    <char>                                  <char>
 peru_survey <- download_survey("https://doi.org/10.5281/zenodo.1095664")
 #> Warning: Directory differs from `contactsurveys_dir()`
 #> ! Files may persist between R sessions.
@@ -268,8 +268,8 @@ peru_survey <- download_survey("https://doi.org/10.5281/zenodo.1095664")
 #> [zen4R][INFO] Downloading file '2015_Grijalva_Peru_contact_common.csv' - size: 617.3 KiB
 #> ℹ Downloading file '2015_Grijalva_Peru_participant_extra.csv' - size: 55 KiB
 #> [zen4R][INFO] Downloading file '2015_Grijalva_Peru_participant_extra.csv' - size: 55 KiB
-#> ℹ Files downloaded at '/tmp/RtmpIvF9Wd/zenodo.1095664'.
-#> [zen4R][INFO] Files downloaded at '/tmp/RtmpIvF9Wd/zenodo.1095664'.
+#> ℹ Files downloaded at '/tmp/RtmpkG9nnn/zenodo.1095664'.
+#> [zen4R][INFO] Files downloaded at '/tmp/RtmpkG9nnn/zenodo.1095664'.
 #> ℹ Verifying file integrity...
 #> [zen4R][INFO] ZenodoRecord - Verifying file integrity... 
 #> ℹ File '2015_Grijalva_Peru_sday.csv': integrity verified (md5sum: b43c28fa6cce8d7bd6ec6b0621aa5b02)

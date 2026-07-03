@@ -2,6 +2,14 @@
 
 ## contactsurveys (development version)
 
+- Fixed
+  [`list_surveys()`](http://epiforecasts.io/contactsurveys/reference/list_surveys.md)
+  returning a non-Zenodo DOI for surveys whose Zenodo record links a
+  published journal article, which caused
+  [`download_survey()`](http://epiforecasts.io/contactsurveys/reference/download_survey.md)
+  to fail. The survey URL is now derived from the OAI record identifier
+  rather than a positional identifier column.
+
 ## contactsurveys 0.1.0
 
 CRAN release: 2026-01-31

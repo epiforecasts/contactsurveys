@@ -35,7 +35,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="contactsurveys-development-version">contactsurveys (development version)<a class="anchor" aria-label="anchor" href="#contactsurveys-development-version"></a></h2>
-</div>
+<ul><li>Fixed <code><a href="../reference/list_surveys.html">list_surveys()</a></code> returning a non-Zenodo DOI for surveys whose Zenodo record links a published journal article, which caused <code><a href="../reference/download_survey.html">download_survey()</a></code> to fail. The survey URL is now derived from the OAI record identifier rather than a positional identifier column.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.0" id="contactsurveys-010">contactsurveys 0.1.0<a class="anchor" aria-label="anchor" href="#contactsurveys-010"></a></h2><p class="text-muted">CRAN release: 2026-01-31</p>
 <p>This is a new package split off from the <a href="https://github.com/epiforecasts/socialmixr" class="external-link">socialmixr</a> package. It handles all interaction with the Zenodo repository containing social contact surveys, including listing available data sets, downloading data sets, and obtaining citations.</p>

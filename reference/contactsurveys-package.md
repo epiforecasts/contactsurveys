@@ -29,6 +29,9 @@ Useful links:
 
 Authors:
 
+- Sebastian Funk <sebastian.funk@lshtm.ac.uk>
+  ([ORCID](https://orcid.org/0000-0002-2842-3406)) \[copyright holder\]
+
 - Nicholas Tierney <nicholas.tierney@gmail.com>
   ([ORCID](https://orcid.org/0000-0003-1460-8722))
 
