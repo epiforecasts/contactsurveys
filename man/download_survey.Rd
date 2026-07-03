@@ -19,7 +19,7 @@ given, the DOI will be isolated and used.}
 
 \item{directory}{Directory of where to save survey files. Defaults to
 \code{\link[=tempdir]{tempdir()}}, so files do not persist across R sessions. For persistent
-caching, pass \code{\link[=contactsurveys_dir]{contactsurveys_dir()}}, which uses \code{\link[tools:userdir]{tools::R_user_dir()}}
+caching, pass \code{\link[=contactsurveys_dir]{contactsurveys_dir()}}, which uses \code{\link[tools:R_user_dir]{tools::R_user_dir()}}
 and appends the survey URL/DOI basename as a subdirectory. E.g., if you
 provide "10.5281/zenodo.1095664" in the \code{survey} argument, it will save
 the surveys into a directory \code{zenodo.1095664} under
