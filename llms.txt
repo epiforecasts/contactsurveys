@@ -11,12 +11,14 @@ downloading surveys has been moved into this package.
 The development version can be installed using `remotes`
 
 ``` r
+
 remotes::install_github("epiforecasts/contactsurveys")
 ```
 
 # Example usage
 
 ``` r
+
 library(contactsurveys)
 ```
 
@@ -31,6 +33,7 @@ available) with
 [`list_surveys()`](http://epiforecasts.io/contactsurveys/reference/list_surveys.md)
 
 ``` r
+
 social_contact_surveys <- list_surveys(verbose = FALSE)
 dim(social_contact_surveys)
 ```
@@ -40,6 +43,7 @@ dim(social_contact_surveys)
 ```
 
 ``` r
+
 head(social_contact_surveys)
 ```
 
@@ -77,6 +81,7 @@ returned by
 [`list_surveys()`](http://epiforecasts.io/contactsurveys/reference/list_surveys.md)).
 
 ``` r
+
 polymod_doi <- "https://doi.org/10.5281/zenodo.3874557"
 polymod_survey_files <- download_survey(polymod_doi, verbose = FALSE)
 ```
@@ -87,6 +92,7 @@ A reference for any given survey can be obtained by passing a DOI to
 [`get_citation()`](http://epiforecasts.io/contactsurveys/reference/get_citation.md):
 
 ``` r
+
 get_citation(polymod_doi, verbose = FALSE)
 ```
 
@@ -125,6 +131,7 @@ and
 [`contact_matrix()`](https://epiforecasts.io/socialmixr/reference/contact_matrix.html).
 
 ``` r
+
 library(socialmixr)
 ```
 
@@ -138,6 +145,7 @@ library(socialmixr)
 ```
 
 ``` r
+
 polymod_loaded <- load_survey(polymod_survey_files)
 ```
 
@@ -146,6 +154,7 @@ polymod_loaded <- load_survey(polymod_survey_files)
 ```
 
 ``` r
+
 uk_contact_matrix <- contact_matrix(
       polymod_loaded,
       countries = "United Kingdom",

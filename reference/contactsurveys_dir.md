@@ -29,13 +29,14 @@ persist across R sessions. To enable persistent caching, pass
 ## Examples
 
 ``` r
+
 contactsurveys_dir()
 #> [1] "/home/runner/.local/share/R/contactsurveys"
 
 ## Override with an environment variable:
 Sys.setenv(CONTACTSURVEYS_HOME = tempdir())
 contactsurveys_dir()
-#> [1] "/tmp/RtmpUfbOFS"
+#> [1] "/tmp/Rtmp206aTo"
 ## Unset
 Sys.unsetenv("CONTACTSURVEYS_HOME")
 ```

@@ -20,6 +20,7 @@ data](https://zenodo.org/communities/social_contact_data) community on
 internet connection is available) with:
 
 ``` r
+
 list_surveys()
 #> Skipping download
 #> ℹ Files already exist at
@@ -194,6 +195,7 @@ returned by
 [`list_surveys()`](http://epiforecasts.io/contactsurveys/reference/list_surveys.md)).
 
 ``` r
+
 polymod_doi <- "https://doi.org/10.5281/zenodo.3874557"
 polymod_survey_files <- download_survey(polymod_doi)
 #> Fetching contact survey filenames from: https://doi.org/10.5281/zenodo.3874557.
@@ -297,6 +299,7 @@ and
 [`contact_matrix()`](https://epiforecasts.io/socialmixr/reference/contact_matrix.html):
 
 ``` r
+
 library(socialmixr) # nolint
 #> 
 #> Attaching package: 'socialmixr'
@@ -334,7 +337,6 @@ uk_contact_matrix
 
 ## References
 
-Mossong, Joël, Niel Hens, Mark Jit, Philippe Beutels, Kari Auranen,
-Rafael Mikolajczyk, Marco Massari, et al. 2008. “Social Contacts and
+Mossong, Joël, Niel Hens, Mark Jit, et al. 2008. “Social Contacts and
 Mixing Patterns Relevant to the Spread of Infectious Diseases.” *PLOS
 Medicine* 5 (3): e74. <https://doi.org/10.1371/journal.pmed.0050074>.
