@@ -35,11 +35,9 @@ check_is_url_doi <- function(
 }
 
 check_directory <- function(directory, call = rlang::caller_env()) {
-  is_contactsurveys_dir <- identical(
-    path.expand(directory),
-    path.expand(contactsurveys_dir())
-  )
-  if (!is_contactsurveys_dir) {
+  supported_directories <- path.expand(c(tempdir(), contactsurveys_dir()))
+  is_supported_directory <- path.expand(directory) %in% supported_directories
+  if (!is_supported_directory) {
     cli::cli_warn(
       message = c(
         "Directory differs from {.fn contactsurveys_dir}",
