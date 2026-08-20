@@ -9,8 +9,10 @@ export(download_survey)
 export(get_citation)
 export(list_surveys)
 export(ls_contactsurveys)
-importFrom(data.table,data.table)
-importFrom(data.table,rbindlist)
-importFrom(data.table,setkey)
+importFrom(data.table,
+  data.table,
+  rbindlist,
+  setkey
+)
 importFrom(oai,list_records)
 importFrom(zen4R,get_zenodo)
