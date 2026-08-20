@@ -35,6 +35,7 @@
 #' }
 #' @seealso [list_surveys()]
 #' @importFrom zen4R get_zenodo
+#' @importFrom jsonlite toJSON
 #' @export
 download_survey <- function(
   survey,
@@ -144,6 +145,11 @@ download_survey <- function(
       timeout = timeout
     )
     downloaded <- sort(zenodo_files(survey_dir, records))
+
+    # Include reference JSON file
+    reference_file_path <- store_reference(records, survey_dir)
+    downloaded <- sort(c(downloaded, reference_file_path))
+
     # Write the files that were downloaded into the manifest as a completion
     # marker for offline cache hits
     writeLines(
@@ -169,4 +175,62 @@ clean_doi <- function(x) {
   x <- sub("^(https?:\\/\\/(dx\\.)?doi\\.org\\/|doi:)", "", x)
   x <- sub("#.*$", "", x)
   x
+}
+
+#' Extracts meta-data and repository info from a zen4R::ZenodoRecord object
+#'
+#' @param records ZenodoRecord object; the object to parse information from
+#' @param survey_dir file path; location to store the meta-data file
+#' @return file path; file path to the JSON file with meta-data and link(s)
+#' @note internal
+#' @importFrom jsonlite toJSON
+store_reference <- function(records, survey_dir) {
+  reference <- list(
+    title = records$metadata$title,
+    bibtype = "Misc",
+    author = vapply(
+      records$metadata$creators,
+      function(x) {
+        person_or_org <- x$person_or_org
+        person_or_org$name %||%
+          toString(c(person_or_org$family_name, person_or_org$given_name))
+      },
+      character(1)
+    ),
+    year = data.table::year(records$metadata$publication_date)
+  )
+  if ("version" %in% names(records$metadata)) {
+    reference[["note"]] <- paste("Version", records$metadata$version)
+  }
+  if ("references" %in% names(records$metadata)) {
+    reference[["reference"]] <- unlist(
+      records$metadata$references,
+      use.names = FALSE
+    )
+  }
+  reference[["doi"]] <- records$getDOI()
+
+  # file name
+  survey_files <- names(records$files)
+  dictionary_files <- survey_files[grepl(
+    "dictionary",
+    survey_files,
+    ignore.case = TRUE
+  )]
+  prefix <- if (length(dictionary_files) >= 1) {
+    basename(gsub(
+      "dictionary.*",
+      "",
+      dictionary_files[[1]]
+    ))
+  } else {
+    ""
+  }
+  reference_file_path <- file.path(survey_dir, paste0(prefix, "reference.json"))
+
+  # Store JSON file
+  reference_json <- toJSON(reference)
+  write(reference_json, reference_file_path)
+
+  reference_file_path
 }
