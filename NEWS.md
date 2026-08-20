@@ -1,6 +1,7 @@
 # contactsurveys (development version)
 
 - Fixed `list_surveys()` returning a non-Zenodo DOI for surveys whose Zenodo record links a published journal article, which caused `download_survey()` to fail. The survey URL is now derived from the OAI record identifier rather than a positional identifier column.
+- `list_surveys()` now derives the survey URL and version ordering from the OAI header identifier, so results no longer depend on the order in which Zenodo lists a record's metadata identifiers.
 
 # contactsurveys 0.1.0
 

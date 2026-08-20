@@ -4,7 +4,7 @@ utils::globalVariables(c(
   ":=", # <.list_surveys>
   "common_doi", # <.list_surveys>
   "doi.nb", # <.list_surveys>
-  "identifier.1", # <.list_surveys>
+  "identifier", # <.list_surveys>
   ".SD", # <.list_surveys>
   "title", # <.list_surveys>
   "creator", # <.list_surveys>
