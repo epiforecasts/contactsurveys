@@ -75,7 +75,7 @@ a vector of filenames, where the surveys were downloaded
 # \donttest{
 list_surveys()
 #> ℹ Downloading survey list from zenodo
-#> ✔ Downloading survey list from zenodo [6.9s]
+#> ✔ Downloading survey list from zenodo [8.7s]
 #> 
 #> Key: <date_added>
 #>     date_added
@@ -230,7 +230,7 @@ list_surveys()
 #> 44:           Osei, Isaac https://doi.org/10.5281/zenodo.13101862
 #> 45:       Pischel, Lauren https://doi.org/10.5281/zenodo.14156576
 #> 46:       LOEDY, Neilshan https://doi.org/10.5281/zenodo.20271335
-#> 47:      Goodfellow, Lucy https://doi.org/10.5281/zenodo.17339866
+#> 47:      Goodfellow, Lucy https://doi.org/10.5281/zenodo.21218377
 #> 48:     Lucchini, Lorenzo https://doi.org/10.5281/zenodo.17579537
 #>                   creator                                     url
 #>                    <char>                                  <char>
@@ -268,8 +268,8 @@ peru_survey <- download_survey("https://doi.org/10.5281/zenodo.1095664")
 #> [zen4R][INFO] Downloading file '2015_Grijalva_Peru_contact_common.csv' - size: 617.3 KiB
 #> ℹ Downloading file '2015_Grijalva_Peru_participant_extra.csv' - size: 55 KiB
 #> [zen4R][INFO] Downloading file '2015_Grijalva_Peru_participant_extra.csv' - size: 55 KiB
-#> ℹ Files downloaded at '/tmp/RtmpyHNdcc/zenodo.1095664'.
-#> [zen4R][INFO] Files downloaded at '/tmp/RtmpyHNdcc/zenodo.1095664'.
+#> ℹ Files downloaded at '/tmp/RtmpWcEzMW/zenodo.1095664'.
+#> [zen4R][INFO] Files downloaded at '/tmp/RtmpWcEzMW/zenodo.1095664'.
 #> ℹ Verifying file integrity...
 #> [zen4R][INFO] ZenodoRecord - Verifying file integrity... 
 #> ℹ File '2015_Grijalva_Peru_sday.csv': integrity verified (md5sum: b43c28fa6cce8d7bd6ec6b0621aa5b02)
