@@ -14,5 +14,6 @@ importFrom(data.table,
   rbindlist,
   setkey
 )
+importFrom(jsonlite,toJSON)
 importFrom(oai,list_records)
 importFrom(zen4R,get_zenodo)
