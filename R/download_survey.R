@@ -83,8 +83,6 @@ download_survey <- function(
 
   check_is_url_doi(survey)
 
-  check_directory(directory)
-
   if (is_doi(survey)) {
     survey_url <- paste0("https://doi.org/", survey) # nolint
   } else {
