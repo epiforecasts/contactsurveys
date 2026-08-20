@@ -1,7 +1,10 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>http://epiforecasts.io/contactsurveys/404.html</loc></url>
+<url><loc>http://epiforecasts.io/contactsurveys/AGENTS.html</loc></url>
+<url><loc>http://epiforecasts.io/contactsurveys/CLAUDE.html</loc></url>
 <url><loc>http://epiforecasts.io/contactsurveys/LICENSE-text.html</loc></url>
 <url><loc>http://epiforecasts.io/contactsurveys/LICENSE.html</loc></url>
+<url><loc>http://epiforecasts.io/contactsurveys/REVIEW.html</loc></url>
 <url><loc>http://epiforecasts.io/contactsurveys/articles/contactsurveys.html</loc></url>
 <url><loc>http://epiforecasts.io/contactsurveys/articles/index.html</loc></url>
 <url><loc>http://epiforecasts.io/contactsurveys/authors.html</loc></url>
