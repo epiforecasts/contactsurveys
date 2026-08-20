@@ -5,8 +5,9 @@ interaction with the Zenodo repository of social contact surveys (listing,
 downloading, caching, and citing them), so most changes touch remote APIs, file
 IO, or the cache. The reviewing method — scoping, the finding bar, reporting and
 suggestion mechanics, trust — is the org half of this spec
-(`epiforecasts/.github` → `REVIEW.md`), and a review follows both. This package
-has no `CLAUDE.md`, so the few conventions worth holding are noted below.
+(`epiforecasts/.github` → `REVIEW.md`), and a review follows both. The package's
+own conventions — offline tests, documenting, NEWS entries, where files may be
+written — are in `CLAUDE.md`; read it too, and flag a change that skips them.
 
 ## What to look for
 
@@ -35,10 +36,7 @@ has no `CLAUDE.md`, so the few conventions worth holding are noted below.
   helpers that `cli::cli_abort(..., call = ...)` with a clear message; a new
   entry point taking external input should validate the same way rather than
   failing deep in a Zenodo or file call.
-- **Tests and conventions**: a regression test for every bug fix; network calls
-  exercised behind `vcr` cassettes (`tests/testthat/_vcr/`) and gated with
-  `skip_if_offline()` / `skip_on_cran()` so the suite runs offline and on CRAN,
-  not against a live call; snapshot tests (`_snaps/`) regenerated only when the
-  message they capture legitimately changes; a `NEWS.md` entry under the
-  development version for any user-visible change, referencing the issue it
-  closes.
+- **Fixtures regenerated to silence a failure**: a changed `_snaps/` snapshot or
+  a re-recorded `_vcr/` cassette is how a real regression gets papered over.
+  Either is fine when the behaviour legitimately changed, and worth questioning
+  when it arrives alongside a fix for something else.
