@@ -1,19 +1,15 @@
 # Reviewing a change to contactsurveys
 
-What to look for in a change to contactsurveys specifically. contactsurveys
-handles all interaction with the Zenodo repository of social contact surveys —
-listing available data sets, downloading and caching them, and resolving
-citations — so most changes touch remote APIs, file IO, or the cache. The
-reviewing method — scoping, the finding bar, reporting and suggestion mechanics,
-trust — is the org half of this spec (`epiforecasts/.github` → `REVIEW.md`), and
-a review follows both.
+What to look for in a change to contactsurveys specifically — it handles all
+interaction with the Zenodo repository of social contact surveys (listing,
+downloading, caching, and citing them), so most changes touch remote APIs, file
+IO, or the cache. The reviewing method — scoping, the finding bar, reporting and
+suggestion mechanics, trust — is the org half of this spec
+(`epiforecasts/.github` → `REVIEW.md`), and a review follows both. This package
+has no `CLAUDE.md`, so the few conventions worth holding are noted below.
 
 ## What to look for
 
-This package has no `CLAUDE.md`; the conventions it would hold are described
-here.
-
-- Correctness bugs and unhandled edge cases.
 - **Remote-data handling (`zen4R`, `oai`)**: responses treated as a shape the API
   does not guarantee — a record with no files, an empty file list, or a Zenodo
   record that links a published journal article so its DOI is not the dataset
@@ -35,24 +31,14 @@ here.
   (`contactsurveys_dir()`) must stay opt-in and actively managed, and the default
   must not populate a user cache on first use — `tempdir()` is the safe default.
   Flag a change that writes to a persistent user directory by default.
-- **data.table pitfalls**: `:=` modifying a caller's table by reference without
-  `copy()`, assumptions about key or row order that the code does not itself set,
-  `.SD`/`.SDcols` misuse.
-- **R footguns that bite on empty or single-row input**: `1:n` where `seq_len(n)`
-  is meant, `drop = TRUE` collapsing a data frame to a vector, silent recycling,
-  `sapply` returning an unexpected type.
-- **Validation gaps**: inputs from outside the package are guarded by `check_*()`
-  helpers that `cli::cli_abort(..., call = ...)` with a clear message. A new
+- **Input validation**: inputs from outside the package are guarded by `check_*()`
+  helpers that `cli::cli_abort(..., call = ...)` with a clear message; a new
   entry point taking external input should validate the same way rather than
   failing deep in a Zenodo or file call.
-- **Test coverage and network discipline**: this package's convention is a
-  regression test for every bug fix. Network calls are exercised behind `vcr`
-  cassettes (`tests/testthat/_vcr/`) and gated with `skip_if_offline()` /
-  `skip_on_cran()` so the suite runs offline and on CRAN — a changed code path
-  that hits the network should have a matching cassette, not a live call.
-  Snapshot tests (`_snaps/`) are regenerated when the message they capture
-  legitimately changes.
-- **Exported API and roxygen accuracy**: documented arguments matching the
-  signature, `@export` matching NAMESPACE, `.Rd` files regenerated.
-- **NEWS**: a `NEWS.md` entry under the development version for any user-visible
-  change, referencing the issue it closes — the repo's existing convention.
+- **Tests and conventions**: a regression test for every bug fix; network calls
+  exercised behind `vcr` cassettes (`tests/testthat/_vcr/`) and gated with
+  `skip_if_offline()` / `skip_on_cran()` so the suite runs offline and on CRAN,
+  not against a live call; snapshot tests (`_snaps/`) regenerated only when the
+  message they capture legitimately changes; a `NEWS.md` entry under the
+  development version for any user-visible change, referencing the issue it
+  closes.
