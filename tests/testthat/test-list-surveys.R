@@ -59,3 +59,23 @@ test_that("list_surveys() returns Zenodo DOIs when a record links a paper", {
   epicurus <- surveys[startsWith(surveys$title, "EPICURUS")]
   expect_identical(epicurus$url, "https://doi.org/10.5281/zenodo.20271335")
 })
+
+test_that("list_surveys() is robust to metadata identifier ordering", {
+  # The suffixed identifier columns hold each record's metadata identifiers
+  # in document order, which Zenodo does not guarantee; simulate a response
+  # where the linked journal-article DOI precedes the OAI record id
+  records <- readRDS(test_path("fixtures", "oai-records-mixit.rds"))
+  mixit_row <- startsWith(records$title, "MixIT")
+  records[mixit_row, c("identifier.1", "identifier.2")] <-
+    records[mixit_row, c("identifier.2", "identifier.1")]
+  local_mocked_bindings(list_records = function(...) records)
+
+  surveys <- list_surveys(overwrite = TRUE, verbose = FALSE)
+
+  expect_true(all(grepl(
+    "^https://doi.org/10\\.5281/zenodo\\.[0-9]+$",
+    surveys$url
+  )))
+  mixit <- surveys[startsWith(surveys$title, "MixIT")]
+  expect_identical(mixit$url, "https://doi.org/10.5281/zenodo.17579537")
+})
