@@ -7,8 +7,10 @@
   returning a non-Zenodo DOI for surveys whose Zenodo record links a
   published journal article, which caused
   [`download_survey()`](http://epiforecasts.io/contactsurveys/reference/download_survey.md)
-  to fail. The survey URL is now derived from the OAI record identifier
-  rather than a positional identifier column.
+  to fail. The survey URL and version ordering are now derived from the
+  OAI header identifier, so results do not depend on the order in which
+  Zenodo lists a record’s metadata identifiers. Resolves
+  [\#145](https://github.com/epiforecasts/contactsurveys/issues/145)
 
 ## contactsurveys 0.1.0
 

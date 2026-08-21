@@ -21,3 +21,6 @@
   : List files in contactsurveys cache
 - [`print(`*`<csbib>`*`)`](http://epiforecasts.io/contactsurveys/reference/print.csbib.md)
   : Print a csbib citation
+- [`store_reference()`](http://epiforecasts.io/contactsurveys/reference/store_reference.md)
+  : Extracts meta-data and repository info from a zen4R::ZenodoRecord
+  object
