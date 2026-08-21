@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">contactsurveys</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,7 +55,7 @@
                         <h4 data-toc-skip class="author">Sebastian Funk
 &amp; Nicholas Tierney</h4>
             
-            <h4 data-toc-skip class="date">2025-09-08</h4>
+            <h4 data-toc-skip class="date">2026-08-21</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/epiforecasts/contactsurveys/blob/main/vignettes/contactsurveys.Rmd" class="external-link"><code>vignettes/contactsurveys.Rmd</code></a></small>
       <div class="d-none name"><code>contactsurveys.Rmd</code></div>
@@ -81,11 +81,9 @@ available surveys can be listed (if an internet connection is available)
 with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/list_surveys.html">list_surveys</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Skipping download</span></span>
-<span><span class="co">#&gt; ℹ Files already exist at</span></span>
-<span><span class="co">#&gt;   '/Users/nick_1/Library/Application Support/org.R-project.R/R/contactsurveys/survey_list.rds'</span></span>
-<span><span class="co">#&gt;   and `overwrite = FALSE`</span></span>
-<span><span class="co">#&gt; ℹ Set `overwrite = TRUE` to force a re-download.</span></span>
+<span><span class="co">#&gt; ℹ Downloading survey list from zenodo</span></span>
+<span><span class="co">#&gt; ✔ Downloading survey list from zenodo [5.1s]</span></span>
+<span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Key: &lt;date_added&gt;</span></span>
 <span><span class="co">#&gt;     date_added</span></span>
 <span><span class="co">#&gt;         &lt;char&gt;</span></span>
@@ -134,7 +132,11 @@ with:</p>
 <span><span class="co">#&gt; 43: 2024-05-08</span></span>
 <span><span class="co">#&gt; 44: 2024-07-27</span></span>
 <span><span class="co">#&gt; 45: 2025-01-30</span></span>
+<span><span class="co">#&gt; 46: 2025-02-05</span></span>
+<span><span class="co">#&gt; 47: 2025-08-13</span></span>
+<span><span class="co">#&gt; 48: 2025-11-11</span></span>
 <span><span class="co">#&gt;     date_added</span></span>
+<span><span class="co">#&gt;         &lt;char&gt;</span></span>
 <span><span class="co">#&gt;                                                                                           title</span></span>
 <span><span class="co">#&gt;                                                                                          &lt;char&gt;</span></span>
 <span><span class="co">#&gt;  1:                                                                 POLYMOD social contact data</span></span>
@@ -147,7 +149,7 @@ with:</p>
 <span><span class="co">#&gt;  8:                              Social contact data for Zambia and South Africa (CODA dataset)</span></span>
 <span><span class="co">#&gt;  9:                                                      Social contact data for China mainland</span></span>
 <span><span class="co">#&gt; 10:                                                              Social contact data for Russia</span></span>
-<span><span class="co">#&gt; 11:                                                        CoMix social contact data (Belgium )</span></span>
+<span><span class="co">#&gt; 11:                                                         CoMix social contact data (Belgium)</span></span>
 <span><span class="co">#&gt; 12:                                                 Social contact data for Belgium (2010-2011)</span></span>
 <span><span class="co">#&gt; 13:                                                      Social contact data for Belgium (2006)</span></span>
 <span><span class="co">#&gt; 14:                                     Social contact data before and during COVID-19 in China</span></span>
@@ -182,7 +184,11 @@ with:</p>
 <span><span class="co">#&gt; 43:                                                CoMix data (last round in BE, CH, NL and UK)</span></span>
 <span><span class="co">#&gt; 44:                           Social contact data for the BHDSS and FWHDSS in the Gambia (2022)</span></span>
 <span><span class="co">#&gt; 45: Social mixing patterns of United States health care personnel at a quaternary health center</span></span>
+<span><span class="co">#&gt; 46:       EPICURUS: Social contact data -- Social mixing patterns focusing on older individuals</span></span>
+<span><span class="co">#&gt; 47:                                                               Reconnect social contact data</span></span>
+<span><span class="co">#&gt; 48:                                               MixIT: Post-pandemic social contacts in Italy</span></span>
 <span><span class="co">#&gt;                                                                                           title</span></span>
+<span><span class="co">#&gt;                                                                                          &lt;char&gt;</span></span>
 <span><span class="co">#&gt;                   creator                                     url</span></span>
 <span><span class="co">#&gt;                    &lt;char&gt;                                  &lt;char&gt;</span></span>
 <span><span class="co">#&gt;  1:          Joël Mossong  https://doi.org/10.5281/zenodo.3874557</span></span>
@@ -230,17 +236,22 @@ with:</p>
 <span><span class="co">#&gt; 43:   Jarvis, Christopher https://doi.org/10.5281/zenodo.11154066</span></span>
 <span><span class="co">#&gt; 44:           Osei, Isaac https://doi.org/10.5281/zenodo.13101862</span></span>
 <span><span class="co">#&gt; 45:       Pischel, Lauren https://doi.org/10.5281/zenodo.14156576</span></span>
-<span><span class="co">#&gt;                   creator                                     url</span></span></code></pre></div>
-<p>By default, the survey data from <code><a href="../reference/list_surveys.html">list_surveys()</a></code> is
-effectively cached, so it will run very quickly the next time you run
-it. This data will also persist across R sessions.</p>
-<p>To expand on this, the downloads in this package are downloaded to a
-default location specified by <code><a href="../reference/contactsurveys_dir.html">contactsurveys_dir()</a></code>, which
-uses <code><a href="https://rdrr.io/r/tools/userdir.html" class="external-link">tools::R_user_dir()</a></code> under the hood to find an
-appropriate place to write files. You can also control where files are
-saved by setting an environment variable,
-<code>CONTACTSURVEYS_HOME</code>. See <code>?Sys.setenv()</code> or
-<code><a href="https://rdrr.io/r/base/Startup.html" class="external-link">?Renviron</a></code> for more detail.</p>
+<span><span class="co">#&gt; 46:       LOEDY, Neilshan https://doi.org/10.5281/zenodo.20271335</span></span>
+<span><span class="co">#&gt; 47:      Goodfellow, Lucy https://doi.org/10.5281/zenodo.21218377</span></span>
+<span><span class="co">#&gt; 48:     Lucchini, Lorenzo https://doi.org/10.5281/zenodo.17579537</span></span>
+<span><span class="co">#&gt;                   creator                                     url</span></span>
+<span><span class="co">#&gt;                    &lt;char&gt;                                  &lt;char&gt;</span></span></code></pre></div>
+<p>By default, the survey list is cached in <code><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir()</a></code>, so
+repeating the call within the same R session is fast, and everything is
+cleaned up when the session ends.</p>
+<p>Downloads work the same way: files go to <code><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir()</a></code>
+unless you pass a different <code>directory</code>. For a cache that
+persists across R sessions, pass <code><a href="../reference/contactsurveys_dir.html">contactsurveys_dir()</a></code>,
+which uses <code><a href="https://rdrr.io/r/tools/userdir.html" class="external-link">tools::R_user_dir()</a></code> under the hood to find an
+appropriate place to write files; you can override that location by
+setting the environment variable <code>CONTACTSURVEYS_HOME</code>. See
+<code>?Sys.setenv()</code> or <code><a href="https://rdrr.io/r/base/Startup.html" class="external-link">?Renviron</a></code> for more
+detail.</p>
 <p>Surveys can be downloaded using <code><a href="../reference/download_survey.html">download_survey()</a></code>. This
 will get the relevant data of a survey given its Zenodo DOI (as returned
 by <code><a href="../reference/list_surveys.html">list_surveys()</a></code>).</p>
@@ -248,7 +259,9 @@ by <code><a href="../reference/list_surveys.html">list_surveys()</a></code>).</p
 <code class="sourceCode R"><span><span class="va">polymod_doi</span> <span class="op">&lt;-</span> <span class="st">"https://doi.org/10.5281/zenodo.3874557"</span></span>
 <span><span class="va">polymod_survey_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/download_survey.html">download_survey</a></span><span class="op">(</span><span class="va">polymod_doi</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Fetching contact survey filenames from: https://doi.org/10.5281/zenodo.3874557.</span></span>
-<span><span class="co">#&gt; ℹ Successfully fetched list of published records - page 1</span></span>
+<span><span class="co">#&gt; ℹ Number of records: 1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ℹ Successfully fetched list of published records - page 1 (size = 10)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ✔ Successfully fetched list of published records!</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -275,8 +288,8 @@ by <code><a href="../reference/list_surveys.html">list_surveys()</a></code>).</p
 <span><span class="co">#&gt; [zen4R][INFO] Downloading file '2008_Mossong_POLYMOD_participant_extra.csv' - size: 221.8 KiB</span></span>
 <span><span class="co">#&gt; ℹ Downloading file '2008_Mossong_POLYMOD_sday.csv' - size: 188.7 KiB</span></span>
 <span><span class="co">#&gt; [zen4R][INFO] Downloading file '2008_Mossong_POLYMOD_sday.csv' - size: 188.7 KiB</span></span>
-<span><span class="co">#&gt; ℹ Files downloaded at '/Users/nick_1/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557'.</span></span>
-<span><span class="co">#&gt; [zen4R][INFO] Files downloaded at '/Users/nick_1/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557'.</span></span>
+<span><span class="co">#&gt; ℹ Files downloaded at '/tmp/Rtmp0Yjut1/zenodo.3874557'.</span></span>
+<span><span class="co">#&gt; [zen4R][INFO] Files downloaded at '/tmp/Rtmp0Yjut1/zenodo.3874557'.</span></span>
 <span><span class="co">#&gt; ℹ Verifying file integrity...</span></span>
 <span><span class="co">#&gt; [zen4R][INFO] ZenodoRecord - Verifying file integrity...</span></span>
 <span><span class="co">#&gt; ℹ File '2008_Mossong_POLYMOD_hh_common.csv': integrity verified (md5sum: d7fb1359ad84dba8cce4c444063940aa)</span></span>
@@ -296,43 +309,44 @@ by <code><a href="../reference/list_surveys.html">list_surveys()</a></code>).</p
 <span><span class="co">#&gt; ✔ End of download</span></span>
 <span><span class="co">#&gt; [zen4R][INFO] ZenodoRecord - End of download</span></span>
 <span><span class="va">polymod_survey_files</span></span>
-<span><span class="co">#&gt; [1] "/Users/nick_1/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557/2008_Mossong_POLYMOD_contact_common.csv"    </span></span>
-<span><span class="co">#&gt; [2] "/Users/nick_1/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557/2008_Mossong_POLYMOD_dictionary.xls"        </span></span>
-<span><span class="co">#&gt; [3] "/Users/nick_1/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557/2008_Mossong_POLYMOD_hh_common.csv"         </span></span>
-<span><span class="co">#&gt; [4] "/Users/nick_1/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557/2008_Mossong_POLYMOD_hh_extra.csv"          </span></span>
-<span><span class="co">#&gt; [5] "/Users/nick_1/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557/2008_Mossong_POLYMOD_participant_common.csv"</span></span>
-<span><span class="co">#&gt; [6] "/Users/nick_1/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557/2008_Mossong_POLYMOD_participant_extra.csv" </span></span>
-<span><span class="co">#&gt; [7] "/Users/nick_1/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557/2008_Mossong_POLYMOD_sday.csv"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "/tmp/Rtmp0Yjut1/zenodo.3874557/2008_Mossong_POLYMOD_contact_common.csv"    </span></span>
+<span><span class="co">#&gt; [2] "/tmp/Rtmp0Yjut1/zenodo.3874557/2008_Mossong_POLYMOD_dictionary.xls"        </span></span>
+<span><span class="co">#&gt; [3] "/tmp/Rtmp0Yjut1/zenodo.3874557/2008_Mossong_POLYMOD_hh_common.csv"         </span></span>
+<span><span class="co">#&gt; [4] "/tmp/Rtmp0Yjut1/zenodo.3874557/2008_Mossong_POLYMOD_hh_extra.csv"          </span></span>
+<span><span class="co">#&gt; [5] "/tmp/Rtmp0Yjut1/zenodo.3874557/2008_Mossong_POLYMOD_participant_common.csv"</span></span>
+<span><span class="co">#&gt; [6] "/tmp/Rtmp0Yjut1/zenodo.3874557/2008_Mossong_POLYMOD_participant_extra.csv" </span></span>
+<span><span class="co">#&gt; [7] "/tmp/Rtmp0Yjut1/zenodo.3874557/2008_Mossong_POLYMOD_reference.json"        </span></span>
+<span><span class="co">#&gt; [8] "/tmp/Rtmp0Yjut1/zenodo.3874557/2008_Mossong_POLYMOD_sday.csv"</span></span></code></pre></div>
 <p>A reference for any given survey can be obtained by passing a DOI to
 <code><a href="../reference/get_citation.html">get_citation()</a></code>:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">get_citation</span>(polymod_doi)</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>ℹ Fetching citation</span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>✔ Citation fetched<span class="sc">!</span> [<span class="fl">2.3</span>s]</span>
-<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co">#&gt; @dataset{joel_mossong_2020_3874557,</span></span>
-<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co">#&gt;   author       = {Joël Mossong and</span></span>
-<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co">#&gt;                   Niel Hens and</span></span>
-<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="co">#&gt;                   Mark Jit and</span></span>
-<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="co">#&gt;                   Philippe Beutels and</span></span>
-<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="co">#&gt;                   Kari Auranen and</span></span>
-<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="co">#&gt;                   Rafael Mikolajczyk and</span></span>
-<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a><span class="co">#&gt;                   Marco Massari and</span></span>
-<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a><span class="co">#&gt;                   Stefania Salmaso and</span></span>
-<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a><span class="co">#&gt;                   Gianpaolo Scalia Tomba and</span></span>
-<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a><span class="co">#&gt;                   Jacco Wallinga and</span></span>
-<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a><span class="co">#&gt;                   Janneke Heijne and</span></span>
-<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a><span class="co">#&gt;                   Malgorzata Sadkowska-Todys and</span></span>
-<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a><span class="co">#&gt;                   Magdalena Rosinska and</span></span>
-<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a><span class="co">#&gt;                   W. John Edmunds},</span></span>
-<span id="cb3-21"><a href="#cb3-21" tabindex="-1"></a><span class="co">#&gt;   title        = {POLYMOD social contact data},</span></span>
-<span id="cb3-22"><a href="#cb3-22" tabindex="-1"></a><span class="co">#&gt;   month        = jun,</span></span>
-<span id="cb3-23"><a href="#cb3-23" tabindex="-1"></a><span class="co">#&gt;   year         = 2020,</span></span>
-<span id="cb3-24"><a href="#cb3-24" tabindex="-1"></a><span class="co">#&gt;   publisher    = {Zenodo},</span></span>
-<span id="cb3-25"><a href="#cb3-25" tabindex="-1"></a><span class="co">#&gt;   version      = 2,</span></span>
-<span id="cb3-26"><a href="#cb3-26" tabindex="-1"></a><span class="co">#&gt;   doi          = {10.5281/zenodo.3874557},</span></span>
-<span id="cb3-27"><a href="#cb3-27" tabindex="-1"></a><span class="co">#&gt;   url          = {https://doi.org/10.5281/zenodo.3874557},</span></span>
-<span id="cb3-28"><a href="#cb3-28" tabindex="-1"></a><span class="co">#&gt; }</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/get_citation.html">get_citation</a></span><span class="op">(</span><span class="va">polymod_doi</span><span class="op">)</span></span>
+<span><span class="co">#&gt; ℹ Fetching citation</span></span>
+<span><span class="co">#&gt; ✔ Citation fetched! [1.3s]</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; @dataset{joel_mossong_2020_3874557,</span></span>
+<span><span class="co">#&gt;   author       = {Joël Mossong and</span></span>
+<span><span class="co">#&gt;                   Niel Hens and</span></span>
+<span><span class="co">#&gt;                   Mark Jit and</span></span>
+<span><span class="co">#&gt;                   Philippe Beutels and</span></span>
+<span><span class="co">#&gt;                   Kari Auranen and</span></span>
+<span><span class="co">#&gt;                   Rafael Mikolajczyk and</span></span>
+<span><span class="co">#&gt;                   Marco Massari and</span></span>
+<span><span class="co">#&gt;                   Stefania Salmaso and</span></span>
+<span><span class="co">#&gt;                   Gianpaolo Scalia Tomba and</span></span>
+<span><span class="co">#&gt;                   Jacco Wallinga and</span></span>
+<span><span class="co">#&gt;                   Janneke Heijne and</span></span>
+<span><span class="co">#&gt;                   Malgorzata Sadkowska-Todys and</span></span>
+<span><span class="co">#&gt;                   Magdalena Rosinska and</span></span>
+<span><span class="co">#&gt;                   W. John Edmunds},</span></span>
+<span><span class="co">#&gt;   title        = {POLYMOD social contact data},</span></span>
+<span><span class="co">#&gt;   month        = jun,</span></span>
+<span><span class="co">#&gt;   year         = 2020,</span></span>
+<span><span class="co">#&gt;   publisher    = {Zenodo},</span></span>
+<span><span class="co">#&gt;   version      = 2,</span></span>
+<span><span class="co">#&gt;   doi          = {10.5281/zenodo.3874557},</span></span>
+<span><span class="co">#&gt;   url          = {https://doi.org/10.5281/zenodo.3874557},</span></span>
+<span><span class="co">#&gt; }</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="using-contact-matrices-with-socialmixr">Using contact matrices with socialmixr<a class="anchor" aria-label="anchor" href="#using-contact-matrices-with-socialmixr"></a>
 </h3>
@@ -345,18 +359,14 @@ by <code><a href="../reference/list_surveys.html">list_surveys()</a></code>).</p
 <span><span class="co">#&gt; The following objects are masked from 'package:contactsurveys':</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;     download_survey, get_citation, list_surveys</span></span>
-<span><span class="co">#&gt; The following object is masked from 'package:devtools':</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;     check</span></span>
 <span><span class="va">polymod_loaded</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://epiforecasts.io/socialmixr/reference/load_survey.html" class="external-link">load_survey</a></span><span class="op">(</span><span class="va">polymod_survey_files</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: No reference provided.</span></span>
+<span><span class="co">#&gt; Using POLYMOD social contact data. To cite this in a publication,use the</span></span>
+<span><span class="co">#&gt; `get_citation()` function.</span></span>
 <span><span class="va">uk_contact_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://epiforecasts.io/socialmixr/reference/contact_matrix.html" class="external-link">contact_matrix</a></span><span class="op">(</span></span>
 <span>  <span class="va">polymod_loaded</span>,</span>
 <span>  countries <span class="op">=</span> <span class="st">"United Kingdom"</span>,</span>
 <span>  age_limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">18</span>, <span class="fl">65</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; Removing participants that have contacts without age information.</span></span>
-<span><span class="co">#&gt; ℹ To change this behaviour, set the 'missing.contact.age' option.</span></span>
 <span></span>
 <span><span class="va">uk_contact_matrix</span></span>
 <span><span class="co">#&gt; $matrix</span></span>

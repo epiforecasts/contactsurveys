@@ -1,6 +1,13 @@
 # Changelog
 
-## contactsurveys (development version)
+## contactsurveys 0.2.0
+
+- [`download_survey()`](http://epiforecasts.io/contactsurveys/reference/download_survey.md)
+  now also stores a `reference.json` file alongside the downloaded
+  survey files, holding the survey’s title, authors, year, version and
+  DOI, so downstream tools can cite the survey without a further Zenodo
+  query
+  ([\#130](https://github.com/epiforecasts/contactsurveys/issues/130)).
 
 - [`download_survey()`](http://epiforecasts.io/contactsurveys/reference/download_survey.md)
   no longer warns when saving to a directory other than

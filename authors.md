@@ -17,13 +17,13 @@ Source:
 [`DESCRIPTION`](https://github.com/epiforecasts/contactsurveys/blob/main/DESCRIPTION)
 
 Funk S, Tierney N (2026). *contactsurveys: Download Contact Surveys for
-Use in Infectious Disease Modelling*. R package version 0.1.0.9000,
+Use in Infectious Disease Modelling*. R package version 0.2.0,
 <https://github.com/epiforecasts/contactsurveys>.
 
     @Manual{,
       title = {contactsurveys: Download Contact Surveys for Use in Infectious Disease Modelling},
       author = {Sebastian Funk and Nicholas Tierney},
       year = {2026},
-      note = {R package version 0.1.0.9000},
+      note = {R package version 0.2.0},
       url = {https://github.com/epiforecasts/contactsurveys},
     }

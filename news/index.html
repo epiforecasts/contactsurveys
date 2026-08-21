@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">contactsurveys</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,8 +34,9 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="development version" id="contactsurveys-development-version">contactsurveys (development version)<a class="anchor" aria-label="anchor" href="#contactsurveys-development-version"></a></h2>
-<ul><li><p><code><a href="../reference/download_survey.html">download_survey()</a></code> no longer warns when saving to a directory other than <code><a href="../reference/contactsurveys_dir.html">contactsurveys_dir()</a></code>. Where files are saved and whether they persist is controlled by, and documented on, the <code>directory</code> argument, so the warning was redundant — and it previously fired even on the default <code><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir()</a></code> (<a href="https://github.com/epiforecasts/contactsurveys/issues/142" class="external-link">#142</a>).</p></li>
+<h2 class="pkg-version" data-toc-text="0.2.0" id="contactsurveys-020">contactsurveys 0.2.0<a class="anchor" aria-label="anchor" href="#contactsurveys-020"></a></h2>
+<ul><li><p><code><a href="../reference/download_survey.html">download_survey()</a></code> now also stores a <code>reference.json</code> file alongside the downloaded survey files, holding the survey’s title, authors, year, version and DOI, so downstream tools can cite the survey without a further Zenodo query (<a href="https://github.com/epiforecasts/contactsurveys/issues/130" class="external-link">#130</a>).</p></li>
+<li><p><code><a href="../reference/download_survey.html">download_survey()</a></code> no longer warns when saving to a directory other than <code><a href="../reference/contactsurveys_dir.html">contactsurveys_dir()</a></code>. Where files are saved and whether they persist is controlled by, and documented on, the <code>directory</code> argument, so the warning was redundant — and it previously fired even on the default <code><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir()</a></code> (<a href="https://github.com/epiforecasts/contactsurveys/issues/142" class="external-link">#142</a>).</p></li>
 <li><p>Fixed <code><a href="../reference/list_surveys.html">list_surveys()</a></code> returning a non-Zenodo DOI for surveys whose Zenodo record links a published journal article, which caused <code><a href="../reference/download_survey.html">download_survey()</a></code> to fail. The survey URL and version ordering are now derived from the OAI header identifier, so results do not depend on the order in which Zenodo lists a record’s metadata identifiers. Resolves <a href="https://github.com/epiforecasts/contactsurveys/issues/145" class="external-link">#145</a></p></li>
 </ul></div>
     <div class="section level2">

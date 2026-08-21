@@ -22,11 +22,9 @@ internet connection is available) with:
 ``` r
 
 list_surveys()
-#> Skipping download
-#> ℹ Files already exist at
-#>   '/Users/nick_1/Library/Application Support/org.R-project.R/R/contactsurveys/survey_list.rds'
-#>   and `overwrite = FALSE`
-#> ℹ Set `overwrite = TRUE` to force a re-download.
+#> ℹ Downloading survey list from zenodo
+#> ✔ Downloading survey list from zenodo [5.1s]
+#> 
 #> Key: <date_added>
 #>     date_added
 #>         <char>
@@ -75,7 +73,11 @@ list_surveys()
 #> 43: 2024-05-08
 #> 44: 2024-07-27
 #> 45: 2025-01-30
+#> 46: 2025-02-05
+#> 47: 2025-08-13
+#> 48: 2025-11-11
 #>     date_added
+#>         <char>
 #>                                                                                           title
 #>                                                                                          <char>
 #>  1:                                                                 POLYMOD social contact data
@@ -88,7 +90,7 @@ list_surveys()
 #>  8:                              Social contact data for Zambia and South Africa (CODA dataset)
 #>  9:                                                      Social contact data for China mainland
 #> 10:                                                              Social contact data for Russia
-#> 11:                                                        CoMix social contact data (Belgium )
+#> 11:                                                         CoMix social contact data (Belgium)
 #> 12:                                                 Social contact data for Belgium (2010-2011)
 #> 13:                                                      Social contact data for Belgium (2006)
 #> 14:                                     Social contact data before and during COVID-19 in China
@@ -123,7 +125,11 @@ list_surveys()
 #> 43:                                                CoMix data (last round in BE, CH, NL and UK)
 #> 44:                           Social contact data for the BHDSS and FWHDSS in the Gambia (2022)
 #> 45: Social mixing patterns of United States health care personnel at a quaternary health center
+#> 46:       EPICURUS: Social contact data -- Social mixing patterns focusing on older individuals
+#> 47:                                                               Reconnect social contact data
+#> 48:                                               MixIT: Post-pandemic social contacts in Italy
 #>                                                                                           title
+#>                                                                                          <char>
 #>                   creator                                     url
 #>                    <char>                                  <char>
 #>  1:          Joël Mossong  https://doi.org/10.5281/zenodo.3874557
@@ -171,20 +177,25 @@ list_surveys()
 #> 43:   Jarvis, Christopher https://doi.org/10.5281/zenodo.11154066
 #> 44:           Osei, Isaac https://doi.org/10.5281/zenodo.13101862
 #> 45:       Pischel, Lauren https://doi.org/10.5281/zenodo.14156576
+#> 46:       LOEDY, Neilshan https://doi.org/10.5281/zenodo.20271335
+#> 47:      Goodfellow, Lucy https://doi.org/10.5281/zenodo.21218377
+#> 48:     Lucchini, Lorenzo https://doi.org/10.5281/zenodo.17579537
 #>                   creator                                     url
+#>                    <char>                                  <char>
 ```
 
-By default, the survey data from
-[`list_surveys()`](http://epiforecasts.io/contactsurveys/reference/list_surveys.md)
-is effectively cached, so it will run very quickly the next time you run
-it. This data will also persist across R sessions.
+By default, the survey list is cached in
+[`tempdir()`](https://rdrr.io/r/base/tempfile.html), so repeating the
+call within the same R session is fast, and everything is cleaned up
+when the session ends.
 
-To expand on this, the downloads in this package are downloaded to a
-default location specified by
+Downloads work the same way: files go to
+[`tempdir()`](https://rdrr.io/r/base/tempfile.html) unless you pass a
+different `directory`. For a cache that persists across R sessions, pass
 [`contactsurveys_dir()`](http://epiforecasts.io/contactsurveys/reference/contactsurveys_dir.md),
 which uses [`tools::R_user_dir()`](https://rdrr.io/r/tools/userdir.html)
-under the hood to find an appropriate place to write files. You can also
-control where files are saved by setting an environment variable,
+under the hood to find an appropriate place to write files; you can
+override that location by setting the environment variable
 `CONTACTSURVEYS_HOME`. See `?Sys.setenv()` or
 [`?Renviron`](https://rdrr.io/r/base/Startup.html) for more detail.
 
@@ -199,7 +210,9 @@ returned by
 polymod_doi <- "https://doi.org/10.5281/zenodo.3874557"
 polymod_survey_files <- download_survey(polymod_doi)
 #> Fetching contact survey filenames from: https://doi.org/10.5281/zenodo.3874557.
-#> ℹ Successfully fetched list of published records - page 1
+#> ℹ Number of records: 1
+#> 
+#> ℹ Successfully fetched list of published records - page 1 (size = 10)
 #> 
 #> ✔ Successfully fetched list of published records!
 #> 
@@ -226,8 +239,8 @@ polymod_survey_files <- download_survey(polymod_doi)
 #> [zen4R][INFO] Downloading file '2008_Mossong_POLYMOD_participant_extra.csv' - size: 221.8 KiB
 #> ℹ Downloading file '2008_Mossong_POLYMOD_sday.csv' - size: 188.7 KiB
 #> [zen4R][INFO] Downloading file '2008_Mossong_POLYMOD_sday.csv' - size: 188.7 KiB
-#> ℹ Files downloaded at '/Users/nick_1/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557'.
-#> [zen4R][INFO] Files downloaded at '/Users/nick_1/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557'.
+#> ℹ Files downloaded at '/tmp/Rtmp0Yjut1/zenodo.3874557'.
+#> [zen4R][INFO] Files downloaded at '/tmp/Rtmp0Yjut1/zenodo.3874557'.
 #> ℹ Verifying file integrity...
 #> [zen4R][INFO] ZenodoRecord - Verifying file integrity...
 #> ℹ File '2008_Mossong_POLYMOD_hh_common.csv': integrity verified (md5sum: d7fb1359ad84dba8cce4c444063940aa)
@@ -247,24 +260,25 @@ polymod_survey_files <- download_survey(polymod_doi)
 #> ✔ End of download
 #> [zen4R][INFO] ZenodoRecord - End of download
 polymod_survey_files
-#> [1] "/Users/nick_1/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557/2008_Mossong_POLYMOD_contact_common.csv"    
-#> [2] "/Users/nick_1/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557/2008_Mossong_POLYMOD_dictionary.xls"        
-#> [3] "/Users/nick_1/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557/2008_Mossong_POLYMOD_hh_common.csv"         
-#> [4] "/Users/nick_1/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557/2008_Mossong_POLYMOD_hh_extra.csv"          
-#> [5] "/Users/nick_1/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557/2008_Mossong_POLYMOD_participant_common.csv"
-#> [6] "/Users/nick_1/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557/2008_Mossong_POLYMOD_participant_extra.csv" 
-#> [7] "/Users/nick_1/Library/Application Support/org.R-project.R/R/contactsurveys/zenodo.3874557/2008_Mossong_POLYMOD_sday.csv"
+#> [1] "/tmp/Rtmp0Yjut1/zenodo.3874557/2008_Mossong_POLYMOD_contact_common.csv"    
+#> [2] "/tmp/Rtmp0Yjut1/zenodo.3874557/2008_Mossong_POLYMOD_dictionary.xls"        
+#> [3] "/tmp/Rtmp0Yjut1/zenodo.3874557/2008_Mossong_POLYMOD_hh_common.csv"         
+#> [4] "/tmp/Rtmp0Yjut1/zenodo.3874557/2008_Mossong_POLYMOD_hh_extra.csv"          
+#> [5] "/tmp/Rtmp0Yjut1/zenodo.3874557/2008_Mossong_POLYMOD_participant_common.csv"
+#> [6] "/tmp/Rtmp0Yjut1/zenodo.3874557/2008_Mossong_POLYMOD_participant_extra.csv" 
+#> [7] "/tmp/Rtmp0Yjut1/zenodo.3874557/2008_Mossong_POLYMOD_reference.json"        
+#> [8] "/tmp/Rtmp0Yjut1/zenodo.3874557/2008_Mossong_POLYMOD_sday.csv"
 ```
 
 A reference for any given survey can be obtained by passing a DOI to
 [`get_citation()`](http://epiforecasts.io/contactsurveys/reference/get_citation.md):
 
 ``` r
-get_citation(polymod_doi)
-#> 
-ℹ Fetching citation
 
-✔ Citation fetched! [2.3s]
+get_citation(polymod_doi)
+#> ℹ Fetching citation
+#> ✔ Citation fetched! [1.3s]
+#> 
 #> @dataset{joel_mossong_2020_3874557,
 #>   author       = {Joël Mossong and
 #>                   Niel Hens and
@@ -306,18 +320,14 @@ library(socialmixr) # nolint
 #> The following objects are masked from 'package:contactsurveys':
 #> 
 #>     download_survey, get_citation, list_surveys
-#> The following object is masked from 'package:devtools':
-#> 
-#>     check
 polymod_loaded <- load_survey(polymod_survey_files)
-#> Warning: No reference provided.
+#> Using POLYMOD social contact data. To cite this in a publication,use the
+#> `get_citation()` function.
 uk_contact_matrix <- contact_matrix(
   polymod_loaded,
   countries = "United Kingdom",
   age_limits = c(0, 18, 65)
 )
-#> Removing participants that have contacts without age information.
-#> ℹ To change this behaviour, set the 'missing.contact.age' option.
 
 uk_contact_matrix
 #> $matrix
