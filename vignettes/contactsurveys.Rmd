@@ -28,7 +28,7 @@ For background on age-specific mixing matrices and what data inform them, see, f
 ``` r
 list_surveys()
 #> ℹ Downloading survey list from zenodo
-#> ✔ Downloading survey list from zenodo [13.2s]
+#> ✔ Downloading survey list from zenodo [7.4s]
 #> 
 #> Key: <date_added>
 #>     date_added
@@ -199,9 +199,6 @@ Surveys can be downloaded using `download_survey()`. This will get the relevant 
 ``` r
 polymod_doi <- "https://doi.org/10.5281/zenodo.3874557"
 polymod_survey_files <- download_survey(polymod_doi)
-#> Warning in f(...): Directory differs from `contactsurveys_dir()`
-#> ! Files may persist between R sessions.
-#> ℹ See `contactsurveys_dir()` for more details.
 #> Fetching contact survey filenames from: https://doi.org/10.5281/zenodo.3874557.
 #> ℹ Number of records: 1
 #> 
@@ -232,8 +229,8 @@ polymod_survey_files <- download_survey(polymod_doi)
 #> [zen4R][INFO] Downloading file '2008_Mossong_POLYMOD_participant_extra.csv' - size: 221.8 KiB
 #> ℹ Downloading file '2008_Mossong_POLYMOD_sday.csv' - size: 188.7 KiB
 #> [zen4R][INFO] Downloading file '2008_Mossong_POLYMOD_sday.csv' - size: 188.7 KiB
-#> ℹ Files downloaded at '/tmp/Rtmpj5Fipy/zenodo.3874557'.
-#> [zen4R][INFO] Files downloaded at '/tmp/Rtmpj5Fipy/zenodo.3874557'.
+#> ℹ Files downloaded at '/tmp/Rtmp6UQnCJ/zenodo.3874557'.
+#> [zen4R][INFO] Files downloaded at '/tmp/Rtmp6UQnCJ/zenodo.3874557'.
 #> ℹ Verifying file integrity...
 #> [zen4R][INFO] ZenodoRecord - Verifying file integrity...
 #> ℹ File '2008_Mossong_POLYMOD_hh_common.csv': integrity verified (md5sum: d7fb1359ad84dba8cce4c444063940aa)
@@ -253,14 +250,14 @@ polymod_survey_files <- download_survey(polymod_doi)
 #> ✔ End of download
 #> [zen4R][INFO] ZenodoRecord - End of download
 polymod_survey_files
-#> [1] "/tmp/Rtmpj5Fipy/zenodo.3874557/2008_Mossong_POLYMOD_contact_common.csv"    
-#> [2] "/tmp/Rtmpj5Fipy/zenodo.3874557/2008_Mossong_POLYMOD_dictionary.xls"        
-#> [3] "/tmp/Rtmpj5Fipy/zenodo.3874557/2008_Mossong_POLYMOD_hh_common.csv"         
-#> [4] "/tmp/Rtmpj5Fipy/zenodo.3874557/2008_Mossong_POLYMOD_hh_extra.csv"          
-#> [5] "/tmp/Rtmpj5Fipy/zenodo.3874557/2008_Mossong_POLYMOD_participant_common.csv"
-#> [6] "/tmp/Rtmpj5Fipy/zenodo.3874557/2008_Mossong_POLYMOD_participant_extra.csv" 
-#> [7] "/tmp/Rtmpj5Fipy/zenodo.3874557/2008_Mossong_POLYMOD_reference.json"        
-#> [8] "/tmp/Rtmpj5Fipy/zenodo.3874557/2008_Mossong_POLYMOD_sday.csv"
+#> [1] "/tmp/Rtmp6UQnCJ/zenodo.3874557/2008_Mossong_POLYMOD_contact_common.csv"    
+#> [2] "/tmp/Rtmp6UQnCJ/zenodo.3874557/2008_Mossong_POLYMOD_dictionary.xls"        
+#> [3] "/tmp/Rtmp6UQnCJ/zenodo.3874557/2008_Mossong_POLYMOD_hh_common.csv"         
+#> [4] "/tmp/Rtmp6UQnCJ/zenodo.3874557/2008_Mossong_POLYMOD_hh_extra.csv"          
+#> [5] "/tmp/Rtmp6UQnCJ/zenodo.3874557/2008_Mossong_POLYMOD_participant_common.csv"
+#> [6] "/tmp/Rtmp6UQnCJ/zenodo.3874557/2008_Mossong_POLYMOD_participant_extra.csv" 
+#> [7] "/tmp/Rtmp6UQnCJ/zenodo.3874557/2008_Mossong_POLYMOD_reference.json"        
+#> [8] "/tmp/Rtmp6UQnCJ/zenodo.3874557/2008_Mossong_POLYMOD_sday.csv"
 ```
 
 A reference for any given survey can be obtained by passing a DOI to `get_citation()`:
@@ -269,7 +266,7 @@ A reference for any given survey can be obtained by passing a DOI to `get_citati
 ``` r
 get_citation(polymod_doi)
 #> ℹ Fetching citation
-#> ✔ Citation fetched! [1.2s]
+#> ✔ Citation fetched! [534ms]
 #> 
 #> @dataset{joel_mossong_2020_3874557,
 #>   author       = {Joël Mossong and
