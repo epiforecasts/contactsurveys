@@ -84,7 +84,7 @@ list_surveys <- function(
   ## get number within version DOI, this is expected to be ascending by version
   record_list <-
     record_list[,
-      doi.nb := as.integer(sub("^.*zenodo\\.org:", "", identifier.1))
+      doi.nb := as.integer(sub("^.*zenodo\\.org:", "", identifier))
     ]
   ## save date at which first entered
   record_list <- record_list[, date := min(date), by = common_doi]
@@ -97,14 +97,14 @@ list_surveys <- function(
     date_added = date,
     title,
     creator,
-    ## build the version-specific Zenodo DOI from the OAI record id, which is
-    ## always "oai:zenodo.org:<record>"; positional identifier columns are
-    ## unreliable when a record carries extra related identifiers (e.g. a
-    ## linked journal-article DOI)
+    ## build the version-specific Zenodo DOI from the OAI header identifier,
+    ## which is always "oai:zenodo.org:<record>"; the suffixed identifier
+    ## columns hold metadata identifiers whose ordering varies between
+    ## records (e.g. when a record links a journal-article DOI)
     url = sub(
       "^oai:zenodo.org:",
       "https://doi.org/10.5281/zenodo.",
-      identifier.1
+      identifier
     )
   )]
 
