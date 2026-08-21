@@ -17,10 +17,16 @@ vignette: >
 ```{r setup, include = FALSE}
 library(knitr)
 library(contactsurveys)
+## evaluate the live-download chunks only when Zenodo is reachable, so an
+## offline knit still produces a valid document
+is_online <- !inherits(
+  try(suppressWarnings(readLines("https://zenodo.org", n = 1)), silent = TRUE),
+  "try-error"
+)
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  eval = is_online()
+  eval = is_online
 )
 data.table::setDTthreads(1)
 ```
@@ -37,9 +43,9 @@ For background on age-specific mixing matrices and what data inform them, see, f
 list_surveys()
 ```
 
-By default, the survey data from `list_surveys()` is effectively cached, so it will run very quickly the next time you run it. This data will also persist across R sessions.
+By default, the survey list is cached in `tempdir()`, so repeating the call within the same R session is fast, and everything is cleaned up when the session ends.
 
-To expand on this, the downloads in this package are downloaded to a default location specified by `contactsurveys_dir()`, which uses `tools::R_user_dir()` under the hood to find an appropriate place to write files. You can also control where files are saved by setting an environment variable, `CONTACTSURVEYS_HOME`. See `?Sys.setenv()` or `?Renviron` for more detail.
+Downloads work the same way: files go to `tempdir()` unless you pass a different `directory`. For a cache that persists across R sessions, pass `contactsurveys_dir()`, which uses `tools::R_user_dir()` under the hood to find an appropriate place to write files; you can override that location by setting the environment variable `CONTACTSURVEYS_HOME`. See `?Sys.setenv()` or `?Renviron` for more detail.
 
 Surveys can be downloaded using `download_survey()`. This will get the relevant data of a survey given its Zenodo DOI (as returned by `list_surveys()`). 
 

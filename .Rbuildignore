@@ -17,3 +17,5 @@ cran-comments.md
 ^cran-comments\.md$
 ^\.coderabbit\.yaml$
 ^\.claude$
+^AGENTS\.md$
+^CLAUDE\.md$
