@@ -17,10 +17,16 @@ vignette: >
 ```{r setup, include = FALSE}
 library(knitr)
 library(contactsurveys)
+## evaluate the live-download chunks only when Zenodo is reachable, so an
+## offline knit still produces a valid document
+is_online <- !inherits(
+  try(suppressWarnings(readLines("https://zenodo.org", n = 1)), silent = TRUE),
+  "try-error"
+)
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  eval = is_online()
+  eval = is_online
 )
 data.table::setDTthreads(1)
 ```
