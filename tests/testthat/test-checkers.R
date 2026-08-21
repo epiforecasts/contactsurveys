@@ -11,14 +11,6 @@ test_that("check_is_url_doi() works", {
   )
 })
 
-test_that("check_directory() works", {
-  tmp <- withr::local_tempdir()
-  expect_warning(
-    check_directory(directory = tmp),
-    "Directory"
-  )
-})
-
 test_that("ensure_dir_exists() works", {
   expect_snapshot(
     error = TRUE,

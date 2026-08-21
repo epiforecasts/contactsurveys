@@ -1,5 +1,7 @@
 # contactsurveys (development version)
 
+- `download_survey()` no longer warns when saving to a directory other than `contactsurveys_dir()`. Where files are saved and whether they persist is controlled by, and documented on, the `directory` argument, so the warning was redundant — and it previously fired even on the default `tempdir()` (#142).
+
 - Fixed `list_surveys()` returning a non-Zenodo DOI for surveys whose Zenodo record links a published journal article, which caused `download_survey()` to fail. The survey URL and version ordering are now derived from the OAI header identifier, so results do not depend on the order in which Zenodo lists a record's metadata identifiers. Resolves #145
 
 # contactsurveys 0.1.0

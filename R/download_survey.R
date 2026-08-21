@@ -84,8 +84,6 @@ download_survey <- function(
 
   check_is_url_doi(survey)
 
-  check_directory(directory)
-
   if (is_doi(survey)) {
     survey_url <- paste0("https://doi.org/", survey) # nolint
   } else {
@@ -192,8 +190,13 @@ store_reference <- function(records, survey_dir) {
       records$metadata$creators,
       function(x) {
         person_or_org <- x$person_or_org
-        person_or_org$name %||%
-          toString(c(person_or_org$family_name, person_or_org$given_name))
+        name <- person_or_org$name
+        if (is.null(name)) {
+          name <- toString(
+            c(person_or_org$family_name, person_or_org$given_name)
+          )
+        }
+        name
       },
       character(1)
     ),

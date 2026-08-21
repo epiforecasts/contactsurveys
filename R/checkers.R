@@ -33,20 +33,3 @@ check_is_url_doi <- function(
     )
   }
 }
-
-check_directory <- function(directory, call = rlang::caller_env()) {
-  is_contactsurveys_dir <- identical(
-    path.expand(directory),
-    path.expand(contactsurveys_dir())
-  )
-  if (!is_contactsurveys_dir) {
-    cli::cli_warn(
-      message = c(
-        "Directory differs from {.fn contactsurveys_dir}",
-        "!" = "Files may persist between R sessions.",
-        "i" = "See {.fn contactsurveys_dir} for more details." # nolint
-      ),
-      call = call
-    )
-  }
-}
