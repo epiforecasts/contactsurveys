@@ -74,7 +74,7 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">social_contact_surveys</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/list_surveys.html">list_surveys</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">social_contact_surveys</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="do">## [1] 47  4</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="do">## [1] 48  4</span></span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">social_contact_surveys</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="do">## Key: &lt;date_added&gt;</span></span>
@@ -148,7 +148,8 @@
 <span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="do">##     download_survey, get_citation, list_surveys</span></span></code></pre></div>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">polymod_loaded</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://epiforecasts.io/socialmixr/reference/load_survey.html" class="external-link">load_survey</a></span><span class="op">(</span><span class="va">polymod_survey_files</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb13"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="do">## Warning: No reference provided.</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="do">## Using POLYMOD social contact data. To cite this in a publication,use the</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="do">## `get_citation()` function.</span></span></code></pre></div>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">uk_contact_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://epiforecasts.io/socialmixr/reference/contact_matrix.html" class="external-link">contact_matrix</a></span><span class="op">(</span></span>
 <span>      <span class="va">polymod_loaded</span>,</span>
@@ -158,18 +159,18 @@
 <span></span>
 <span><span class="va">uk_contact_matrix</span></span></code></pre></div>
 <div class="sourceCode" id="cb15"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="do">## $matrix</span></span>
-<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="do">##          contact.age.group</span></span>
-<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a><span class="do">## age.group   [0,18)  [18,65)       65+</span></span>
-<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a><span class="do">##   [0,18)  7.813187 5.505495 0.2664835</span></span>
-<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a><span class="do">##   [18,65) 2.103215 8.174281 0.6463621</span></span>
-<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a><span class="do">##   65+     1.160714 5.464286 1.7142857</span></span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="do">##           contact.age.group</span></span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a><span class="do">## age.group    [0,18)  [18,65)  [65,Inf)</span></span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a><span class="do">##   [0,18)   7.813187 5.505495 0.2664835</span></span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a><span class="do">##   [18,65)  2.103215 8.174281 0.6463621</span></span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a><span class="do">##   [65,Inf) 1.160714 5.464286 1.7142857</span></span>
 <span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a><span class="do">## $participants</span></span>
 <span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a><span class="do">##    age.group participants proportion</span></span>
 <span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a><span class="do">##       &lt;char&gt;        &lt;int&gt;      &lt;num&gt;</span></span>
 <span id="cb15-11"><a href="#cb15-11" tabindex="-1"></a><span class="do">## 1:    [0,18)          364  0.3600396</span></span>
 <span id="cb15-12"><a href="#cb15-12" tabindex="-1"></a><span class="do">## 2:   [18,65)          591  0.5845697</span></span>
-<span id="cb15-13"><a href="#cb15-13" tabindex="-1"></a><span class="do">## 3:       65+           56  0.0553907</span></span></code></pre></div>
+<span id="cb15-13"><a href="#cb15-13" tabindex="-1"></a><span class="do">## 3:  [65,Inf)           56  0.0553907</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="contributors">Contributors<a class="anchor" aria-label="anchor" href="#contributors"></a>

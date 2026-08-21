@@ -39,7 +39,7 @@ dim(social_contact_surveys)
 ```
 
 ``` R
-## [1] 47  4
+## [1] 48  4
 ```
 
 ``` r
@@ -150,7 +150,8 @@ polymod_loaded <- load_survey(polymod_survey_files)
 ```
 
 ``` R
-## Warning: No reference provided.
+## Using POLYMOD social contact data. To cite this in a publication,use the
+## `get_citation()` function.
 ```
 
 ``` r
@@ -166,18 +167,18 @@ uk_contact_matrix
 
 ``` R
 ## $matrix
-##          contact.age.group
-## age.group   [0,18)  [18,65)       65+
-##   [0,18)  7.813187 5.505495 0.2664835
-##   [18,65) 2.103215 8.174281 0.6463621
-##   65+     1.160714 5.464286 1.7142857
+##           contact.age.group
+## age.group    [0,18)  [18,65)  [65,Inf)
+##   [0,18)   7.813187 5.505495 0.2664835
+##   [18,65)  2.103215 8.174281 0.6463621
+##   [65,Inf) 1.160714 5.464286 1.7142857
 ## 
 ## $participants
 ##    age.group participants proportion
 ##       <char>        <int>      <num>
 ## 1:    [0,18)          364  0.3600396
 ## 2:   [18,65)          591  0.5845697
-## 3:       65+           56  0.0553907
+## 3:  [65,Inf)           56  0.0553907
 ```
 
 ## Contributors
