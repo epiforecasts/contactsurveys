@@ -1,0 +1,84 @@
+name: check-surveys
+
+# On-demand full survey check: list every survey with the contactsurveys code
+# on the dispatched ref, download each, and load each with socialmixr. The
+# check scripts live in socialmixr's inst/dev, which is the single maintained
+# copy; the scheduled (monthly) run of the same check lives in socialmixr and
+# tests the released stack. Dispatch this before merging a change you don't
+# trust against real data, and as a pre-release step.
+
+on:
+  workflow_dispatch:
+    inputs:
+      socialmixr_ref:
+        description: >-
+          socialmixr ref to test against (empty = CRAN release; set for
+          coordinated cross-package changes)
+        required: false
+        default: ''
+
+concurrency:
+  group: check-surveys-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check-surveys:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - name: Checkout contactsurveys
+        uses: actions/checkout@v7
+
+      - name: Checkout socialmixr (for the check scripts)
+        uses: actions/checkout@v7
+        with:
+          repository: epiforecasts/socialmixr
+          path: socialmixr
+
+      - name: Setup R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+          r-version: 'release'
+
+      - name: Setup R dependencies
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: |
+            any::socialmixr
+            any::here
+            any::purrr
+            any::cli
+            any::glue
+            local::.
+          cache-version: 1
+
+      - name: Install socialmixr from ref
+        if: inputs.socialmixr_ref != ''
+        run: Rscript -e 'pak::pak("epiforecasts/socialmixr@${{ inputs.socialmixr_ref }}")'
+
+      - name: Download survey files
+        run: Rscript socialmixr/inst/dev/dl_all_surveys.r
+
+      - name: Check survey files
+        run: Rscript socialmixr/inst/dev/check_all_surveys.r
+
+      - name: Upload check results
+        uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: check-results
+          path: surveys/check_summary.md
+          retention-days: 90
+          if-no-files-found: warn
+
+      - name: Fail on survey check failures
+        shell: bash
+        run: |
+          if [ ! -f surveys/check_summary.md ] || ! grep -q "^- Failed: 0$" surveys/check_summary.md; then
+            echo "Survey check failures - see the step summary and artifact."
+            exit 1
+          fi
