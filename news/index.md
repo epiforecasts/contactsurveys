@@ -2,6 +2,15 @@
 
 ## contactsurveys (development version)
 
+- [`download_survey()`](http://epiforecasts.io/contactsurveys/reference/download_survey.md)
+  no longer warns when saving to a directory other than
+  [`contactsurveys_dir()`](http://epiforecasts.io/contactsurveys/reference/contactsurveys_dir.md).
+  Where files are saved and whether they persist is controlled by, and
+  documented on, the `directory` argument, so the warning was redundant
+  — and it previously fired even on the default
+  [`tempdir()`](https://rdrr.io/r/base/tempfile.html)
+  ([\#142](https://github.com/epiforecasts/contactsurveys/issues/142)).
+
 - Fixed
   [`list_surveys()`](http://epiforecasts.io/contactsurveys/reference/list_surveys.md)
   returning a non-Zenodo DOI for surveys whose Zenodo record links a
