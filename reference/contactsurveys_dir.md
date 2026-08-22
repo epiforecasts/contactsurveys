@@ -36,7 +36,7 @@ contactsurveys_dir()
 ## Override with an environment variable:
 Sys.setenv(CONTACTSURVEYS_HOME = tempdir())
 contactsurveys_dir()
-#> [1] "/tmp/RtmpKEyINV"
+#> [1] "/tmp/RtmpKlCCR1"
 ## Unset
 Sys.unsetenv("CONTACTSURVEYS_HOME")
 ```

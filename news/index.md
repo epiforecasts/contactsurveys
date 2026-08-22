@@ -2,6 +2,8 @@
 
 ## contactsurveys 0.2.0
 
+CRAN release: 2026-08-21
+
 - [`download_survey()`](http://epiforecasts.io/contactsurveys/reference/download_survey.md)
   now also stores a `reference.json` file alongside the downloaded
   survey files, holding the survey’s title, authors, year, version and
