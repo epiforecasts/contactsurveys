@@ -1,5 +1,5 @@
 
-# contactsurveys
+# contactsurveys <img src="man/figures/logo.png" align="right" height="139" alt="contactsurveys website" />
 
 <!-- badges: start -->
 

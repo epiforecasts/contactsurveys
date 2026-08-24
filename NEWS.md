@@ -1,5 +1,7 @@
 # contactsurveys (development version)
 
+- Added a package logo.
+
 # contactsurveys 0.2.0
 
 - `download_survey()` now also stores a `reference.json` file alongside the downloaded survey files, holding the survey's title, authors, year, version and DOI, so downstream tools can cite the survey without a further Zenodo query (#130).
