@@ -2,6 +2,8 @@
 
 ## contactsurveys (development version)
 
+- Added a package logo.
+
 ## contactsurveys 0.2.0
 
 CRAN release: 2026-08-21
