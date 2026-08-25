@@ -177,9 +177,9 @@ specification. Contributions of any kind are welcome!
 
 ### Code
 
+<a href="https://github.com/epiforecasts/contactsurveys/commits?author=njtierney">njtierney</a>,
 <a href="https://github.com/epiforecasts/contactsurveys/commits?author=sbfnk">sbfnk</a>,
 <a href="https://github.com/epiforecasts/contactsurveys/commits?author=Bisaloo">Bisaloo</a>,
-<a href="https://github.com/epiforecasts/contactsurveys/commits?author=njtierney">njtierney</a>,
 <a href="https://github.com/epiforecasts/contactsurveys/commits?author=lwillem">lwillem</a>,
 <a href="https://github.com/epiforecasts/contactsurveys/commits?author=Degoot-AM">Degoot-AM</a>,
 <a href="https://github.com/epiforecasts/contactsurveys/commits?author=jarvisc1">jarvisc1</a>,
@@ -187,7 +187,7 @@ specification. Contributions of any kind are welcome!
 
 ### Issues
 
-<a href="https://github.com/epiforecasts/contactsurveys/issues?q=is%3Aissue+author%3Aavallecam">avallecam</a>
+<a href="https://github.com/epiforecasts/contactsurveys/issues?q=is%3Aissue+commenter%3ALLucchini">LLucchini</a>
 
 <!-- markdownlint-enable -->
 
