@@ -190,9 +190,9 @@ specification. Contributions of any kind are welcome!
 
 ### Code
 
+[njtierney](https://github.com/epiforecasts/contactsurveys/commits?author=njtierney),
 [sbfnk](https://github.com/epiforecasts/contactsurveys/commits?author=sbfnk),
 [Bisaloo](https://github.com/epiforecasts/contactsurveys/commits?author=Bisaloo),
-[njtierney](https://github.com/epiforecasts/contactsurveys/commits?author=njtierney),
 [lwillem](https://github.com/epiforecasts/contactsurveys/commits?author=lwillem),
 [Degoot-AM](https://github.com/epiforecasts/contactsurveys/commits?author=Degoot-AM),
 [jarvisc1](https://github.com/epiforecasts/contactsurveys/commits?author=jarvisc1),
@@ -200,7 +200,7 @@ specification. Contributions of any kind are welcome!
 
 ### Issues
 
-[avallecam](https://github.com/epiforecasts/contactsurveys/issues?q=is%3Aissue+author%3Aavallecam)
+[LLucchini](https://github.com/epiforecasts/contactsurveys/issues?q=is%3Aissue+commenter%3ALLucchini)
 
 # Package index
 
