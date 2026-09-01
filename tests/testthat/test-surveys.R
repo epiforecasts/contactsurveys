@@ -201,3 +201,48 @@ test_that("download_survey() errors if the record lists no files", {
   )
   expect_false(file.exists(file.path(survey_dir, ".contactsurveys_complete")))
 })
+
+test_that("download_survey() drops the manifest when a re-download fails", {
+  doi_peru <- "10.5281/zenodo.1095664" # nolint
+  survey_files <- c(
+    "2015_Grijalva_Peru_participant_common.csv",
+    "2015_Grijalva_Peru_contact_common.csv"
+  )
+  added_file <- "2015_Grijalva_Peru_sday.csv"
+  directory <- withr::local_tempdir()
+  survey_dir <- file.path(directory, "zenodo.1095664")
+
+  # a complete download, cached
+  local_mocked_bindings(get_zenodo = function(...) fake_record(survey_files))
+  download_survey(doi_peru, directory = directory, verbose = FALSE)
+  expect_true(file.exists(file.path(survey_dir, ".contactsurveys_complete")))
+
+  # the record gains a file, which then fails to download
+  failed_redownload <- function() {
+    local_mocked_bindings(
+      get_zenodo = function(...) {
+        fake_record(c(survey_files, added_file), survey_files)
+      }
+    )
+    suppressMessages(
+      .download_survey(doi_peru, directory = directory, overwrite = TRUE)
+    )
+  }
+
+  expect_error(failed_redownload(), added_file)
+
+  # the earlier download is no longer recorded as complete, so the next call
+  # goes back to Zenodo rather than serving a cache that is missing a file
+  expect_false(file.exists(file.path(survey_dir, ".contactsurveys_files.txt")))
+  expect_false(file.exists(file.path(survey_dir, ".contactsurveys_complete")))
+
+  local_mocked_bindings(
+    get_zenodo = function(...) fake_record(c(survey_files, added_file))
+  )
+  peru_survey_files <- download_survey(
+    doi_peru,
+    directory = directory,
+    verbose = FALSE
+  )
+  expect_true(added_file %in% basename(peru_survey_files))
+})

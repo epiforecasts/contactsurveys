@@ -157,6 +157,11 @@ download_survey <- function(
     existing
   } else {
     cli::cli_inform("Downloading from {survey_url}.")
+
+    # from here the cache is no longer complete, whatever it held before: drop
+    # the markers so an interrupted download cannot leave a stale manifest that
+    # the next call would trust
+    unlink(c(files_manifest, complete_marker))
     records$downloadFiles(
       path = survey_dir,
       overwrite = overwrite,
