@@ -53,11 +53,11 @@ download_survey <- function(
 
   # purrr::insistently() reports the number of attempts and drops the error that
   # caused them, so the cause is kept here and attached to what it does report
-  cause <- NULL
+  failure <- new.env(parent = emptyenv())
   attempt_download <- function(...) {
     withCallingHandlers(
       .download_survey(...),
-      error = function(condition) cause <<- condition
+      error = function(condition) assign("cause", condition, envir = failure)
     )
   }
   insistent_download_survey <- purrr::insistently(
@@ -91,7 +91,7 @@ download_survey <- function(
     purrr_error_rate_excess = function(condition) {
       cli::cli_abort(
         "Downloading {.val {survey}} failed.",
-        parent = cause
+        parent = failure$cause
       )
     }
   )
@@ -150,28 +150,7 @@ download_survey <- function(
   cli::cli_inform("Fetching contact survey filenames from: {survey_url}.")
   records <- get_zenodo(survey)
 
-  # get_zenodo() returns the exception rather than raising when the request
-  # fails, which would otherwise reach the check below as a record with no files
-  if (inherits(records, "ZenodoException")) {
-    cli::cli_abort(
-      c(
-        "Zenodo returned an error for {survey_url}.",
-        "x" = "{records$message}",
-        "i" = "Status: {records$status}."
-      )
-    )
-  }
-
-  # every completeness check below is vacuous for a record with no files, so a
-  # record that lists none would otherwise be cached as a complete download
-  if (length(records$files) == 0) {
-    cli::cli_abort(
-      c(
-        "The record at {survey_url} lists no files.",
-        "i" = "There is nothing to download; the record may still be under embargo, or the DOI may not point at a survey." # nolint
-      )
-    )
-  }
+  check_record_is_downloadable(records, survey_url)
 
   files_already_exist <- zenodo_files_exist(survey_dir, records)
   do_not_download <- files_already_exist && !overwrite

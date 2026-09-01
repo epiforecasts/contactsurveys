@@ -272,10 +272,12 @@ test_that("download_survey() rejects malformed input without retrying", {
   # a malformed argument is not something a retry can fix, so it must not go
   # through the backoff
   elapsed <- system.time(
+    # nolint start
     expect_error(
       download_survey(c("10.5281/zenodo.1095664", "10.5281/zenodo.1127693")),
       "must be a character of length 1"
     )
+    # nolint end
   )
   expect_lt(elapsed[["elapsed"]], 5)
 })
