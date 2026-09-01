@@ -123,6 +123,17 @@ download_survey <- function(
   cli::cli_inform("Fetching contact survey filenames from: {survey_url}.")
   records <- get_zenodo(survey)
 
+  # every completeness check below is vacuous for a record with no files, so a
+  # record that lists none would otherwise be cached as a complete download
+  if (length(records$files) == 0) {
+    cli::cli_abort(
+      c(
+        "The record at {survey_url} lists no files.",
+        "i" = "There is nothing to download; the record may still be under embargo, or the DOI may not point at a survey." # nolint
+      )
+    )
+  }
+
   files_already_exist <- zenodo_files_exist(survey_dir, records)
   do_not_download <- files_already_exist && !overwrite
   if (do_not_download) {

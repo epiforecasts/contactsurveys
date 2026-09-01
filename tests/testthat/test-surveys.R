@@ -188,3 +188,16 @@ test_that("download_survey() writes a manifest for files already on disk", {
     c(survey_files, "reference.json")
   )
 })
+
+test_that("download_survey() errors if the record lists no files", {
+  doi_peru <- "10.5281/zenodo.1095664" # nolint
+  directory <- withr::local_tempdir()
+  survey_dir <- file.path(directory, "zenodo.1095664")
+
+  local_mocked_bindings(get_zenodo = function(...) fake_record(character(0)))
+  expect_error(
+    suppressMessages(.download_survey(doi_peru, directory = directory)),
+    "lists no files"
+  )
+  expect_false(file.exists(file.path(survey_dir, ".contactsurveys_complete")))
+})
