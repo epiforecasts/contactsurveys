@@ -150,6 +150,18 @@ download_survey <- function(
   cli::cli_inform("Fetching contact survey filenames from: {survey_url}.")
   records <- get_zenodo(survey)
 
+  # get_zenodo() returns the exception rather than raising when the request
+  # fails, which would otherwise reach the check below as a record with no files
+  if (inherits(records, "ZenodoException")) {
+    cli::cli_abort(
+      c(
+        "Zenodo returned an error for {survey_url}.",
+        "x" = "{records$message}",
+        "i" = "Status: {records$status}."
+      )
+    )
+  }
+
   # every completeness check below is vacuous for a record with no files, so a
   # record that lists none would otherwise be cached as a complete download
   if (length(records$files) == 0) {

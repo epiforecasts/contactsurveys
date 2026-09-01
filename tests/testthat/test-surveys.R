@@ -279,3 +279,19 @@ test_that("download_survey() rejects malformed input without retrying", {
   )
   expect_lt(elapsed[["elapsed"]], 5)
 })
+
+test_that("download_survey() reports a Zenodo error as such", {
+  doi_peru <- "10.5281/zenodo.1095664" # nolint
+  directory <- withr::local_tempdir()
+
+  # get_zenodo() hands back the exception object when a request fails
+  exception <- structure(
+    list(message = "Internal Server Error", status = 500L),
+    class = c("ZenodoException", "R6")
+  )
+  local_mocked_bindings(get_zenodo = function(...) exception)
+  expect_error(
+    suppressMessages(.download_survey(doi_peru, directory = directory)),
+    "Internal Server Error"
+  )
+})
