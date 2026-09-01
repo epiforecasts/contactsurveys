@@ -1,5 +1,7 @@
 # contactsurveys (development version)
 
+- `download_survey()` now errors when a download is incomplete, naming the files that are missing, so the retry can fetch them. Previously an incomplete download returned only the `reference.json` file, with no error or warning, and was recorded in the cache manifest as complete — leaving a persistent cache directory stuck with a survey that never loaded (#159).
+
 - Added a package logo.
 
 # contactsurveys 0.2.0

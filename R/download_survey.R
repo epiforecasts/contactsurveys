@@ -102,7 +102,12 @@ download_survey <- function(
     manifest_files <- readLines(files_manifest, warn = FALSE)
     manifest_files <- manifest_files[nzchar(manifest_files)]
     manifest_paths <- file.path(survey_dir, manifest_files)
+    # a manifest naming nothing but the reference JSON was written by a version
+    # that recorded an incomplete download as complete (#159); re-download
+    # rather than serve it
+    has_survey_files <- !all(endsWith(manifest_files, "reference.json"))
     all_files_exist <- length(manifest_paths) > 0 &&
+      has_survey_files &&
       all(file.exists(manifest_paths))
     if (all_files_exist) {
       cli::cli_inform(
@@ -128,12 +133,16 @@ download_survey <- function(
         "i" = "Set {.code overwrite = TRUE} to force a re-download." # nolint
       )
     )
-    # if the manifest already exists, write to it for next time
     existing <- sort(zenodo_files(survey_dir, records))
-    if (!has_manifest) {
-      writeLines(basename(existing), files_manifest)
-      file.create(complete_marker)
-    }
+
+    # Include reference JSON file
+    reference_file_path <- store_reference(records, survey_dir)
+    existing <- sort(c(existing, reference_file_path))
+
+    # (re-)write the manifest for next time, so a manifest left behind by an
+    # incomplete download is replaced once the files are all there
+    writeLines(basename(existing), files_manifest)
+    file.create(complete_marker)
     existing
   } else {
     cli::cli_inform("Downloading from {survey_url}.")
@@ -142,6 +151,22 @@ download_survey <- function(
       overwrite = overwrite,
       timeout = timeout
     )
+
+    # An incomplete download is a failure: erroring here lets the retry in
+    # download_survey() fetch the missing files, and leaves the manifest and
+    # completion marker unwritten so a partial download is never cached as a
+    # complete one
+    missing_files <- missing_zenodo_files(survey_dir, records)
+    if (length(missing_files) > 0) {
+      cli::cli_abort(
+        c(
+          "Download from {survey_url} was incomplete.",
+          "x" = "{cli::qty(missing_files)}Missing file{?s}: {.file {missing_files}}", # nolint
+          "i" = "The record lists {length(records$files)} file{?s}." # nolint
+        )
+      )
+    }
+
     downloaded <- sort(zenodo_files(survey_dir, records))
 
     # Include reference JSON file
@@ -152,9 +177,9 @@ download_survey <- function(
     # marker for offline cache hits
     writeLines(
       text = basename(downloaded),
-      con = file.path(survey_dir, ".contactsurveys_files.txt")
+      con = files_manifest
     )
-    file.create(file.path(survey_dir, ".contactsurveys_complete"))
+    file.create(complete_marker)
     downloaded
   }
 }
