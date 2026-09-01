@@ -149,23 +149,25 @@ uk_contact_matrix
 ```
 
     ## $matrix
-    ##          contact.age.group
-    ## age.group   [0,18)  [18,65)       65+
-    ##   [0,18)  7.813187 5.505495 0.2664835
-    ##   [18,65) 2.103215 8.174281 0.6463621
-    ##   65+     1.160714 5.464286 1.7142857
+    ##           contact.age.group
+    ## age.group    [0,18)  [18,65)  [65,Inf)
+    ##   [0,18)   7.813187 5.505495 0.2664835
+    ##   [18,65)  2.103215 8.174281 0.6463621
+    ##   [65,Inf) 1.160714 5.464286 1.7142857
     ## 
     ## $participants
     ##    age.group participants proportion
     ##       <char>        <int>      <num>
     ## 1:    [0,18)          364  0.3600396
     ## 2:   [18,65)          591  0.5845697
-    ## 3:       65+           56  0.0553907
+    ## 3:  [65,Inf)           56  0.0553907
 
 ## Contributors
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+
 <!-- prettier-ignore-start -->
+
 <!-- markdownlint-disable -->
 
 All contributions to this project are gratefully acknowledged using the
@@ -175,9 +177,9 @@ specification. Contributions of any kind are welcome!
 
 ### Code
 
+<a href="https://github.com/epiforecasts/contactsurveys/commits?author=njtierney">njtierney</a>,
 <a href="https://github.com/epiforecasts/contactsurveys/commits?author=sbfnk">sbfnk</a>,
 <a href="https://github.com/epiforecasts/contactsurveys/commits?author=Bisaloo">Bisaloo</a>,
-<a href="https://github.com/epiforecasts/contactsurveys/commits?author=njtierney">njtierney</a>,
 <a href="https://github.com/epiforecasts/contactsurveys/commits?author=lwillem">lwillem</a>,
 <a href="https://github.com/epiforecasts/contactsurveys/commits?author=Degoot-AM">Degoot-AM</a>,
 <a href="https://github.com/epiforecasts/contactsurveys/commits?author=jarvisc1">jarvisc1</a>,
@@ -185,8 +187,10 @@ specification. Contributions of any kind are welcome!
 
 ### Issues
 
-<a href="https://github.com/epiforecasts/contactsurveys/issues?q=is%3Aissue+author%3Aavallecam">avallecam</a>
+<a href="https://github.com/epiforecasts/contactsurveys/issues?q=is%3Aissue+commenter%3ALLucchini">LLucchini</a>
 
 <!-- markdownlint-enable -->
+
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
