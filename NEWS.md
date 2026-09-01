@@ -2,6 +2,12 @@
 
 - `download_survey()` now errors when a download is incomplete, naming the files that are missing, so the retry can fetch them. Previously an incomplete download returned only the `reference.json` file, with no error or warning, and was recorded in the cache manifest as complete — leaving a persistent cache directory stuck with a survey that never loaded (#159).
 
+- `download_survey()` no longer treats a Zenodo record that lists no files as a complete download, and reports a failed Zenodo request as such rather than as an empty record (#159).
+
+- A failed re-download with `overwrite = TRUE` no longer leaves the previous download recorded as complete, so the next call goes back to Zenodo instead of serving a cache that is missing a file (#159).
+
+- `download_survey()` now reports what made a download fail, rather than only the number of attempts the retry made, and rejects a malformed `survey` argument immediately instead of retrying it (#159).
+
 - Added a package logo.
 
 # contactsurveys 0.2.0
