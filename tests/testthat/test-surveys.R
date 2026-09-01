@@ -246,3 +246,36 @@ test_that("download_survey() drops the manifest when a re-download fails", {
   )
   expect_true(added_file %in% basename(peru_survey_files))
 })
+
+test_that("download_survey() reports why a download failed", {
+  doi_peru <- "10.5281/zenodo.1095664" # nolint
+  directory <- withr::local_tempdir()
+
+  # the retry wrapper reports the attempts; the cause is what the user needs
+  local_mocked_bindings(
+    get_zenodo = function(...) {
+      fake_record(c("a.csv", "b.csv"), "a.csv")
+    }
+  )
+  expect_error(
+    download_survey(
+      doi_peru,
+      directory = directory,
+      verbose = FALSE,
+      rate = purrr::rate_backoff(pause_base = 0, max_times = 2)
+    ),
+    "b.csv"
+  )
+})
+
+test_that("download_survey() rejects malformed input without retrying", {
+  # a malformed argument is not something a retry can fix, so it must not go
+  # through the backoff
+  elapsed <- system.time(
+    expect_error(
+      download_survey(c("10.5281/zenodo.1095664", "10.5281/zenodo.1127693")),
+      "must be a character of length 1"
+    )
+  )
+  expect_lt(elapsed[["elapsed"]], 5)
+})

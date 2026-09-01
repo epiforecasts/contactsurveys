@@ -45,29 +45,56 @@ download_survey <- function(
   timeout = 3600,
   rate = purrr::rate_backoff(pause_base = 5, max_times = 4)
 ) {
+  # validated before the retry loop, as no amount of retrying makes a malformed
+  # argument work
+  check_survey_is_length_one(survey)
+  survey <- clean_doi(survey)
+  check_is_url_doi(survey)
+
+  # purrr::insistently() reports the number of attempts and drops the error that
+  # caused them, so the cause is kept here and attached to what it does report
+  cause <- NULL
+  attempt_download <- function(...) {
+    withCallingHandlers(
+      .download_survey(...),
+      error = function(condition) cause <<- condition
+    )
+  }
   insistent_download_survey <- purrr::insistently(
-    f = .download_survey,
+    f = attempt_download,
     rate = rate,
     quiet = !isTRUE(verbose)
   )
   if (verbose) {
-    res <- insistent_download_survey(
-      survey = survey,
-      directory = directory,
-      overwrite = overwrite,
-      timeout = timeout
-    )
+    download <- function() {
+      insistent_download_survey(
+        survey = survey,
+        directory = directory,
+        overwrite = overwrite,
+        timeout = timeout
+      )
+    }
   } else {
     quiet_download_survey <- purrr::quietly(insistent_download_survey)
-    res <- quiet_download_survey(
-      survey = survey,
-      directory = directory,
-      overwrite = overwrite,
-      timeout = timeout
-    )$result
+    download <- function() {
+      quiet_download_survey(
+        survey = survey,
+        directory = directory,
+        overwrite = overwrite,
+        timeout = timeout
+      )$result
+    }
   }
 
-  res
+  tryCatch(
+    download(),
+    purrr_error_rate_excess = function(condition) {
+      cli::cli_abort(
+        "Downloading {.val {survey}} failed.",
+        parent = cause
+      )
+    }
+  )
 }
 
 #' @autoglobal
