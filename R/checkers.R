@@ -52,13 +52,15 @@ check_record_is_downloadable <- function(
     )
   }
   # every completeness check in download_survey() is vacuous for a record with
-  # no files, so one that lists none would be cached as a complete download
+  # no files, so one that lists none would be cached as a complete download.
+  # Retrying cannot fill an empty record, so this is raised as permanent
   if (length(records$files) == 0) {
     cli::cli_abort(
       message = c(
         "The record at {survey_url} lists no files.",
         "i" = "There is nothing to download; the record may still be under embargo, or the DOI may not point at a survey." # nolint
       ),
+      class = "contactsurveys_permanent_error",
       call = call
     )
   }

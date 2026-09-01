@@ -194,11 +194,20 @@ test_that("download_survey() errors if the record lists no files", {
   directory <- withr::local_tempdir()
   survey_dir <- file.path(directory, "zenodo.1095664")
 
-  local_mocked_bindings(get_zenodo = function(...) fake_record(character(0)))
+  # an empty record is a property of the record, so it must not be retried
+  fetches <- new.env(parent = emptyenv())
+  fetches$n <- 0L
+  local_mocked_bindings(
+    get_zenodo = function(...) {
+      fetches$n <- fetches$n + 1L
+      fake_record(character(0))
+    }
+  )
   expect_error(
-    suppressMessages(.download_survey(doi_peru, directory = directory)),
+    download_survey(doi_peru, directory = directory, verbose = FALSE),
     "lists no files"
   )
+  expect_identical(fetches$n, 1L)
   expect_false(file.exists(file.path(survey_dir, ".contactsurveys_complete")))
 })
 

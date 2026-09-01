@@ -56,7 +56,12 @@ download_survey <- function(
   failure <- new.env(parent = emptyenv())
   attempt_download <- function(...) {
     withCallingHandlers(
-      .download_survey(...),
+      # an error no retry can fix is returned rather than raised, so the retry
+      # loop stops at the first attempt and it is re-raised below
+      tryCatch(
+        .download_survey(...),
+        contactsurveys_permanent_error = function(condition) condition
+      ),
       error = function(condition) assign("cause", condition, envir = failure)
     )
   }
@@ -86,7 +91,7 @@ download_survey <- function(
     }
   }
 
-  tryCatch(
+  res <- tryCatch(
     download(),
     purrr_error_rate_excess = function(condition) {
       cli::cli_abort(
@@ -95,6 +100,11 @@ download_survey <- function(
       )
     }
   )
+  if (inherits(res, "condition")) {
+    rlang::cnd_signal(res)
+  }
+
+  res
 }
 
 #' @autoglobal
