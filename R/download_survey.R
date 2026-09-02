@@ -47,15 +47,9 @@ download_survey <- function(
   timeout = 3600,
   rate = purrr::rate_backoff(pause_base = 5, max_times = 4)
 ) {
-  # validated before the retry loop, as no amount of retrying makes a malformed
-  # argument work
-  check_survey_is_length_one(survey)
-  survey <- clean_doi(survey)
-  check_is_url_doi(survey)
-
-  # only a failure classed as transient is retried; anything else is reported as
-  # it happened, so what reaches the user is the error itself rather than a
-  # count of the attempts made
+  # only a failure classed as transient is retried; anything else — a malformed
+  # argument, a DOI that is not a Zenodo one — is reported as it happened, so
+  # what reaches the user is the error itself rather than a count of attempts
   attempt_download <- .download_survey
   if (!isTRUE(verbose)) {
     quiet_download_survey <- purrr::quietly(.download_survey)
@@ -113,6 +107,7 @@ download_survey <- function(
   survey <- clean_doi(survey)
 
   check_is_url_doi(survey)
+  check_is_zenodo_survey(survey)
 
   if (is_doi(survey)) {
     survey_url <- paste0("https://doi.org/", survey) # nolint

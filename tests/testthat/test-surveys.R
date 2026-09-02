@@ -332,6 +332,25 @@ test_that("download_survey() retries a request that failed to reach Zenodo", {
   expect_true(all(file.exists(peru_survey_files)))
 })
 
+test_that("download_survey() rejects a DOI that is not a Zenodo one", {
+  directory <- withr::local_tempdir()
+
+  # settled without asking Zenodo, so the record is never fetched
+  fetches <- new.env(parent = emptyenv())
+  fetches$n <- 0L
+  local_mocked_bindings(
+    get_zenodo = function(...) {
+      fetches$n <- fetches$n + 1L
+      fake_record("a.csv")
+    }
+  )
+  expect_error(
+    download_survey("10.1000/182", directory = directory, verbose = FALSE), # nolint
+    "must be a Zenodo DOI or URL"
+  )
+  expect_identical(fetches$n, 0L)
+})
+
 test_that("download_survey() does not retry an error it cannot fix", {
   doi_peru <- "10.5281/zenodo.1095664" # nolint
   directory <- withr::local_tempdir()

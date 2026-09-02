@@ -34,6 +34,21 @@ check_is_url_doi <- function(
   }
 }
 
+check_is_zenodo_survey <- function(survey, call = rlang::caller_env()) {
+  # the condition zen4R itself applies before it asks Zenodo anything, checked
+  # here so a DOI that cannot be a Zenodo one is settled without a request
+  if (!grepl("zenodo", survey, fixed = TRUE)) {
+    cli::cli_abort(
+      message = c(
+        "{.arg survey} must be a Zenodo DOI or URL.",
+        "We see: {.val {survey}}",
+        "i" = "See {.fun list_surveys} for the surveys available." # nolint
+      ),
+      call = call
+    )
+  }
+}
+
 check_record_is_downloadable <- function(
   records,
   survey_url,
