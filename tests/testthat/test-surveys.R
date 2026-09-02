@@ -335,15 +335,19 @@ test_that("download_survey() reports a download failure it cannot explain", {
     stop("something else went wrong", call. = FALSE)
   }
   local_mocked_bindings(get_zenodo = function(...) records)
+  # a rate that would retry, as retrying would skip the download and record the
+  # failed attempt as complete
   expect_error(
     download_survey(
       doi_peru,
       directory = directory,
       verbose = FALSE,
-      rate = purrr::rate_backoff(pause_base = 0, max_times = 1)
+      rate = purrr::rate_backoff(pause_base = 0, max_times = 3)
     ),
     "something else went wrong"
   )
+  survey_dir <- file.path(directory, "zenodo.1095664")
+  expect_false(file.exists(file.path(survey_dir, ".contactsurveys_complete")))
 })
 
 test_that("download_survey() retries a download that can still succeed", {

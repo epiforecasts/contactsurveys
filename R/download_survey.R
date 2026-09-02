@@ -217,13 +217,10 @@ download_survey <- function(
       )
     }
 
-    # every file arrived, so whatever else went wrong during the download is
-    # the failure to report, and it is worth another attempt
+    # every file arrived, so whatever else went wrong is reported as it is and
+    # not retried: with nothing left to fetch, another attempt would skip the
+    # download and record the failed one as complete
     if (!is.null(download_failure)) {
-      class(download_failure) <- c(
-        "contactsurveys_transient_error",
-        class(download_failure)
-      )
       rlang::cnd_signal(download_failure)
     }
 
