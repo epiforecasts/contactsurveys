@@ -218,11 +218,15 @@ test_that("download_survey() errors if the record lists no files", {
       fake_record(character(0))
     }
   )
-  expect_error(
+  condition <- rlang::catch_cnd(
     download_survey(doi_peru, directory = directory, verbose = FALSE),
-    "lists no files"
+    classes = "error"
   )
+  expect_match(conditionMessage(condition), "lists no files")
   expect_identical(fetches$n, 1L)
+
+  # a failure found while downloading names the function that was called too
+  expect_match(deparse1(conditionCall(condition)), "^download_survey\\(")
   expect_false(file.exists(file.path(survey_dir, ".contactsurveys_complete")))
 })
 
@@ -453,6 +457,13 @@ test_that("download_survey() does not retry an error it cannot fix", {
     "match any existing Zenodo DOI"
   )
   expect_identical(fetches$n, 1L)
+})
+
+test_that("download_survey() rejects a rate that is not a rate object", {
+  expect_error(
+    download_survey("10.5281/zenodo.1095664", rate = 5), # nolint
+    "must be a rate object"
+  )
 })
 
 test_that("download_survey() rejects malformed input without retrying", {

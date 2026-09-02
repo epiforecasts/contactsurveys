@@ -34,6 +34,19 @@ check_is_url_doi <- function(
   }
 }
 
+check_is_rate <- function(rate, call = rlang::caller_env()) {
+  if (!purrr::is_rate(rate)) {
+    cli::cli_abort(
+      message = c(
+        "{.arg rate} must be a rate object.",
+        "We see: {.obj_type_friendly {rate}}",
+        "i" = "See {.fun purrr::rate_backoff} for how to make one." # nolint
+      ),
+      call = call
+    )
+  }
+}
+
 check_is_zenodo_survey <- function(survey, call = rlang::caller_env()) {
   # the condition zen4R itself applies before it asks Zenodo anything, checked
   # here so a DOI that cannot be a Zenodo one is settled without a request

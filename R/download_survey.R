@@ -54,6 +54,7 @@ download_survey <- function(
   survey <- clean_doi(survey)
   check_is_url_doi(survey)
   check_is_zenodo_survey(survey)
+  check_is_rate(rate)
 
   # only a failure classed as transient is retried; anything else — a malformed
   # argument, a DOI that is not a Zenodo one — is reported as it happened, so
@@ -83,7 +84,8 @@ download_survey <- function(
         survey = survey,
         directory = directory,
         overwrite = overwrite,
-        timeout = timeout
+        timeout = timeout,
+        call = rlang::current_env()
       ),
       contactsurveys_transient_error = function(condition) condition
     )
@@ -108,14 +110,15 @@ download_survey <- function(
   survey,
   directory = tempdir(),
   overwrite = FALSE,
-  timeout = 60
+  timeout = 60,
+  call = rlang::caller_env()
 ) {
-  check_survey_is_length_one(survey)
+  check_survey_is_length_one(survey, call = call)
 
   survey <- clean_doi(survey)
 
-  check_is_url_doi(survey)
-  check_is_zenodo_survey(survey)
+  check_is_url_doi(survey, call = call)
+  check_is_zenodo_survey(survey, call = call)
 
   if (is_doi(survey)) {
     survey_url <- paste0("https://doi.org/", survey) # nolint
@@ -156,7 +159,7 @@ download_survey <- function(
   cli::cli_inform("Fetching contact survey filenames from: {survey_url}.")
   records <- fetch_record(survey)
 
-  check_record_is_downloadable(records, survey_url)
+  check_record_is_downloadable(records, survey_url, call = call)
 
   files_already_exist <- zenodo_files_exist(survey_dir, records)
   do_not_download <- files_already_exist && !overwrite
@@ -213,7 +216,8 @@ download_survey <- function(
           "x" = "{cli::qty(missing_files)}Missing file{?s}: {.file {missing_files}}", # nolint
           "i" = "The record lists {length(records$files)} file{?s}." # nolint
         ),
-        class = "contactsurveys_transient_error"
+        class = "contactsurveys_transient_error",
+        call = call
       )
     }
 
