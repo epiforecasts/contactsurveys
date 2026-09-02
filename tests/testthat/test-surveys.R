@@ -81,7 +81,9 @@ fake_record <- function(files, arriving = files, checks_integrity = FALSE) {
       if (checks_integrity) {
         for (file in setdiff(files, arriving)) {
           stop(
-            "file '", file.path(path, file), "' does not exist",
+            "file '",
+            file.path(path, file),
+            "' does not exist",
             call. = FALSE
           )
         }
