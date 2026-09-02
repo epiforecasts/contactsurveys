@@ -149,7 +149,7 @@ download_survey <- function(
     }
   }
   cli::cli_inform("Fetching contact survey filenames from: {survey_url}.")
-  records <- get_zenodo(survey)
+  records <- fetch_record(survey)
 
   check_record_is_downloadable(records, survey_url)
 
@@ -234,6 +234,37 @@ clean_doi <- function(x) {
   x <- sub("^(https?:\\/\\/(dx\\.)?doi\\.org\\/|doi:)", "", x)
   x <- sub("#.*$", "", x)
   x
+}
+
+#' Fetches a Zenodo record, marking a failed request as worth another attempt
+#'
+#' `get_zenodo()` raises a plain error both when the request itself failed —
+#' a refused connection, a reset, a gateway page that is not the JSON it
+#' expects — and when the DOI matched no record, which no retry will change.
+#' Only the wording tells them apart, so a change to it costs a retry of a
+#' settled failure rather than a wrong answer.
+#'
+#' @param survey A DOI or URL, as passed to [get_zenodo()].
+#' @return The record, as [zen4R::get_zenodo()] returns it
+#' @note internal
+fetch_record <- function(survey) {
+  tryCatch(
+    get_zenodo(survey),
+    error = function(condition) {
+      no_such_record <- grepl(
+        "match any existing Zenodo DOI",
+        conditionMessage(condition),
+        fixed = TRUE
+      )
+      if (!no_such_record) {
+        class(condition) <- c(
+          "contactsurveys_transient_error",
+          class(condition)
+        )
+      }
+      rlang::cnd_signal(condition)
+    }
+  )
 }
 
 #' Extracts meta-data and repository info from a zen4R::ZenodoRecord object

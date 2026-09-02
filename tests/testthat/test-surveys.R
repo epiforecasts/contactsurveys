@@ -305,6 +305,33 @@ test_that("download_survey() retries a download that can still succeed", {
   )
 })
 
+test_that("download_survey() retries a request that failed to reach Zenodo", {
+  doi_peru <- "10.5281/zenodo.1095664" # nolint
+  survey_files <- c("a.csv", "b.csv")
+  directory <- withr::local_tempdir()
+
+  # zen4R raises a plain error when the request itself fails
+  fetches <- new.env(parent = emptyenv())
+  fetches$n <- 0L
+  local_mocked_bindings(
+    get_zenodo = function(...) {
+      fetches$n <- fetches$n + 1L
+      if (fetches$n == 1L) {
+        stop("Could not resolve host: zenodo.org", call. = FALSE) # nolint
+      }
+      fake_record(survey_files)
+    }
+  )
+  peru_survey_files <- download_survey(
+    doi_peru,
+    directory = directory,
+    verbose = FALSE,
+    rate = purrr::rate_backoff(pause_base = 0, max_times = 3)
+  )
+  expect_identical(fetches$n, 2L)
+  expect_true(all(file.exists(peru_survey_files)))
+})
+
 test_that("download_survey() does not retry an error it cannot fix", {
   doi_peru <- "10.5281/zenodo.1095664" # nolint
   directory <- withr::local_tempdir()
