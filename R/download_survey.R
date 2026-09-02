@@ -20,10 +20,12 @@
 #'   3600 seconds.
 #' @param rate a
 #'   [purrr rate](https://purrr.tidyverse.org/reference/rate-helpers.html)
-#'   object, to facilitate downloading if the download fails. Defaults to an
-#'   exponential backoff of 5 seconds (up to 4 attempts: 1 initial + 3 retries)
-#'   changed by specifying your own rate object, see `?purrr::rate_backoff()`
-#'   for details.
+#'   object, governing how a download that failed for a reason a retry can fix
+#'   is retried: an incomplete download, or a Zenodo request that failed with a
+#'   server error or a rate limit. Any other failure is reported as it happened,
+#'   without retrying. Defaults to an exponential backoff of 5 seconds (up to 4
+#'   attempts: 1 initial + 3 retries) changed by specifying your own rate
+#'   object, see `?purrr::rate_backoff()` for details.
 #'
 #' @return a vector of filenames, where the surveys were downloaded
 #'
@@ -45,29 +47,61 @@ download_survey <- function(
   timeout = 3600,
   rate = purrr::rate_backoff(pause_base = 5, max_times = 4)
 ) {
-  insistent_download_survey <- purrr::insistently(
-    f = .download_survey,
-    rate = rate,
-    quiet = !isTRUE(verbose)
-  )
-  if (verbose) {
-    res <- insistent_download_survey(
-      survey = survey,
-      directory = directory,
-      overwrite = overwrite,
-      timeout = timeout
-    )
-  } else {
-    quiet_download_survey <- purrr::quietly(insistent_download_survey)
-    res <- quiet_download_survey(
-      survey = survey,
-      directory = directory,
-      overwrite = overwrite,
-      timeout = timeout
-    )$result
+  # the arguments are checked here, and again in .download_survey(), so that
+  # the error points at the function the user called rather than at an
+  # internal one
+  check_survey_is_length_one(survey)
+  survey <- clean_doi(survey)
+  check_is_url_doi(survey)
+  check_is_zenodo_survey(survey)
+  check_is_rate(rate)
+
+  # only a failure classed as transient is retried; anything else — a malformed
+  # argument, a DOI that is not a Zenodo one — is reported as it happened, so
+  # what reaches the user is the error itself rather than a count of attempts
+  attempt_download <- .download_survey
+  if (!isTRUE(verbose)) {
+    quiet_download_survey <- purrr::quietly(.download_survey)
+    attempt_download <- function(...) quiet_download_survey(...)$result
   }
 
-  res
+  transient <- NULL
+  purrr::rate_reset(rate)
+  repeat {
+    # rate_sleep() waits between attempts and errors once they are used up
+    attempts_left <- tryCatch(
+      {
+        purrr::rate_sleep(rate, quiet = !isTRUE(verbose))
+        TRUE
+      },
+      purrr_error_rate_excess = function(condition) FALSE
+    )
+    if (!attempts_left) {
+      break
+    }
+    result <- tryCatch(
+      attempt_download(
+        survey = survey,
+        directory = directory,
+        overwrite = overwrite,
+        timeout = timeout,
+        call = rlang::current_env()
+      ),
+      contactsurveys_transient_error = function(condition) condition
+    )
+    if (!inherits(result, "condition")) {
+      return(result)
+    }
+    transient <- result
+  }
+
+  if (is.null(transient)) {
+    cli::cli_abort(
+      "{.arg rate} allowed no attempt at downloading {.val {survey}}."
+    ) # nolint
+  }
+  # the failure that was retried, rather than a count of the retries
+  rlang::cnd_signal(transient)
 }
 
 #' @autoglobal
@@ -76,13 +110,15 @@ download_survey <- function(
   survey,
   directory = tempdir(),
   overwrite = FALSE,
-  timeout = 60
+  timeout = 60,
+  call = rlang::caller_env()
 ) {
-  check_survey_is_length_one(survey)
+  check_survey_is_length_one(survey, call = call)
 
   survey <- clean_doi(survey)
 
-  check_is_url_doi(survey)
+  check_is_url_doi(survey, call = call)
+  check_is_zenodo_survey(survey, call = call)
 
   if (is_doi(survey)) {
     survey_url <- paste0("https://doi.org/", survey) # nolint
@@ -102,7 +138,12 @@ download_survey <- function(
     manifest_files <- readLines(files_manifest, warn = FALSE)
     manifest_files <- manifest_files[nzchar(manifest_files)]
     manifest_paths <- file.path(survey_dir, manifest_files)
+    # a manifest naming nothing but the reference JSON was written by a version
+    # that recorded an incomplete download as complete (#159); re-download
+    # rather than serve it
+    has_survey_files <- !all(endsWith(manifest_files, "reference.json"))
     all_files_exist <- length(manifest_paths) > 0 &&
+      has_survey_files &&
       all(file.exists(manifest_paths))
     if (all_files_exist) {
       cli::cli_inform(
@@ -116,7 +157,9 @@ download_survey <- function(
     }
   }
   cli::cli_inform("Fetching contact survey filenames from: {survey_url}.")
-  records <- get_zenodo(survey)
+  records <- fetch_record(survey)
+
+  check_record_is_downloadable(records, survey_url, call = call)
 
   files_already_exist <- zenodo_files_exist(survey_dir, records)
   do_not_download <- files_already_exist && !overwrite
@@ -128,20 +171,63 @@ download_survey <- function(
         "i" = "Set {.code overwrite = TRUE} to force a re-download." # nolint
       )
     )
-    # if the manifest already exists, write to it for next time
     existing <- sort(zenodo_files(survey_dir, records))
-    if (!has_manifest) {
-      writeLines(basename(existing), files_manifest)
-      file.create(complete_marker)
-    }
+
+    # Include reference JSON file
+    reference_file_path <- store_reference(records, survey_dir)
+    existing <- sort(c(existing, reference_file_path))
+
+    # (re-)write the manifest for next time, so a manifest left behind by an
+    # incomplete download is replaced once the files are all there
+    writeLines(basename(existing), files_manifest)
+    file.create(complete_marker)
     existing
   } else {
     cli::cli_inform("Downloading from {survey_url}.")
-    records$downloadFiles(
-      path = survey_dir,
-      overwrite = overwrite,
-      timeout = timeout
+
+    # from here the cache is no longer complete, whatever it held before: drop
+    # the markers so an interrupted download cannot leave a stale manifest that
+    # the next call would trust
+    unlink(c(files_manifest, complete_marker))
+    # zen4R checks the integrity of every file it was asked for, and errors on
+    # one that never arrived, so its failure is held back until the files on
+    # disk have been counted: which files are missing is the more useful report
+    download_failure <- tryCatch(
+      {
+        records$downloadFiles(
+          path = survey_dir,
+          overwrite = overwrite,
+          timeout = timeout
+        )
+        NULL
+      },
+      error = function(condition) condition
     )
+
+    # An incomplete download is a failure: erroring here lets the retry in
+    # download_survey() fetch the missing files, and leaves the manifest and
+    # completion marker unwritten so a partial download is never cached as a
+    # complete one
+    missing_files <- missing_zenodo_files(survey_dir, records)
+    if (length(missing_files) > 0) {
+      cli::cli_abort(
+        message = c(
+          "Download from {survey_url} was incomplete.",
+          "x" = "{cli::qty(missing_files)}Missing file{?s}: {.file {missing_files}}", # nolint
+          "i" = "The record lists {length(records$files)} file{?s}." # nolint
+        ),
+        class = "contactsurveys_transient_error",
+        call = call
+      )
+    }
+
+    # every file arrived, so whatever else went wrong is reported as it is and
+    # not retried: with nothing left to fetch, another attempt would skip the
+    # download and record the failed one as complete
+    if (!is.null(download_failure)) {
+      rlang::cnd_signal(download_failure)
+    }
+
     downloaded <- sort(zenodo_files(survey_dir, records))
 
     # Include reference JSON file
@@ -152,9 +238,9 @@ download_survey <- function(
     # marker for offline cache hits
     writeLines(
       text = basename(downloaded),
-      con = file.path(survey_dir, ".contactsurveys_files.txt")
+      con = files_manifest
     )
-    file.create(file.path(survey_dir, ".contactsurveys_complete"))
+    file.create(complete_marker)
     downloaded
   }
 }
@@ -173,6 +259,37 @@ clean_doi <- function(x) {
   x <- sub("^(https?:\\/\\/(dx\\.)?doi\\.org\\/|doi:)", "", x)
   x <- sub("#.*$", "", x)
   x
+}
+
+#' Fetches a Zenodo record, marking a failed request as worth another attempt
+#'
+#' `get_zenodo()` raises a plain error both when the request itself failed —
+#' a refused connection, a reset, a gateway page that is not the JSON it
+#' expects — and when the DOI matched no record, which no retry will change.
+#' Only the wording tells them apart, so a change to it costs a retry of a
+#' settled failure rather than a wrong answer.
+#'
+#' @param survey A DOI or URL, as passed to [get_zenodo()].
+#' @return The record, as [zen4R::get_zenodo()] returns it
+#' @note internal
+fetch_record <- function(survey) {
+  tryCatch(
+    get_zenodo(survey),
+    error = function(condition) {
+      no_such_record <- grepl(
+        "match any existing Zenodo DOI",
+        conditionMessage(condition),
+        fixed = TRUE
+      )
+      if (!no_such_record) {
+        class(condition) <- c(
+          "contactsurveys_transient_error",
+          class(condition)
+        )
+      }
+      rlang::cnd_signal(condition)
+    }
+  )
 }
 
 #' Extracts meta-data and repository info from a zen4R::ZenodoRecord object
