@@ -186,10 +186,19 @@ download_survey <- function(
     # the markers so an interrupted download cannot leave a stale manifest that
     # the next call would trust
     unlink(c(files_manifest, complete_marker))
-    records$downloadFiles(
-      path = survey_dir,
-      overwrite = overwrite,
-      timeout = timeout
+    # zen4R checks the integrity of every file it was asked for, and errors on
+    # one that never arrived, so its failure is held back until the files on
+    # disk have been counted: which files are missing is the more useful report
+    download_failure <- tryCatch(
+      {
+        records$downloadFiles(
+          path = survey_dir,
+          overwrite = overwrite,
+          timeout = timeout
+        )
+        NULL
+      },
+      error = function(condition) condition
     )
 
     # An incomplete download is a failure: erroring here lets the retry in
@@ -206,6 +215,16 @@ download_survey <- function(
         ),
         class = "contactsurveys_transient_error"
       )
+    }
+
+    # every file arrived, so whatever else went wrong during the download is
+    # the failure to report, and it is worth another attempt
+    if (!is.null(download_failure)) {
+      class(download_failure) <- c(
+        "contactsurveys_transient_error",
+        class(download_failure)
+      )
+      rlang::cnd_signal(download_failure)
     }
 
     downloaded <- sort(zenodo_files(survey_dir, records))

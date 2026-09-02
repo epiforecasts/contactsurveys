@@ -69,12 +69,22 @@ test_that("multiple DOI's cannot be loaded", {
 # A stand-in for a zen4R record, so an incomplete download can be simulated
 # without the network: `files` is what the record lists, `arriving` what the
 # download leaves on disk
-fake_record <- function(files, arriving = files) {
+fake_record <- function(files, arriving = files, checks_integrity = FALSE) {
   list(
     files = stats::setNames(vector("list", length(files)), files),
     downloadFiles = function(path, overwrite = TRUE, timeout = 60) {
       for (file in arriving) {
         writeLines("part_id,cnt_age", file.path(path, file))
+      }
+      # zen4R checks every file it was asked for and errors on one that is not
+      # there, which happens before it returns
+      if (checks_integrity) {
+        for (file in setdiff(files, arriving)) {
+          stop(
+            "file '", file.path(path, file), "' does not exist",
+            call. = FALSE
+          )
+        }
       }
       invisible(NULL)
     },
@@ -284,6 +294,56 @@ test_that("download_survey() reports why a download failed", {
   )
 })
 
+test_that("download_survey() names the files a partial download missed", {
+  doi_peru <- "10.5281/zenodo.1095664" # nolint
+  survey_files <- c("a.csv", "b.csv")
+  directory <- withr::local_tempdir()
+  survey_dir <- file.path(directory, "zenodo.1095664")
+
+  # one file arrives and one does not, so zen4R's own integrity check errors
+  # before it returns; the missing file is the more useful report
+  local_mocked_bindings(
+    get_zenodo = function(...) {
+      fake_record(survey_files, survey_files[-2], checks_integrity = TRUE)
+    }
+  )
+  expect_error(
+    download_survey(
+      doi_peru,
+      directory = directory,
+      verbose = FALSE,
+      rate = purrr::rate_backoff(pause_base = 0, max_times = 1)
+    ),
+    "Missing file: .*b\\.csv"
+  )
+  expect_false(file.exists(file.path(survey_dir, ".contactsurveys_complete")))
+})
+
+test_that("download_survey() reports a download failure it cannot explain", {
+  doi_peru <- "10.5281/zenodo.1095664" # nolint
+  survey_files <- c("a.csv", "b.csv")
+  directory <- withr::local_tempdir()
+
+  # every file arrives, so whatever else went wrong is what to report
+  records <- fake_record(survey_files)
+  records$downloadFiles <- function(path, overwrite = TRUE, timeout = 60) {
+    for (file in survey_files) {
+      writeLines("part_id,cnt_age", file.path(path, file))
+    }
+    stop("something else went wrong", call. = FALSE)
+  }
+  local_mocked_bindings(get_zenodo = function(...) records)
+  expect_error(
+    download_survey(
+      doi_peru,
+      directory = directory,
+      verbose = FALSE,
+      rate = purrr::rate_backoff(pause_base = 0, max_times = 1)
+    ),
+    "something else went wrong"
+  )
+})
+
 test_that("download_survey() retries a download that can still succeed", {
   doi_peru <- "10.5281/zenodo.1095664" # nolint
   survey_files <- c("a.csv", "b.csv")
@@ -296,7 +356,7 @@ test_that("download_survey() retries a download that can still succeed", {
     get_zenodo = function(...) {
       fetches$n <- fetches$n + 1L
       arriving <- if (fetches$n == 1L) survey_files[-2] else survey_files
-      fake_record(survey_files, arriving)
+      fake_record(survey_files, arriving, checks_integrity = TRUE)
     }
   )
   peru_survey_files <- download_survey(
