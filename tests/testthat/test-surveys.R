@@ -344,11 +344,18 @@ test_that("download_survey() rejects a DOI that is not a Zenodo one", {
       fake_record("a.csv")
     }
   )
-  expect_error(
+  condition <- rlang::catch_cnd(
     download_survey("10.1000/182", directory = directory, verbose = FALSE), # nolint
-    "must be a Zenodo DOI or URL"
+    classes = "error"
   )
+  expect_match(conditionMessage(condition), "must be a Zenodo DOI or URL")
   expect_identical(fetches$n, 0L)
+
+  # the error names the function that was called, not an internal one
+  expect_match(
+    deparse1(conditionCall(condition)),
+    "^download_survey\\("
+  )
 })
 
 test_that("download_survey() does not retry an error it cannot fix", {

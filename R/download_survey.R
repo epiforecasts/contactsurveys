@@ -47,6 +47,14 @@ download_survey <- function(
   timeout = 3600,
   rate = purrr::rate_backoff(pause_base = 5, max_times = 4)
 ) {
+  # the arguments are checked here, and again in .download_survey(), so that
+  # the error points at the function the user called rather than at an
+  # internal one
+  check_survey_is_length_one(survey)
+  survey <- clean_doi(survey)
+  check_is_url_doi(survey)
+  check_is_zenodo_survey(survey)
+
   # only a failure classed as transient is retried; anything else — a malformed
   # argument, a DOI that is not a Zenodo one — is reported as it happened, so
   # what reaches the user is the error itself rather than a count of attempts
