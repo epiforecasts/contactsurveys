@@ -20,10 +20,12 @@
 #'   3600 seconds.
 #' @param rate a
 #'   [purrr rate](https://purrr.tidyverse.org/reference/rate-helpers.html)
-#'   object, to facilitate downloading if the download fails. Defaults to an
-#'   exponential backoff of 5 seconds (up to 4 attempts: 1 initial + 3 retries)
-#'   changed by specifying your own rate object, see `?purrr::rate_backoff()`
-#'   for details.
+#'   object, governing how a download that failed for a reason a retry can fix
+#'   is retried: an incomplete download, or a Zenodo request that failed with a
+#'   server error or a rate limit. Any other failure is reported as it happened,
+#'   without retrying. Defaults to an exponential backoff of 5 seconds (up to 4
+#'   attempts: 1 initial + 3 retries) changed by specifying your own rate
+#'   object, see `?purrr::rate_backoff()` for details.
 #'
 #' @return a vector of filenames, where the surveys were downloaded
 #'
@@ -51,60 +53,49 @@ download_survey <- function(
   survey <- clean_doi(survey)
   check_is_url_doi(survey)
 
-  # purrr::insistently() reports the number of attempts and drops the error that
-  # caused them, so the cause is kept here and attached to what it does report
-  failure <- new.env(parent = emptyenv())
-  attempt_download <- function(...) {
-    withCallingHandlers(
-      # an error no retry can fix is returned rather than raised, so the retry
-      # loop stops at the first attempt and it is re-raised below
-      tryCatch(
-        .download_survey(...),
-        contactsurveys_permanent_error = function(condition) condition
-      ),
-      error = function(condition) assign("cause", condition, envir = failure)
+  # only a failure classed as transient is retried; anything else is reported as
+  # it happened, so what reaches the user is the error itself rather than a
+  # count of the attempts made
+  attempt_download <- .download_survey
+  if (!isTRUE(verbose)) {
+    quiet_download_survey <- purrr::quietly(.download_survey)
+    attempt_download <- function(...) quiet_download_survey(...)$result
+  }
+
+  transient <- NULL
+  purrr::rate_reset(rate)
+  repeat {
+    # rate_sleep() waits between attempts and errors once they are used up
+    attempts_left <- tryCatch(
+      {
+        purrr::rate_sleep(rate, quiet = !isTRUE(verbose))
+        TRUE
+      },
+      purrr_error_rate_excess = function(condition) FALSE
     )
-  }
-  insistent_download_survey <- purrr::insistently(
-    f = attempt_download,
-    rate = rate,
-    quiet = !isTRUE(verbose)
-  )
-  if (verbose) {
-    download <- function() {
-      insistent_download_survey(
+    if (!attempts_left) {
+      break
+    }
+    result <- tryCatch(
+      attempt_download(
         survey = survey,
         directory = directory,
         overwrite = overwrite,
         timeout = timeout
-      )
+      ),
+      contactsurveys_transient_error = function(condition) condition
+    )
+    if (!inherits(result, "condition")) {
+      return(result)
     }
-  } else {
-    quiet_download_survey <- purrr::quietly(insistent_download_survey)
-    download <- function() {
-      quiet_download_survey(
-        survey = survey,
-        directory = directory,
-        overwrite = overwrite,
-        timeout = timeout
-      )$result
-    }
+    transient <- result
   }
 
-  res <- tryCatch(
-    download(),
-    purrr_error_rate_excess = function(condition) {
-      cli::cli_abort(
-        "Downloading {.val {survey}} failed.",
-        parent = failure$cause
-      )
-    }
-  )
-  if (inherits(res, "condition")) {
-    rlang::cnd_signal(res)
+  if (is.null(transient)) {
+    cli::cli_abort("{.arg rate} allowed no attempt at downloading {.val {survey}}.") # nolint
   }
-
-  res
+  # the failure that was retried, rather than a count of the retries
+  rlang::cnd_signal(transient)
 }
 
 #' @autoglobal
@@ -203,11 +194,12 @@ download_survey <- function(
     missing_files <- missing_zenodo_files(survey_dir, records)
     if (length(missing_files) > 0) {
       cli::cli_abort(
-        c(
+        message = c(
           "Download from {survey_url} was incomplete.",
           "x" = "{cli::qty(missing_files)}Missing file{?s}: {.file {missing_files}}", # nolint
           "i" = "The record lists {length(records$files)} file{?s}." # nolint
-        )
+        ),
+        class = "contactsurveys_transient_error"
       )
     }
 

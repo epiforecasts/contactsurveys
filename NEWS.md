@@ -6,7 +6,9 @@
 
 - A failed re-download with `overwrite = TRUE` no longer leaves the previous download recorded as complete, so the next call goes back to Zenodo instead of serving a cache that is missing a file (#159).
 
-- `download_survey()` now reports what made a download fail, rather than only the number of attempts the retry made, and rejects a malformed `survey` argument immediately instead of retrying it (#159).
+- `download_survey()` now reports what made a download fail, rather than only the number of attempts the retry made (#159).
+
+- `download_survey()` now retries only failures a retry can fix — an incomplete download, or a Zenodo request that failed with a server error or a rate limit. Previously every failure was retried, so a malformed argument, a DOI matching no record, or an embargoed record each took four attempts and a backoff to report what the first attempt already knew (#159).
 
 - Added a package logo.
 

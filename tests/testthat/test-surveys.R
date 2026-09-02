@@ -260,7 +260,7 @@ test_that("download_survey() reports why a download failed", {
   doi_peru <- "10.5281/zenodo.1095664" # nolint
   directory <- withr::local_tempdir()
 
-  # the retry wrapper reports the attempts; the cause is what the user needs
+  # an exhausted retry reports the failure it retried, not a count of attempts
   local_mocked_bindings(
     get_zenodo = function(...) {
       fake_record(c("a.csv", "b.csv"), "a.csv")
@@ -273,8 +273,57 @@ test_that("download_survey() reports why a download failed", {
       verbose = FALSE,
       rate = purrr::rate_backoff(pause_base = 0, max_times = 2)
     ),
-    "b.csv"
+    "Missing file: .*b\\.csv"
   )
+})
+
+test_that("download_survey() retries a download that can still succeed", {
+  doi_peru <- "10.5281/zenodo.1095664" # nolint
+  survey_files <- c("a.csv", "b.csv")
+  directory <- withr::local_tempdir()
+
+  # the first attempt drops a file, the second delivers it
+  fetches <- new.env(parent = emptyenv())
+  fetches$n <- 0L
+  local_mocked_bindings(
+    get_zenodo = function(...) {
+      fetches$n <- fetches$n + 1L
+      arriving <- if (fetches$n == 1L) survey_files[-2] else survey_files
+      fake_record(survey_files, arriving)
+    }
+  )
+  peru_survey_files <- download_survey(
+    doi_peru,
+    directory = directory,
+    verbose = FALSE,
+    rate = purrr::rate_backoff(pause_base = 0, max_times = 3)
+  )
+  expect_identical(fetches$n, 2L)
+  expect_setequal(
+    basename(peru_survey_files),
+    c(survey_files, "reference.json")
+  )
+})
+
+test_that("download_survey() does not retry an error it cannot fix", {
+  doi_peru <- "10.5281/zenodo.1095664" # nolint
+  directory <- withr::local_tempdir()
+
+  # zen4R itself stops when a DOI matches no record; retrying asks the same
+  # question again, so the error must surface at once
+  fetches <- new.env(parent = emptyenv())
+  fetches$n <- 0L
+  local_mocked_bindings(
+    get_zenodo = function(...) {
+      fetches$n <- fetches$n + 1L
+      stop("The DOI specified doesn't match any existing Zenodo DOI", call. = FALSE) # nolint
+    }
+  )
+  expect_error(
+    download_survey(doi_peru, directory = directory, verbose = FALSE),
+    "match any existing Zenodo DOI"
+  )
+  expect_identical(fetches$n, 1L)
 })
 
 test_that("download_survey() rejects malformed input without retrying", {
@@ -305,4 +354,38 @@ test_that("download_survey() reports a Zenodo error as such", {
     suppressMessages(.download_survey(doi_peru, directory = directory)),
     "Internal Server Error"
   )
+})
+
+test_that("download_survey() retries a Zenodo error only where it may pass", {
+  doi_peru <- "10.5281/zenodo.1095664" # nolint
+  directory <- withr::local_tempdir()
+  zenodo_error <- function(message, status) {
+    structure(
+      list(message = message, status = status),
+      class = c("ZenodoException", "R6")
+    )
+  }
+  attempts <- function(records) {
+    fetches <- new.env(parent = emptyenv())
+    fetches$n <- 0L
+    local_mocked_bindings(
+      get_zenodo = function(...) {
+        fetches$n <- fetches$n + 1L
+        records
+      }
+    )
+    expect_error(
+      download_survey(
+        doi_peru,
+        directory = directory,
+        verbose = FALSE,
+        rate = purrr::rate_backoff(pause_base = 0, max_times = 3)
+      )
+    )
+    fetches$n
+  }
+
+  # a server error may pass on the next attempt; a missing record will not
+  expect_identical(attempts(zenodo_error("Server Error", 500L)), 3L)
+  expect_identical(attempts(zenodo_error("Not Found", 404L)), 1L)
 })
