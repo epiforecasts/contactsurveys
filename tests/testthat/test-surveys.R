@@ -102,9 +102,12 @@ test_that("download_survey() errors on an incomplete download", {
     local_mocked_bindings(
       get_zenodo = function(...) fake_record(survey_files, survey_files[-2])
     )
-    # the error is checked on .download_survey(), as download_survey() wraps it
-    # in purrr::insistently(), which reports the retries rather than the cause
-    suppressMessages(.download_survey(doi_peru, directory = directory))
+    download_survey(
+      doi_peru,
+      directory = directory,
+      verbose = FALSE,
+      rate = purrr::rate_backoff(pause_base = 0, max_times = 1)
+    )
   }
 
   expect_error(partial_download(), "2015_Grijalva_Peru_contact_common.csv")
@@ -233,8 +236,12 @@ test_that("download_survey() drops the manifest when a re-download fails", {
         fake_record(c(survey_files, added_file), survey_files)
       }
     )
-    suppressMessages(
-      .download_survey(doi_peru, directory = directory, overwrite = TRUE)
+    download_survey(
+      doi_peru,
+      directory = directory,
+      overwrite = TRUE,
+      verbose = FALSE,
+      rate = purrr::rate_backoff(pause_base = 0, max_times = 1)
     )
   }
 
@@ -407,7 +414,12 @@ test_that("download_survey() reports a Zenodo error as such", {
   )
   local_mocked_bindings(get_zenodo = function(...) exception)
   expect_error(
-    suppressMessages(.download_survey(doi_peru, directory = directory)),
+    download_survey(
+      doi_peru,
+      directory = directory,
+      verbose = FALSE,
+      rate = purrr::rate_backoff(pause_base = 0, max_times = 1)
+    ),
     "Internal Server Error"
   )
 })
