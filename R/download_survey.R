@@ -92,7 +92,9 @@ download_survey <- function(
   }
 
   if (is.null(transient)) {
-    cli::cli_abort("{.arg rate} allowed no attempt at downloading {.val {survey}}.") # nolint
+    cli::cli_abort(
+      "{.arg rate} allowed no attempt at downloading {.val {survey}}."
+    ) # nolint
   }
   # the failure that was retried, rather than a count of the retries
   rlang::cnd_signal(transient)

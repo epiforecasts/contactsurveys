@@ -343,7 +343,10 @@ test_that("download_survey() does not retry an error it cannot fix", {
   local_mocked_bindings(
     get_zenodo = function(...) {
       fetches$n <- fetches$n + 1L
-      stop("The DOI specified doesn't match any existing Zenodo DOI", call. = FALSE) # nolint
+      stop(
+        "The DOI specified doesn't match any existing Zenodo DOI",
+        call. = FALSE
+      ) # nolint
     }
   )
   expect_error(
