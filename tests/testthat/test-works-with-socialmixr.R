@@ -3,6 +3,8 @@ test_that("socialmixr::load_survey()/as_contact_survey()/clean() works", {
   vcr::local_cassette("socialmixr-integration")
   # Mock download.file to use fixtures instead of real downloads
   local_mocked_bindings(download.file = mock_download_file, .package = "utils")
+  # the fixtures stand in for the real files and do not share their checksum
+  local_mocked_bindings(zenodo_checksum = function(...) NA_character_)
 
   polymod_url <- "https://doi.org/10.5281/zenodo.3874557"
   peru_url <- "https://doi.org/10.5281/zenodo.1095664"
@@ -33,6 +35,8 @@ test_that("socialmixr::contact_matrix() works", {
   vcr::local_cassette("socialmixr-integration")
   # Mock download.file to use fixtures instead of real downloads
   local_mocked_bindings(download.file = mock_download_file, .package = "utils")
+  # the fixtures stand in for the real files and do not share their checksum
+  local_mocked_bindings(zenodo_checksum = function(...) NA_character_)
 
   polymod_url <- "https://doi.org/10.5281/zenodo.3874557"
   peru_url <- "https://doi.org/10.5281/zenodo.1095664"

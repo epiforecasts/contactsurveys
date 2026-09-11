@@ -21,11 +21,11 @@
 #' @param rate a
 #'   [purrr rate](https://purrr.tidyverse.org/reference/rate-helpers.html)
 #'   object, governing how a download that failed for a reason a retry can fix
-#'   is retried: an incomplete download, or a Zenodo request that failed with a
-#'   server error or a rate limit. Any other failure is reported as it happened,
-#'   without retrying. Defaults to an exponential backoff of 5 seconds (up to 4
-#'   attempts: 1 initial + 3 retries) changed by specifying your own rate
-#'   object, see `?purrr::rate_backoff()` for details.
+#'   is retried: an incomplete or corrupted download, or a Zenodo request that
+#'   failed with a server error or a rate limit. Any other failure is reported
+#'   as it happened, without retrying. Defaults to an exponential backoff of 5
+#'   seconds (up to 4 attempts: 1 initial + 3 retries) changed by specifying
+#'   your own rate object, see `?purrr::rate_backoff()` for details.
 #'
 #' @return a vector of filenames, where the surveys were downloaded
 #'
@@ -161,6 +161,11 @@ download_survey <- function(
 
   check_record_is_downloadable(records, survey_url, call = call)
 
+  # a file left behind by an earlier, interrupted download can sit on disk
+  # under the right name with the wrong content; drop it so it is treated as
+  # missing below rather than served from a cache that never checked it
+  unlink(file.path(survey_dir, corrupt_zenodo_files(survey_dir, records)))
+
   files_already_exist <- zenodo_files_exist(survey_dir, records)
   do_not_download <- files_already_exist && !overwrite
   if (do_not_download) {
@@ -204,22 +209,11 @@ download_survey <- function(
       error = function(condition) condition
     )
 
-    # An incomplete download is a failure: erroring here lets the retry in
-    # download_survey() fetch the missing files, and leaves the manifest and
-    # completion marker unwritten so a partial download is never cached as a
-    # complete one
-    missing_files <- missing_zenodo_files(survey_dir, records)
-    if (length(missing_files) > 0) {
-      cli::cli_abort(
-        message = c(
-          "Download from {survey_url} was incomplete.",
-          "x" = "{cli::qty(missing_files)}Missing file{?s}: {.file {missing_files}}", # nolint
-          "i" = "The record lists {length(records$files)} file{?s}." # nolint
-        ),
-        class = "contactsurveys_transient_error",
-        call = call
-      )
-    }
+    # An incomplete or corrupted download is a failure: erroring here lets the
+    # retry in download_survey() fetch the affected files again, and leaves
+    # the manifest and completion marker unwritten so it is never cached as a
+    # complete download
+    check_download_is_complete(survey_dir, records, survey_url, call = call)
 
     # every file arrived, so whatever else went wrong is reported as it is and
     # not retried: with nothing left to fetch, another attempt would skip the

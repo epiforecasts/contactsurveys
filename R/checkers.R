@@ -62,6 +62,46 @@ check_is_zenodo_survey <- function(survey, call = rlang::caller_env()) {
   }
 }
 
+check_download_is_complete <- function(
+  survey_dir,
+  records,
+  survey_url,
+  call = rlang::caller_env()
+) {
+  # zen4R checks the integrity of every file it was asked for, and errors on
+  # one that never arrived, so its failure is held back until the files on
+  # disk have been counted: which files are missing is the more useful report
+  missing_files <- missing_zenodo_files(survey_dir, records)
+  if (length(missing_files) > 0) {
+    cli::cli_abort(
+      message = c(
+        "Download from {survey_url} was incomplete.",
+        "x" = "{cli::qty(missing_files)}Missing file{?s}: {.file {missing_files}}", # nolint
+        "i" = "The record lists {length(records$files)} file{?s}." # nolint
+      ),
+      class = "contactsurveys_transient_error",
+      call = call
+    )
+  }
+
+  # a dropped connection can leave a file on disk under the right name with
+  # the wrong content, which the check above cannot tell from a complete
+  # download; catch that here, before the file is trusted and cached
+  corrupt_files <- corrupt_zenodo_files(survey_dir, records)
+  if (length(corrupt_files) > 0) {
+    unlink(file.path(survey_dir, corrupt_files))
+    cli::cli_abort(
+      message = c(
+        "Download from {survey_url} was corrupted.",
+        "x" = "{cli::qty(corrupt_files)}File{?s} failed the checksum check: {.file {corrupt_files}}", # nolint
+        "i" = "Deleted {cli::qty(corrupt_files)}{?it/them}, so the retry fetches {cli::qty(corrupt_files)}{?it/them} again." # nolint
+      ),
+      class = "contactsurveys_transient_error",
+      call = call
+    )
+  }
+}
+
 check_record_is_downloadable <- function(
   records,
   survey_url,
