@@ -215,6 +215,9 @@ specification. Contributions of any kind are welcome!
   : Delete files for a given survey
 - [`download_survey()`](http://epiforecasts.io/contactsurveys/reference/download_survey.md)
   : Download a survey from its Zenodo repository
+- [`fetch_record()`](http://epiforecasts.io/contactsurveys/reference/fetch_record.md)
+  : Fetches a Zenodo record, marking a failed request as worth another
+  attempt
 - [`get_citation()`](http://epiforecasts.io/contactsurveys/reference/get_citation.md)
   : Get citation from a DOI
 - [`is_doi()`](http://epiforecasts.io/contactsurveys/reference/is_doi.md)

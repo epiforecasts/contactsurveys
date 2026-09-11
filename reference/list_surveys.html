@@ -69,10 +69,10 @@ Default FALSE</p></dd>
 <dt id="arg-rate">rate<a class="anchor" aria-label="anchor" href="#arg-rate"></a></dt>
 <dd><p>a
 <a href="https://purrr.tidyverse.org/reference/rate-helpers.html" class="external-link">purrr rate</a>
-object, to facilitate downloading if the download fails. Defaults to an
-exponential backoff of 5 seconds (up to 4 attempts: 1 initial + 3 retries)
-changed by specifying your own rate object, see <code>?purrr::rate_backoff()</code>
-for details.</p></dd>
+object, governing how a failed listing is retried. Every failure is
+retried, unlike in <code><a href="download_survey.html">download_survey()</a></code>. Defaults to an exponential backoff
+of 5 seconds (up to 4 attempts: 1 initial + 3 retries) changed by
+specifying your own rate object, see <code>?purrr::rate_backoff()</code> for details.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -85,7 +85,7 @@ for details.</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="fu">list_surveys</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Skipping download</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Files already exist at <span style="color: #0000BB;">/tmp/RtmpGIZRWc/survey_list.rds</span> and `overwrite =</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Files already exist at <span style="color: #0000BB;">/tmp/RtmpQDCdyS/survey_list.rds</span> and `overwrite =</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   FALSE`</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Set `overwrite = TRUE` to force a re-download.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Key: &lt;date_added&gt;</span>

@@ -34,9 +34,11 @@ list_surveys(
 
   a [purrr
   rate](https://purrr.tidyverse.org/reference/rate-helpers.html) object,
-  to facilitate downloading if the download fails. Defaults to an
-  exponential backoff of 5 seconds (up to 4 attempts: 1 initial + 3
-  retries) changed by specifying your own rate object, see
+  governing how a failed listing is retried. Every failure is retried,
+  unlike in
+  [`download_survey()`](http://epiforecasts.io/contactsurveys/reference/download_survey.md).
+  Defaults to an exponential backoff of 5 seconds (up to 4 attempts: 1
+  initial + 3 retries) changed by specifying your own rate object, see
   `?purrr::rate_backoff()` for details.
 
 ## Value
@@ -49,7 +51,7 @@ data.table with columns: date_added, title, creator, url
 # \donttest{
 list_surveys()
 #> Skipping download
-#> ℹ Files already exist at /tmp/RtmpGIZRWc/survey_list.rds and `overwrite =
+#> ℹ Files already exist at /tmp/RtmpQDCdyS/survey_list.rds and `overwrite =
 #>   FALSE`
 #> ℹ Set `overwrite = TRUE` to force a re-download.
 #> Key: <date_added>
