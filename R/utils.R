@@ -1,3 +1,4 @@
+#' Paths to the files a Zenodo record lists
 #'
 #' For use inside [download_survey()].
 #'
@@ -6,27 +7,48 @@
 #' @noRd
 #' @note internal
 #'
-#' @returns TRUE/FALSE indicating whether all files exist
-zenodo_files_exist <- function(directory, records) {
-  the_zenodo_files <- zenodo_files(directory, records)
-  if (is.character(the_zenodo_files)) {
-    files_exist <- TRUE
-  } else if (is.null(the_zenodo_files)) {
-    files_exist <- FALSE
-  }
-
-  files_exist
+#' @returns A character vector of the paths the record's files would have in
+#'   `directory`, whether or not they are there
+zenodo_file_paths <- function(directory, records) {
+  file.path(directory, names(records$files))
 }
 
+#' Names of the record's files that are not in `directory`
+#'
+#' @inheritParams zenodo_file_paths
+#' @noRd
+#' @note internal
+#'
+#' @returns A character vector of file names, empty if the download is complete
+missing_zenodo_files <- function(directory, records) {
+  paths <- zenodo_file_paths(directory, records)
+  basename(paths[!file.exists(paths)])
+}
+
+#' Check whether every file of a Zenodo record is in `directory`
+#'
+#' @inheritParams zenodo_file_paths
+#' @noRd
+#' @note internal
+#'
+#' @returns TRUE/FALSE indicating whether all files exist
+zenodo_files_exist <- function(directory, records) {
+  length(missing_zenodo_files(directory, records)) == 0L
+}
+
+#' Paths to the files of a Zenodo record that are in `directory`
+#'
+#' Returns the subset that is present, so a partial download keeps the files it
+#' did get and the caller can tell what is missing.
+#'
+#' @inheritParams zenodo_file_paths
+#' @noRd
+#' @note internal
+#'
+#' @returns A character vector of existing file paths
 zenodo_files <- function(directory, records) {
-  zenodo_files <- file.path(directory, names(records$files))
-  do_all_files_exist <- all(file.exists(zenodo_files))
-  if (do_all_files_exist) {
-    out <- zenodo_files
-  } else {
-    out <- NULL
-  }
-  out
+  paths <- zenodo_file_paths(directory, records)
+  paths[file.exists(paths)]
 }
 
 

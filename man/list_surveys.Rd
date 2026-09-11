@@ -23,10 +23,10 @@ Default FALSE}
 
 \item{rate}{a
 \href{https://purrr.tidyverse.org/reference/rate-helpers.html}{purrr rate}
-object, to facilitate downloading if the download fails. Defaults to an
-exponential backoff of 5 seconds (up to 4 attempts: 1 initial + 3 retries)
-changed by specifying your own rate object, see \code{?purrr::rate_backoff()}
-for details.}
+object, governing how a failed listing is retried. Every failure is
+retried, unlike in \code{\link[=download_survey]{download_survey()}}. Defaults to an exponential backoff
+of 5 seconds (up to 4 attempts: 1 initial + 3 retries) changed by
+specifying your own rate object, see \code{?purrr::rate_backoff()} for details.}
 }
 \value{
 data.table with columns: date_added, title, creator, url

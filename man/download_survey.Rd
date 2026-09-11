@@ -36,10 +36,12 @@ Default FALSE}
 
 \item{rate}{a
 \href{https://purrr.tidyverse.org/reference/rate-helpers.html}{purrr rate}
-object, to facilitate downloading if the download fails. Defaults to an
-exponential backoff of 5 seconds (up to 4 attempts: 1 initial + 3 retries)
-changed by specifying your own rate object, see \code{?purrr::rate_backoff()}
-for details.}
+object, governing how a download that failed for a reason a retry can fix
+is retried: an incomplete download, or a Zenodo request that failed with a
+server error or a rate limit. Any other failure is reported as it happened,
+without retrying. Defaults to an exponential backoff of 5 seconds (up to 4
+attempts: 1 initial + 3 retries) changed by specifying your own rate
+object, see \code{?purrr::rate_backoff()} for details.}
 }
 \value{
 a vector of filenames, where the surveys were downloaded
