@@ -10,6 +10,8 @@
 
 - `download_survey()` now retries only failures a retry can fix — an incomplete download, or a Zenodo request that failed with a server error or a rate limit. Previously every failure was retried, so a malformed argument, a DOI matching no record, or an embargoed record each took four attempts and a backoff to report what the first attempt already knew (#159).
 
+- `download_survey()` now checks a downloaded file's checksum against the one the Zenodo record gives for it, and re-fetches a file that fails the check. Previously a file that ended up on disk under the right name was treated as downloaded regardless of its content, so a connection dropped mid-transfer left a truncated file that was cached as complete and served until `overwrite = TRUE` was passed (#161).
+
 - Added a package logo.
 
 # contactsurveys 0.2.0

@@ -2,6 +2,9 @@ test_that("surveys can be downloaded with download_survey()", {
   vcr::local_cassette("download-survey")
   # Mock download.file to use fixtures instead of real downloads
   local_mocked_bindings(download.file = mock_download_file, .package = "utils")
+  # the fixtures stand in for the real files and do not share their checksum,
+  # so this general test leaves the checksum check to the tests that target it
+  local_mocked_bindings(zenodo_checksum = function(...) NA_character_)
 
   doi_peru <- "10.5281/zenodo.1095664" # nolint
   peru_survey_files <- download_survey(doi_peru, verbose = FALSE)
@@ -17,6 +20,9 @@ test_that("survey downloads are faster on cache", {
   vcr::local_cassette("download-survey")
   # Mock download.file to use fixtures instead of real downloads
   local_mocked_bindings(download.file = mock_download_file, .package = "utils")
+  # the fixtures stand in for the real files and do not share their checksum,
+  # so this general test leaves the checksum check to the tests that target it
+  local_mocked_bindings(zenodo_checksum = function(...) NA_character_)
 
   doi_peru <- "10.5281/zenodo.1095664" # nolint
   # First download (uses vcr cassette + mocked download.file)
@@ -42,6 +48,9 @@ test_that("download_survey() is silent when verbose = FALSE", {
   vcr::local_cassette("download-survey")
   # Mock download.file to use fixtures instead of real downloads
   local_mocked_bindings(download.file = mock_download_file, .package = "utils")
+  # the fixtures stand in for the real files and do not share their checksum,
+  # so this general test leaves the checksum check to the tests that target it
+  local_mocked_bindings(zenodo_checksum = function(...) NA_character_)
 
   doi_peru <- "10.5281/zenodo.1095664" # nolint
   expect_silent(
@@ -66,12 +75,24 @@ test_that("multiple DOI's cannot be loaded", {
   # nolint end
 })
 
-# A stand-in for a zen4R record, so an incomplete download can be simulated
-# without the network: `files` is what the record lists, `arriving` what the
-# download leaves on disk
-fake_record <- function(files, arriving = files, checks_integrity = FALSE) {
+# A stand-in for a zen4R record, so an incomplete or corrupted download can be
+# simulated without the network: `files` is what the record lists, `arriving`
+# what the download leaves on disk, `checksums` an optional named vector
+# giving the checksum the record reports for one or more of `files` (a file
+# with none is left unverifiable, as most tests here do not care about it)
+fake_record <- function(
+  files,
+  arriving = files,
+  checks_integrity = FALSE,
+  checksums = character(0)
+) {
+  file_entries <- lapply(files, function(file) {
+    has_checksum <- file %in% names(checksums)
+    checksum <- if (has_checksum) checksums[[file]] else NA_character_
+    list(checksum = checksum)
+  })
   list(
-    files = stats::setNames(vector("list", length(files)), files),
+    files = stats::setNames(file_entries, files),
     downloadFiles = function(path, overwrite = TRUE, timeout = 60) {
       for (file in arriving) {
         writeLines("part_id,cnt_age", file.path(path, file))
@@ -97,6 +118,15 @@ fake_record <- function(files, arriving = files, checks_integrity = FALSE) {
     ),
     getDOI = function() "10.5281/zenodo.1095664" # nolint
   )
+}
+
+# The checksum of the content fake_record()'s downloadFiles() writes for a
+# file that arrives, so a test can declare a matching or mismatching checksum
+fake_content_checksum <- function() {
+  tmp <- tempfile()
+  on.exit(unlink(tmp))
+  writeLines("part_id,cnt_age", tmp)
+  unname(tools::md5sum(tmp))
 }
 
 test_that("download_survey() errors on an incomplete download", {
@@ -143,6 +173,94 @@ test_that("download_survey() errors on an incomplete download", {
   )
   expect_true(all(file.exists(peru_survey_files)))
   expect_true(file.exists(file.path(survey_dir, ".contactsurveys_complete")))
+})
+
+test_that("download_survey() errors when a downloaded file is corrupt", {
+  doi_peru <- "10.5281/zenodo.1095664" # nolint
+  survey_files <- c("a.csv", "b.csv")
+  directory <- withr::local_tempdir()
+  survey_dir <- file.path(directory, "zenodo.1095664")
+  good_checksum <- fake_content_checksum()
+
+  # both files arrive, but the record's checksum for a.csv does not match
+  # what was written, as a dropped connection might leave behind
+  corrupted_download <- function() {
+    local_mocked_bindings(
+      get_zenodo = function(...) {
+        fake_record(
+          survey_files,
+          checksums = c(a.csv = strrep("0", 32), b.csv = good_checksum)
+        )
+      }
+    )
+    download_survey(
+      doi_peru,
+      directory = directory,
+      verbose = FALSE,
+      rate = purrr::rate_backoff(pause_base = 0, max_times = 1)
+    )
+  }
+
+  expect_error(corrupted_download(), "a.csv")
+
+  # the corrupt file is deleted and the good one kept, but the download is not
+  # recorded as complete, so the next call retries the corrupt file only
+  expect_false(file.exists(file.path(survey_dir, "a.csv")))
+  expect_true(file.exists(file.path(survey_dir, "b.csv")))
+  expect_false(file.exists(file.path(survey_dir, ".contactsurveys_files.txt")))
+  expect_false(file.exists(file.path(survey_dir, ".contactsurveys_complete")))
+
+  # once every checksum matches, the download succeeds and is cached
+  local_mocked_bindings(
+    get_zenodo = function(...) {
+      fake_record(
+        survey_files,
+        checksums = c(a.csv = good_checksum, b.csv = good_checksum)
+      )
+    }
+  )
+  peru_survey_files <- download_survey(
+    doi_peru,
+    directory = directory,
+    verbose = FALSE
+  )
+  expect_true(all(file.exists(peru_survey_files)))
+  expect_true(file.exists(file.path(survey_dir, ".contactsurveys_complete")))
+})
+
+test_that("download_survey() redownloads a corrupt file already on disk", {
+  doi_peru <- "10.5281/zenodo.1095664" # nolint
+  survey_files <- c("a.csv", "b.csv")
+  directory <- withr::local_tempdir()
+  survey_dir <- file.path(directory, "zenodo.1095664")
+  dir.create(survey_dir, recursive = TRUE)
+  good_checksum <- fake_content_checksum()
+
+  # a.csv is a truncated leftover from an earlier, interrupted download: it is
+  # on disk, but no manifest was ever written for it
+  writeLines("truncated", file.path(survey_dir, "a.csv"))
+  writeLines("part_id,cnt_age", file.path(survey_dir, "b.csv"))
+
+  local_mocked_bindings(
+    get_zenodo = function(...) {
+      fake_record(
+        survey_files,
+        checksums = c(a.csv = good_checksum, b.csv = good_checksum)
+      )
+    }
+  )
+  # overwrite is left at its default of FALSE: the corrupt file is replaced
+  # without the caller having to ask for a full re-download
+  peru_survey_files <- download_survey(
+    doi_peru,
+    directory = directory,
+    verbose = FALSE
+  )
+  expect_true(all(file.exists(peru_survey_files)))
+  expect_identical(
+    unname(tools::md5sum(file.path(survey_dir, "a.csv"))),
+    good_checksum
+  )
 })
 
 test_that("download_survey() re-downloads if a manifest has no survey file", {
