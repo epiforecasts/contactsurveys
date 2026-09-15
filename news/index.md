@@ -34,6 +34,15 @@
   a backoff to report what the first attempt already knew
   ([\#159](https://github.com/epiforecasts/contactsurveys/issues/159)).
 
+- [`download_survey()`](http://epiforecasts.io/contactsurveys/reference/download_survey.md)
+  now checks a downloaded file’s checksum against the one the Zenodo
+  record gives for it, and re-fetches a file that fails the check.
+  Previously a file that ended up on disk under the right name was
+  treated as downloaded regardless of its content, so a connection
+  dropped mid-transfer left a truncated file that was cached as complete
+  and served until `overwrite = TRUE` was passed
+  ([\#161](https://github.com/epiforecasts/contactsurveys/issues/161)).
+
 - Added a package logo.
 
 ## contactsurveys 0.2.0

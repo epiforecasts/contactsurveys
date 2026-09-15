@@ -90,11 +90,11 @@ Default FALSE</p></dd>
 <dd><p>a
 <a href="https://purrr.tidyverse.org/reference/rate-helpers.html" class="external-link">purrr rate</a>
 object, governing how a download that failed for a reason a retry can fix
-is retried: an incomplete download, or a Zenodo request that failed with a
-server error or a rate limit. Any other failure is reported as it happened,
-without retrying. Defaults to an exponential backoff of 5 seconds (up to 4
-attempts: 1 initial + 3 retries) changed by specifying your own rate
-object, see <code>?purrr::rate_backoff()</code> for details.</p></dd>
+is retried: an incomplete or corrupted download, or a Zenodo request that
+failed with a server error or a rate limit. Any other failure is reported
+as it happened, without retrying. Defaults to an exponential backoff of 5
+seconds (up to 4 attempts: 1 initial + 3 retries) changed by specifying
+your own rate object, see <code>?purrr::rate_backoff()</code> for details.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -111,7 +111,7 @@ object, see <code>?purrr::rate_backoff()</code> for details.</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="list_surveys.html">list_surveys</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Downloading survey list from zenodo</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Downloading survey list from zenodo <span style="color: #B2B2B2;">[5s]</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Downloading survey list from zenodo <span style="color: #B2B2B2;">[8.2s]</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Key: &lt;date_added&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     date_added</span>
@@ -301,8 +301,8 @@ object, see <code>?purrr::rate_backoff()</code> for details.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [zen4R][INFO] Downloading file '2015_Grijalva_Peru_contact_common.csv' - size: 617.3 KiB</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Downloading file '2015_Grijalva_Peru_participant_extra.csv' - size: 55 KiB</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [zen4R][INFO] Downloading file '2015_Grijalva_Peru_participant_extra.csv' - size: 55 KiB</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Files downloaded at '/tmp/RtmpQDCdyS/zenodo.1095664'.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [zen4R][INFO] Files downloaded at '/tmp/RtmpQDCdyS/zenodo.1095664'.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Files downloaded at '/tmp/RtmpEg537q/zenodo.1095664'.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [zen4R][INFO] Files downloaded at '/tmp/RtmpEg537q/zenodo.1095664'.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Verifying file integrity...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [zen4R][INFO] ZenodoRecord - Verifying file integrity... </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> File '2015_Grijalva_Peru_sday.csv': integrity verified (md5sum: b43c28fa6cce8d7bd6ec6b0621aa5b02)</span>
