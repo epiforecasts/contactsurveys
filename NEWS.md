@@ -12,6 +12,8 @@
 
 - `download_survey()` now checks a downloaded file's checksum against the one the Zenodo record gives for it, and re-fetches a file that fails the check. Previously a file that ended up on disk under the right name was treated as downloaded regardless of its content, so a connection dropped mid-transfer left a truncated file that was cached as complete and served until `overwrite = TRUE` was passed (#161).
 
+- `get_citation()` now errors when Zenodo answers with an error instead of a citation, for example because its rate limit was reached. Previously the error came back as the "citation": either the exception object returned by zen4R when the record could not be fetched, or the JSON body of the reply when the citation request itself failed, since zen4R does not check its status. A rate limit or server error is signalled with the same `contactsurveys_transient_error` class as in `download_survey()`.
+
 - Added a package logo.
 
 # contactsurveys 0.2.0
