@@ -13,7 +13,10 @@
 #'   the screen? Default is TRUE.
 #'
 #' @return A character string containing the citation in the requested style.
-#'   For `"bibtex"` style, returns an object of class `"csbib"`.
+#'   For `"bibtex"` style, returns an object of class `"csbib"`. If Zenodo
+#'   answers with an error instead of a citation, for example because its rate
+#'   limit was reached, `get_citation()` errors rather than returning the error
+#'   as if it were a citation.
 #' @export
 #' @examples
 #' \donttest{
@@ -41,11 +44,18 @@ get_citation <- function(
   }
 
   style <- rlang::arg_match(style)
-  doi_citation <- suppressMessages(
-    zen4R::get_citation(
-      doi = doi,
-      style = style
-    )
+
+  # this is what zen4R::get_citation() does, split so that each of its two
+  # Zenodo requests can be checked: it returns the error of the first and the
+  # reply body of the second, whatever the status, as if they were a citation
+  record <- suppressMessages(fetch_record(doi))
+  check_zenodo_request_succeeded(record, doi, call = rlang::current_env())
+  doi_citation <- suppressMessages(record$getCitation(style = style))
+  check_citation_is_returned(
+    doi_citation,
+    style,
+    doi,
+    call = rlang::current_env()
   )
 
   # add nicer print method for bibtex citation

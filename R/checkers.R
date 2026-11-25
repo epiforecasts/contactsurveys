@@ -107,24 +107,7 @@ check_record_is_downloadable <- function(
   survey_url,
   call = rlang::caller_env()
 ) {
-  # get_zenodo() returns the exception rather than raising when the request
-  # fails, which would otherwise look like a record with no files
-  if (inherits(records, "ZenodoException")) {
-    # a server error or a rate limit is worth waiting out; a 400, 403 or 404
-    # says the same thing however often it is asked
-    retryable <- c(408L, 425L, 429L, 500L, 502L, 503L, 504L)
-    cli::cli_abort(
-      message = c(
-        "Zenodo returned an error for {survey_url}.",
-        "x" = "{records$message}", # nolint
-        "i" = "Status: {records$status}." # nolint
-      ),
-      class = if (isTRUE(records$status %in% retryable)) {
-        "contactsurveys_transient_error"
-      },
-      call = call
-    )
-  }
+  check_zenodo_request_succeeded(records, survey_url, call = call)
   # every completeness check in download_survey() is vacuous for a record with
   # no files, so one that lists none would be cached as a complete download
   if (length(records$files) == 0) {
@@ -136,4 +119,86 @@ check_record_is_downloadable <- function(
       call = call
     )
   }
+}
+
+# a server error or a rate limit is worth waiting out; a 400, 403 or 404 says
+# the same thing however often it is asked
+is_retryable_status <- function(status) {
+  retryable <- c(408L, 425L, 429L, 500L, 502L, 503L, 504L)
+  isTRUE(suppressWarnings(as.integer(status)) %in% retryable)
+}
+
+check_zenodo_request_succeeded <- function(
+  response,
+  survey_url,
+  call = rlang::caller_env()
+) {
+  # zen4R returns the exception rather than raising when the request fails,
+  # which would otherwise be mistaken for a record or a citation
+  if (inherits(response, "ZenodoException")) {
+    cli::cli_abort(
+      message = c(
+        "Zenodo returned an error for {survey_url}.",
+        "x" = "{response$message}", # nolint
+        "i" = "Status: {response$status}." # nolint
+      ),
+      class = if (is_retryable_status(response$status)) {
+        "contactsurveys_transient_error"
+      },
+      call = call
+    )
+  }
+}
+
+is_citation_text <- function(reply_text, style) {
+  nzchar(reply_text) &&
+    !startsWith(reply_text, "{") &&
+    (style != "bibtex" || startsWith(reply_text, "@"))
+}
+
+# Zenodo's error replies are JSON, e.g. {"message":"133 per 1 minute",
+# "status":429}; anything else (an HTML gateway page, an empty reply) has no
+# message or status to report
+zenodo_error_reply <- function(reply_text) {
+  reply <- NULL
+  if (startsWith(reply_text, "{")) {
+    reply <- tryCatch(jsonlite::fromJSON(reply_text), error = function(e) NULL)
+  }
+  error_message <- reply$message
+  status <- reply$status
+  list(
+    message = if (is.character(error_message)) error_message[1],
+    status = if (length(status) == 1L) status
+  )
+}
+
+check_citation_is_returned <- function(
+  citation,
+  style,
+  survey_url,
+  call = rlang::caller_env()
+) {
+  # zen4R does not check the status of the request that fetches the citation:
+  # it returns the body of the reply, so a rate limit or a gateway error comes
+  # back as the text of the citation
+  reply_text <- ""
+  if (is.character(citation) && length(citation) == 1L && !is.na(citation)) {
+    reply_text <- trimws(citation)
+  }
+  if (is_citation_text(reply_text, style)) {
+    return(invisible(NULL))
+  }
+
+  reply <- zenodo_error_reply(reply_text)
+  cli::cli_abort(
+    message = c(
+      "Zenodo did not return a citation for {survey_url}.",
+      "x" = if (!is.null(reply$message)) "{reply$message}", # nolint
+      "i" = if (!is.null(reply$status)) "Status: {reply$status}." # nolint
+    ),
+    class = if (is_retryable_status(reply$status)) {
+      "contactsurveys_transient_error"
+    },
+    call = call
+  )
 }

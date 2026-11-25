@@ -24,7 +24,10 @@ the screen? Default is TRUE.}
 }
 \value{
 A character string containing the citation in the requested style.
-For \code{"bibtex"} style, returns an object of class \code{"csbib"}.
+For \code{"bibtex"} style, returns an object of class \code{"csbib"}. If Zenodo
+answers with an error instead of a citation, for example because its rate
+limit was reached, \code{get_citation()} errors rather than returning the error
+as if it were a citation.
 }
 \description{
 This is a wrapper around \code{\link[zen4R:get_citation]{zen4R::get_citation()}} with a couple of smaller
